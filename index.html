@@ -904,6 +904,98 @@ footer { background: #0A0F1E; color: rgba(255,255,255,.65); padding: 64px 24px 3
 /* Prevent text selection on tap */
 .stab, .nav-link, .nav-cta, .search-btn, .auth-btn, .book-btn-sm, .big-btn { -webkit-tap-highlight-color: transparent; }
 
+/* ============================================================ MOBILE COMPREHENSIVE FIXES ============================================================ */
+
+/* 1. Flight cards — override inline grid-template-columns set on each card */
+@media (max-width: 900px) {
+  .flight-card {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+  .flight-price-col {
+    text-align: left;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+}
+
+/* 2. Checkout inner grid — stack booking summary below on mobile */
+@media (max-width: 768px) {
+  .checkout-inner-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .checkout-inner-grid .booking-summary {
+    position: static;
+  }
+}
+
+/* 3. Various inline grids — page-specific fixes */
+@media (max-width: 640px) {
+  /* Confirmation page 2-col info boxes */
+  .success-page div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Flight detail — 4-col info row → 2-col */
+  #page-flight-detail .detail-section div[style*="repeat(4,1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Hotel detail — reviews layout: score card + bars → stacked */
+  #page-hotel-detail .detail-section div[style*="grid-template-columns:160px 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Hotel detail — room selection grid (price right → below) */
+  #page-hotel-detail div[style*="grid-template-columns:1fr auto"][style*="padding:20px"] {
+    grid-template-columns: 1fr !important;
+  }
+  #page-hotel-detail div[style*="grid-template-columns:1fr auto"][style*="padding:20px"] > div[style*="text-align:right"] {
+    text-align: left !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Admin 2-col panels → single column */
+  #page-admin div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Announcement bar — prevent text overflow */
+  .announce-bar {
+    font-size: 11px;
+    padding: 8px 44px 8px 12px;
+    line-height: 1.6;
+  }
+
+  /* Trust bar — wrap neatly */
+  .trust-inner {
+    gap: 12px 24px;
+    justify-content: flex-start;
+  }
+  .trust-item { font-size: 12px; }
+
+  /* Search tabs — tighter on tiny screens */
+  .search-tabs { gap: 4px; }
+
+  /* Destination grid gap */
+  .dest-grid { gap: 8px; }
+
+  /* Reduce hero bottom padding (mobile nav is 72px) */
+  .hero { padding-bottom: 96px; }
+
+  /* Hero badge — smaller on tiny screens */
+  .hero-badge { font-size: 11px; padding: 6px 12px; }
+
+  /* Holiday / package cards grid — ensure single column */
+  .cards-grid { gap: 14px; }
+}
+
 </style>
 </head>
 <body>
@@ -2983,19 +3075,19 @@ footer { background: #0A0F1E; color: rgba(255,255,255,.65); padding: 64px 24px 3
         </div>
         <div>
           <h4>Company</h4>
-          <button class="footer-link">About Us</button>
-          <button class="footer-link">Careers</button>
-          <button class="footer-link">Press</button>
+          <button class="footer-link" onclick="showToast('ℹ️ About Us page coming soon!')">About Us</button>
+          <button class="footer-link" onclick="showToast('💼 Careers page coming soon!')">Careers</button>
+          <button class="footer-link" onclick="showToast('📰 Press page coming soon!')">Press</button>
           <button class="footer-link" onclick="showPage('guide')">Blog</button>
-          <button class="footer-link">Investor Relations</button>
+          <button class="footer-link" onclick="showToast('📊 Investor Relations coming soon!')">Investor Relations</button>
         </div>
         <div>
           <h4>Support</h4>
           <button class="footer-link" onclick="showPage('help')">Help Centre</button>
           <button class="footer-link" onclick="showToast('📞 Support: 1800-123-456')">Contact Us</button>
-          <button class="footer-link">Terms of Service</button>
-          <button class="footer-link">Privacy Policy</button>
-          <button class="footer-link">Grievance Officer</button>
+          <button class="footer-link" onclick="showToast('📄 Terms of Service coming soon!')">Terms of Service</button>
+          <button class="footer-link" onclick="showToast('🔒 Privacy Policy coming soon!')">Privacy Policy</button>
+          <button class="footer-link" onclick="showToast('⚖️ Grievance Officer: grievance@travelwise.com')">Grievance Officer</button>
         </div>
         <div>
           <h4>Products</h4>
@@ -3003,16 +3095,16 @@ footer { background: #0A0F1E; color: rgba(255,255,255,.65); padding: 64px 24px 3
           <button class="footer-link" onclick="showPage('hotels')">Hotels</button>
           <button class="footer-link" onclick="showPage('holidays')">Holiday Packages</button>
           <button class="footer-link" onclick="showPage('trains')">Trains</button>
-          <button class="footer-link">Buses</button>
-          <button class="footer-link">Car Rentals</button>
+          <button class="footer-link" onclick="showToast('🚌 Bus booking coming soon!')">Buses</button>
+          <button class="footer-link" onclick="showToast('🚗 Car rentals coming soon!')">Car Rentals</button>
         </div>
         <div>
           <h4>More</h4>
           <button class="footer-link" onclick="showPage('offers')">Offers</button>
           <button class="footer-link" onclick="showPage('guide')">Travel Guide</button>
-          <button class="footer-link">Visa Services</button>
-          <button class="footer-link">Travel Insurance</button>
-          <button class="footer-link">Gift Cards</button>
+          <button class="footer-link" onclick="showToast('🛂 Visa services coming soon!')">Visa Services</button>
+          <button class="footer-link" onclick="showToast('🛡 Travel insurance coming soon!')">Travel Insurance</button>
+          <button class="footer-link" onclick="showToast('🎁 Gift cards coming soon!')">Gift Cards</button>
         </div>
       </div>
       <div class="footer-bottom">
