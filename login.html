@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Sign Up — TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Page BG ── */
+.auth-page {
+  min-height: 100vh; padding: 90px 24px 60px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg);
+  position: relative; overflow: hidden;
+}
+.auth-bg-gradient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 60% 70% at 0% 0%, rgba(108,43,217,.18) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 60% at 100% 100%, rgba(0,201,255,.12) 0%, transparent 60%);
+}
+
+/* ── Card ── */
+.auth-card {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 460px;
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: var(--radius-xl); overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,.25);
+}
+
+/* ── Card Header ── */
+.auth-header {
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  padding: 32px 32px 28px; text-align: center;
+}
+.auth-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
+.auth-logo-icon {
+  width: 42px; height: 42px; background: rgba(255,255,255,.2); border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+}
+.auth-logo-icon svg { width: 28px; height: 28px; }
+.auth-logo-text { font-family: var(--display); font-size: 22px; font-weight: 800; color: #fff; }
+.auth-tagline { color: rgba(255,255,255,.75); font-size: 14px; }
+
+/* ── Tabs ── */
+.auth-tabs { display: flex; border-bottom: 1px solid var(--border); }
+.auth-tab {
+  flex: 1; padding: 14px; background: none; border: none; font-size: 14px; font-weight: 700;
+  color: var(--muted); cursor: pointer; font-family: var(--font); transition: all var(--t);
+  border-bottom: 3px solid transparent; margin-bottom: -1px;
+}
+.auth-tab:hover { color: var(--text-strong); }
+.auth-tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+/* ── Form Body ── */
+.auth-body { padding: 28px 32px 32px; }
+
+/* ── Google Button ── */
+.btn-google {
+  width: 100%; padding: 12px 20px;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+  gap: 12px; font-size: 14px; font-weight: 700; color: var(--text-strong);
+  cursor: pointer; font-family: var(--font); transition: all var(--t); margin-bottom: 20px;
+}
+.btn-google:hover { border-color: var(--border2); box-shadow: 0 4px 12px rgba(0,0,0,.1); transform: translateY(-1px); }
+.google-icon { width: 20px; height: 20px; }
+
+/* ── Divider ── */
+.auth-divider { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.auth-divider span { font-size: 12px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+/* ── Fields ── */
+.form-field { margin-bottom: 14px; }
+.form-field label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+.input-wrap { position: relative; }
+.input-wrap input {
+  width: 100%; padding: 11px 44px 11px 14px; background: var(--input-bg);
+  border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  font-size: 14px; color: var(--text-strong); font-family: var(--font);
+  outline: none; transition: border-color var(--t); box-sizing: border-box;
+}
+.input-wrap input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(108,43,217,.1); }
+.input-wrap input.error { border-color: var(--danger); }
+.toggle-pw {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; font-size: 16px; color: var(--muted);
+  padding: 0; line-height: 1;
+}
+.input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 15px; }
+.form-field input.has-icon { padding-left: 38px; }
+.field-error { font-size: 11px; color: var(--danger); margin-top: 4px; display: none; }
+.field-error.show { display: block; }
+
+/* ── Forgot Password ── */
+.forgot-link {
+  font-size: 12px; color: var(--purple); cursor: pointer; text-decoration: none;
+  font-weight: 600; float: right; margin-top: -2px;
+}
+.forgot-link:hover { text-decoration: underline; }
+.forgot-panel {
+  background: rgba(108,43,217,.06); border: 1px solid rgba(108,43,217,.2);
+  border-radius: var(--radius-sm); padding: 14px; margin-bottom: 14px; display: none;
+}
+.forgot-panel.show { display: block; }
+.forgot-panel h4 { font-size: 13px; font-weight: 700; color: var(--text-strong); margin-bottom: 8px; }
+.forgot-panel p { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.forgot-form { display: flex; gap: 8px; }
+.forgot-form input {
+  flex: 1; padding: 9px 12px; background: var(--input-bg); border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); font-size: 13px; color: var(--text-strong); font-family: var(--font); outline: none;
+}
+.forgot-form button {
+  padding: 9px 16px; background: var(--purple); color: #fff; border: none;
+  border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer;
+  font-family: var(--font); transition: opacity var(--t); white-space: nowrap;
+}
+.forgot-form button:hover { opacity: .88; }
+
+/* ── Auth Button ── */
+.btn-auth {
+  width: 100%; padding: 14px; margin-top: 6px;
+  background: linear-gradient(135deg, #FF6B35, #FF3CAC);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 16px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  transition: opacity var(--t); display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.btn-auth:hover { opacity: .9; }
+.btn-auth:disabled { opacity: .7; cursor: not-allowed; }
+.btn-auth .spinner {
+  width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff; border-radius: 50%; display: none;
+  animation: spin .7s linear infinite;
+}
+.btn-auth.loading .spinner { display: block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn-auth.loading .btn-text { display: none; }
+
+/* ── Switcher ── */
+.auth-switch { text-align: center; margin-top: 18px; font-size: 13px; color: var(--muted); }
+.auth-switch a { color: var(--purple); font-weight: 700; text-decoration: none; cursor: pointer; }
+.auth-switch a:hover { text-decoration: underline; }
+
+/* ── Terms ── */
+.auth-terms { font-size: 11px; color: var(--muted); text-align: center; margin-top: 14px; line-height: 1.6; }
+.auth-terms a { color: var(--purple); text-decoration: none; }
+.auth-terms a:hover { text-decoration: underline; }
+
+/* ── Password Strength ── */
+.pw-strength { height: 4px; border-radius: 100px; background: var(--border); margin-top: 6px; overflow: hidden; }
+.pw-strength-fill { height: 100%; border-radius: 100px; width: 0; transition: width .3s, background .3s; }
+.pw-strength-label { font-size: 11px; margin-top: 4px; font-weight: 600; }
+.strength-weak { background: var(--danger); }
+.strength-medium { background: var(--gold); }
+.strength-strong { background: var(--green); }
+
+/* ── Form row ── */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width:480px){ .form-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div class="toast" id="tw-toast"></div>
+
+<div class="auth-bg-gradient"></div>
+
+<div class="auth-page">
+  <div class="auth-card">
+    <!-- Header -->
+    <div class="auth-header">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">
+          <svg viewBox="0 0 40 40" fill="none"><defs><linearGradient id="alg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="rgba(255,255,255,.6)"/></linearGradient></defs><path d="M8 20L20 8L32 20M14 14V30H26V14" stroke="url(#alg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="20" cy="22" r="3" fill="url(#alg)"/></svg>
+        </div>
+        <span class="auth-logo-text">TravelWise</span>
+      </div>
+      <div class="auth-tagline">Your passport to better travel deals</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login" onclick="showTab('login')">Login</button>
+      <button class="auth-tab" id="tab-signup" onclick="showTab('signup')">Sign Up</button>
+    </div>
+
+    <!-- Login Panel -->
+    <div class="auth-body" id="panel-login">
+      <button class="btn-google" onclick="handleGoogleAuth()">
+        <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider"><span>or sign in with email</span></div>
+
+      <div class="form-field">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <span class="input-icon">📧</span>
+          <input type="email" id="login-email" placeholder="your@email.com" class="has-icon">
+        </div>
+        <div class="field-error" id="login-email-err">Please enter a valid email</div>
+      </div>
+
+      <div class="form-field">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <label style="margin-bottom:0">Password</label>
+          <a class="forgot-link" onclick="toggleForgot()">Forgot password?</a>
+        </div>
+        <div class="forgot-panel" id="forgot-panel">
+          <h4>Reset Your Password</h4>
+          <p>Enter your email and we'll send you a reset link.</p>
+          <div class="forgot-form">
+            <input type="email" placeholder="your@email.com" id="forgot-email">
+            <button onclick="sendReset()">Send Link</button>
+          </div>
+        </div>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="login-password" placeholder="••••••••" class="has-icon">
+          <button class="toggle-pw" onclick="togglePW('login-password',this)" type="button">👁</button>
+        </div>
+        <div class="field-error" id="login-pw-err">Password must be at least 6 characters</div>
+      </div>
+
+      <button class="btn-auth" id="btn-login" onclick="handleAuth('login')">
+        <div class="spinner"></div>
+        <span class="btn-text">Login to TravelWise</span>
+      </button>
+
+      <div class="auth-switch">Don't have an account? <a onclick="showTab('signup')">Sign Up Free</a></div>
+      <div class="auth-terms">By continuing, you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</div>
+    </div>
+
+    <!-- Sign Up Panel -->
+    <div class="auth-body" id="panel-signup" style="display:none">
+      <button class="btn-google" onclick="handleGoogleAuth()">
+        <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Sign Up with Google
+      </button>
+
+      <div class="auth-divider"><span>or create account with email</span></div>
+
+      <div class="form-row">
+        <div class="form-field" style="margin-bottom:0">
+          <label>First Name</label>
+          <div class="input-wrap">
+            <input type="text" id="su-fname" placeholder="Rahul">
+          </div>
+        </div>
+        <div class="form-field" style="margin-bottom:0">
+          <label>Last Name</label>
+          <div class="input-wrap">
+            <input type="text" id="su-lname" placeholder="Sharma">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-field" style="margin-top:14px">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <span class="input-icon">📧</span>
+          <input type="email" id="su-email" placeholder="your@email.com" class="has-icon">
+        </div>
+        <div class="field-error" id="su-email-err">Please enter a valid email</div>
+      </div>
+
+      <div class="form-field">
+        <label>Password</label>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="su-password" placeholder="Min. 8 characters" class="has-icon" oninput="checkPwStrength(this)">
+          <button class="toggle-pw" onclick="togglePW('su-password',this)" type="button">👁</button>
+        </div>
+        <div class="pw-strength"><div class="pw-strength-fill" id="pw-fill"></div></div>
+        <div class="pw-strength-label" id="pw-label" style="color:var(--muted)"></div>
+      </div>
+
+      <div class="form-field">
+        <label>Confirm Password</label>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="su-confirm" placeholder="Repeat password" class="has-icon">
+          <button class="toggle-pw" onclick="togglePW('su-confirm',this)" type="button">👁</button>
+        </div>
+        <div class="field-error" id="su-confirm-err">Passwords do not match</div>
+      </div>
+
+      <button class="btn-auth" id="btn-signup" onclick="handleAuth('signup')">
+        <div class="spinner"></div>
+        <span class="btn-text">Create My Account →</span>
+      </button>
+
+      <div class="auth-switch">Already have an account? <a onclick="showTab('login')">Login</a></div>
+      <div class="auth-terms">By signing up, you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. We'll send you travel deals (unsubscribe anytime).</div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+function showTab(tab) {
+  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+  document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+  document.getElementById('panel-login').style.display = tab === 'login' ? '' : 'none';
+  document.getElementById('panel-signup').style.display = tab === 'signup' ? '' : 'none';
+}
+
+function togglePW(id, btn) {
+  var input = document.getElementById(id);
+  if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+  else { input.type = 'password'; btn.textContent = '👁'; }
+}
+
+function toggleForgot() {
+  var panel = document.getElementById('forgot-panel');
+  panel.classList.toggle('show');
+}
+
+function sendReset() {
+  var email = document.getElementById('forgot-email').value;
+  if (!email) { twToast('Enter your email first'); return; }
+  twToast('📧 Reset link sent to ' + email + '!');
+  document.getElementById('forgot-panel').classList.remove('show');
+}
+
+function checkPwStrength(input) {
+  var val = input.value;
+  var fill = document.getElementById('pw-fill');
+  var label = document.getElementById('pw-label');
+  if (!val) { fill.style.width = '0'; label.textContent = ''; return; }
+  var score = 0;
+  if (val.length >= 8) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  if (score <= 1) { fill.style.width = '33%'; fill.className = 'pw-strength-fill strength-weak'; label.textContent = 'Weak'; label.style.color = 'var(--danger)'; }
+  else if (score === 2) { fill.style.width = '60%'; fill.className = 'pw-strength-fill strength-medium'; label.textContent = 'Medium'; label.style.color = 'var(--gold)'; }
+  else { fill.style.width = '100%'; fill.className = 'pw-strength-fill strength-strong'; label.textContent = 'Strong'; label.style.color = 'var(--green)'; }
+}
+
+function handleAuth(type) {
+  var btn = document.getElementById('btn-' + type);
+  var valid = true;
+
+  if (type === 'login') {
+    var email = document.getElementById('login-email').value.trim();
+    var pw = document.getElementById('login-password').value;
+    if (!email || !email.includes('@')) { document.getElementById('login-email-err').classList.add('show'); valid = false; } else { document.getElementById('login-email-err').classList.remove('show'); }
+    if (pw.length < 6) { document.getElementById('login-pw-err').classList.add('show'); valid = false; } else { document.getElementById('login-pw-err').classList.remove('show'); }
+  } else {
+    var email = document.getElementById('su-email').value.trim();
+    var pw = document.getElementById('su-password').value;
+    var confirm = document.getElementById('su-confirm').value;
+    if (!email || !email.includes('@')) { document.getElementById('su-email-err').classList.add('show'); valid = false; } else { document.getElementById('su-email-err').classList.remove('show'); }
+    if (pw !== confirm) { document.getElementById('su-confirm-err').classList.add('show'); valid = false; } else { document.getElementById('su-confirm-err').classList.remove('show'); }
+  }
+
+  if (!valid) return;
+
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  setTimeout(function() {
+    twToast('🎉 ' + (type === 'login' ? 'Welcome back!' : 'Account created!') + ' Redirecting...');
+    setTimeout(function() { window.location.href = 'index.html'; }, 1000);
+  }, 1800);
+}
+
+function handleGoogleAuth() {
+  twToast('🔵 Opening Google sign-in...');
+  setTimeout(function() {
+    twToast('🎉 Signed in with Google! Redirecting...');
+    setTimeout(function() { window.location.href = 'index.html'; }, 900);
+  }, 1500);
+}
+</script>
+</body>
+</html>

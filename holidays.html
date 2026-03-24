@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holiday Packages — Beach, City, Adventure & More | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.holidays-hero {
+  background: linear-gradient(135deg, #6C2BD9 0%, #3B82F6 50%, #00C9FF 100%);
+  padding: 110px 24px 70px; text-align: center; position: relative; overflow: hidden;
+}
+.holidays-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=20') center/cover;
+  opacity: 0.15;
+}
+.holidays-hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22);
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
+  color: #fff; margin-bottom: 20px; letter-spacing: .4px;
+}
+.holidays-hero h1 {
+  font-family: var(--display); font-size: clamp(2rem,5vw,3.5rem);
+  font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.15;
+}
+.holidays-hero p { font-size: 17px; color: rgba(255,255,255,.8); margin-bottom: 32px; max-width: 540px; margin-left: auto; margin-right: auto; }
+.hero-stats { display: flex; justify-content: center; gap: 36px; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat .num { font-family: var(--display); font-size: 28px; font-weight: 800; color: #fff; }
+.hero-stat .lbl { font-size: 12px; color: rgba(255,255,255,.65); font-weight: 600; }
+
+/* ── Filter Tabs ── */
+.filter-tabs-wrap { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 24px; position: sticky; top: 70px; z-index: 10; }
+.filter-tabs { max-width: 1200px; margin: 0 auto; display: flex; gap: 4px; overflow-x: auto; }
+.tab-btn {
+  padding: 14px 22px; font-size: 14px; font-weight: 600; font-family: var(--font);
+  background: none; border: none; border-bottom: 3px solid transparent;
+  color: var(--muted); cursor: pointer; white-space: nowrap; transition: all var(--t);
+}
+.tab-btn:hover { color: var(--text-strong); }
+.tab-btn.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+/* ── Package Grid ── */
+.pkg-grid-wrap { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; }
+.pkg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+
+/* ── Package Card ── */
+.pkg-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); overflow: hidden; transition: all var(--t);
+  cursor: pointer;
+}
+.pkg-card:hover { border-color: var(--border2); box-shadow: 0 16px 50px rgba(108,43,217,.15); transform: translateY(-4px); }
+.pkg-img-wrap { position: relative; height: 220px; overflow: hidden; }
+.pkg-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
+.pkg-card:hover .pkg-img-wrap img { transform: scale(1.07); }
+.pkg-nights-badge {
+  position: absolute; top: 14px; left: 14px;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(10px);
+  color: #fff; padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 700;
+  border: 1px solid rgba(255,255,255,.2);
+}
+.pkg-type-badge {
+  position: absolute; top: 14px; right: 14px;
+  padding: 5px 12px; border-radius: 100px; font-size: 11px; font-weight: 700;
+}
+.badge-beach { background: rgba(0,201,255,.85); color: #fff; }
+.badge-city { background: rgba(108,43,217,.85); color: #fff; }
+.badge-adventure { background: rgba(16,185,129,.85); color: #fff; }
+.badge-luxury { background: rgba(245,158,11,.85); color: #fff; }
+.pkg-wishlist {
+  position: absolute; bottom: 14px; right: 14px;
+  width: 36px; height: 36px; background: rgba(255,255,255,.9); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  cursor: pointer; transition: transform var(--t); border: none;
+}
+.pkg-wishlist:hover { transform: scale(1.15); }
+.pkg-content { padding: 18px 20px 20px; }
+.pkg-title { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text-strong); margin-bottom: 4px; }
+.pkg-location { font-size: 13px; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
+.pkg-includes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.inc-tag {
+  padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600;
+}
+.inc-tag-flight { background: rgba(108,43,217,.1); color: var(--purple); }
+.inc-tag-hotel { background: rgba(0,201,255,.1); color: var(--teal); }
+.inc-tag-tours { background: rgba(16,185,129,.1); color: var(--green); }
+.inc-tag-meals { background: rgba(255,107,53,.1); color: var(--coral); }
+.pkg-bottom { display: flex; align-items: flex-end; justify-content: space-between; }
+.pkg-rating { display: flex; align-items: center; gap: 5px; }
+.stars { color: var(--gold); font-size: 13px; }
+.pkg-rval { font-size: 13px; font-weight: 700; color: var(--text-strong); }
+.pkg-rcount { font-size: 11px; color: var(--muted); }
+.pkg-price-block { text-align: right; }
+.pkg-from { font-size: 11px; color: var(--muted); }
+.pkg-price { font-family: var(--display); font-size: 22px; font-weight: 800; color: var(--text-strong); }
+.pkg-price sup { font-size: 13px; vertical-align: super; }
+.pkg-per { font-size: 11px; color: var(--muted); }
+.btn-pkg {
+  margin-top: 14px; width: 100%; padding: 11px;
+  background: linear-gradient(135deg, #FF6B35, #FF3CAC);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  transition: opacity var(--t); text-decoration: none; display: block; text-align: center;
+}
+.btn-pkg:hover { opacity: .88; }
+
+/* ── Newsletter Banner ── */
+.newsletter-banner {
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  margin: 0 24px 48px; border-radius: var(--radius-xl); padding: 40px;
+  text-align: center; max-width: 1152px; margin-left: auto; margin-right: auto;
+}
+.newsletter-banner h3 { font-family: var(--display); font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.newsletter-banner p { color: rgba(255,255,255,.8); margin-bottom: 20px; }
+.newsletter-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.newsletter-form input {
+  padding: 12px 20px; border-radius: var(--radius-sm); border: none; outline: none;
+  font-size: 14px; font-family: var(--font); min-width: 280px; background: rgba(255,255,255,.95);
+}
+.newsletter-form button {
+  padding: 12px 28px; background: #fff; color: var(--purple);
+  border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); transition: opacity var(--t);
+}
+.newsletter-form button:hover { opacity: .9; }
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div class="toast" id="tw-toast"></div>
+
+<!-- Hero -->
+<div class="holidays-hero">
+  <div class="holidays-hero-inner">
+    <div class="hero-eyebrow">🌴 2026 Holiday Packages</div>
+    <h1>Escape to Your Dream Destination</h1>
+    <p>Curated holiday packages with flights, hotels, meals & guided tours — all in one price.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">500+</div><div class="lbl">Packages</div></div>
+      <div class="hero-stat"><div class="num">80+</div><div class="lbl">Destinations</div></div>
+      <div class="hero-stat"><div class="num">4.8★</div><div class="lbl">Avg. Rating</div></div>
+      <div class="hero-stat"><div class="num">2M+</div><div class="lbl">Happy Travelers</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Filter Tabs -->
+<div class="filter-tabs-wrap">
+  <div class="filter-tabs">
+    <button class="tab-btn active" data-cat="all" onclick="filterPkgs('all',this)">🌍 All Packages</button>
+    <button class="tab-btn" data-cat="beach" onclick="filterPkgs('beach',this)">🏖 Beach</button>
+    <button class="tab-btn" data-cat="city" onclick="filterPkgs('city',this)">🏙 City</button>
+    <button class="tab-btn" data-cat="adventure" onclick="filterPkgs('adventure',this)">⛺ Adventure</button>
+    <button class="tab-btn" data-cat="luxury" onclick="filterPkgs('luxury',this)">💎 Luxury</button>
+    <button class="tab-btn" data-cat="family" onclick="filterPkgs('family',this)">👨‍👩‍👧 Family</button>
+  </div>
+</div>
+
+<!-- Package Grid -->
+<div class="pkg-grid-wrap">
+  <div class="pkg-grid" id="pkg-grid">
+
+    <!-- Maldives -->
+    <div class="pkg-card reveal" data-cat="beach luxury">
+      <div class="pkg-img-wrap">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80" alt="Maldives">
+        <span class="pkg-nights-badge">6 Nights / 7 Days</span>
+        <span class="pkg-type-badge badge-beach">🏖 Beach</span>
+        <button class="pkg-wishlist" onclick="toggleWishlist(this)">🤍</button>
+      </div>
+      <div class="pkg-content">
+        <div class="pkg-title">Maldives Overwater Bliss</div>
+        <div class="pkg-location">📍 Malé, Maldives</div>
+        <div class="pkg-includes">
+          <span class="inc-tag inc-tag-flight">✈ Flights</span>
+          <span class="inc-tag inc-tag-hotel">🏨 Overwater Villa</span>
+          <span class="inc-tag inc-tag-meals">🍽 All Meals</span>
+          <span class="inc-tag inc-tag-tours">🤿 Snorkeling</span>
+        </div>
+        <div class="pkg-bottom">
+          <div class="pkg-rating">
+            <span class="stars">★★★★★</span>
+            <span class="pkg-rval">4.9</span>
+            <span class="pkg-rcount">(841)</span>
+          </div>
+          <div class="pkg-price-block">
+            <div class="pkg-from">per person</div>
+            <div class="pkg-price"><sup>₹</sup>1,24,999</div>
+            <div class="pkg-per">incl. flights & taxes</div>
+          </div>
+        </div>
+        <a href="checkout.html" class="btn-pkg">Book This Package</a>
+      </div>
+    </div>
+
+    <!-- Bali -->
+    <div class="pkg-card reveal" data-cat="beach adventure">
+      <div class="pkg-img-wrap">
+        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" alt="Bali">
+        <span class="pkg-nights-badge">5 Nights / 6 Days</span>
+        <span class="pkg-type-badge badge-adventure">⛺ Adventure</span>
+        <button class="pkg-wishlist" onclick="toggleWishlist(this)">🤍</button>
+      </div>
+      <div class="pkg-content">
+        <div class="pkg-title">Bali — Island of the Gods</div>
+        <div class="pkg-location">📍 Bali, Indonesia</div>
+        <div class="pkg-includes">
+          <span class="inc-tag inc-tag-flight">✈ Flights</span>
+          <span class="inc-tag inc-tag-hotel">🏨 Villa + Pool</span>
+          <span class="inc-tag inc-tag-tours">🛵 Guided Tours</span>
+          <span class="inc-tag inc-tag-meals">🍽 Breakfast</span>
+        </div>
+        <div class="pkg-bottom">
+          <div class="pkg-rating">
+            <span class="stars">★★★★★</span>
+            <span class="pkg-rval">4.8</span>
+            <span class="pkg-rcount">(1,203)</span>
+          </div>
+          <div class="pkg-price-block">
+            <div class="pkg-from">per person</div>
+            <div class="pkg-price"><sup>₹</sup>54,999</div>
+            <div class="pkg-per">incl. flights & taxes</div>
+          </div>
+        </div>
+        <a href="checkout.html" class="btn-pkg">Book This Package</a>
+      </div>
+    </div>
+
+    <!-- Paris -->
+    <div class="pkg-card reveal" data-cat="city luxury">
+      <div class="pkg-img-wrap">
+        <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=600&q=80" alt="Paris">
+        <span class="pkg-nights-badge">6 Nights / 7 Days</span>
+        <span class="pkg-type-badge badge-city">🏙 City</span>
+        <button class="pkg-wishlist" onclick="toggleWishlist(this)">🤍</button>
+      </div>
+      <div class="pkg-content">
+        <div class="pkg-title">Paris — City of Romance</div>
+        <div class="pkg-location">📍 Paris, France</div>
+        <div class="pkg-includes">
+          <span class="inc-tag inc-tag-flight">✈ Flights</span>
+          <span class="inc-tag inc-tag-hotel">🏨 4★ Boutique Hotel</span>
+          <span class="inc-tag inc-tag-tours">🗼 Eiffel Tour</span>
+          <span class="inc-tag inc-tag-meals">🍽 Breakfast</span>
+        </div>
+        <div class="pkg-bottom">
+          <div class="pkg-rating">
+            <span class="stars">★★★★★</span>
+            <span class="pkg-rval">4.7</span>
+            <span class="pkg-rcount">(966)</span>
+          </div>
+          <div class="pkg-price-block">
+            <div class="pkg-from">per person</div>
+            <div class="pkg-price"><sup>₹</sup>89,999</div>
+            <div class="pkg-per">incl. flights & taxes</div>
+          </div>
+        </div>
+        <a href="checkout.html" class="btn-pkg">Book This Package</a>
+      </div>
+    </div>
+
+    <!-- Thailand -->
+    <div class="pkg-card reveal" data-cat="beach adventure family">
+      <div class="pkg-img-wrap">
+        <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=600&q=80" alt="Thailand">
+        <span class="pkg-nights-badge">7 Nights / 8 Days</span>
+        <span class="pkg-type-badge badge-beach">🏖 Beach</span>
+        <button class="pkg-wishlist" onclick="toggleWishlist(this)">🤍</button>
+      </div>
+      <div class="pkg-content">
+        <div class="pkg-title">Thailand — Temples & Beaches</div>
+        <div class="pkg-location">📍 Bangkok & Phuket, Thailand</div>
+        <div class="pkg-includes">
+          <span class="inc-tag inc-tag-flight">✈ Flights</span>
+          <span class="inc-tag inc-tag-hotel">🏨 5★ Resort</span>
+          <span class="inc-tag inc-tag-tours">🛺 City Tours</span>
+          <span class="inc-tag inc-tag-meals">🍽 2 Meals/Day</span>
+        </div>
+        <div class="pkg-bottom">
+          <div class="pkg-rating">
+            <span class="stars">★★★★★</span>
+            <span class="pkg-rval">4.8</span>
+            <span class="pkg-rcount">(2,017)</span>
+          </div>
+          <div class="pkg-price-block">
+            <div class="pkg-from">per person</div>
+            <div class="pkg-price"><sup>₹</sup>49,999</div>
+            <div class="pkg-per">incl. flights & taxes</div>
+          </div>
+        </div>
+        <a href="checkout.html" class="btn-pkg">Book This Package</a>
+      </div>
+    </div>
+
+    <!-- Singapore -->
+    <div class="pkg-card reveal" data-cat="city family">
+      <div class="pkg-img-wrap">
+        <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=600&q=80" alt="Singapore">
+        <span class="pkg-nights-badge">4 Nights / 5 Days</span>
+        <span class="pkg-type-badge badge-city">🏙 City</span>
+        <button class="pkg-wishlist" onclick="toggleWishlist(this)">🤍</button>
+      </div>
+      <div class="pkg-content">
+        <div class="pkg-title">Singapore — The Lion City</div>
+        <div class="pkg-location">📍 Singapore</div>
+        <div class="pkg-includes">
+          <span class="inc-tag inc-tag-flight">✈ Flights</span>
+          <span class="inc-tag inc-tag-hotel">🏨 Marina Bay View</span>
+          <span class="inc-tag inc-tag-tours">🎡 Universal Studios</span>
+          <span class="inc-tag inc-tag-meals">🍽 Breakfast</span>
+        </div>
+        <div class="pkg-bottom">
+          <div class="pkg-rating">
+            <span class="stars">★★★★★</span>
+            <span class="pkg-rval">4.6</span>
+            <span class="pkg-rcount">(1,522)</span>
+          </div>
+          <div class="pkg-price-block">
+            <div class="pkg-from">per person</div>
+            <div class="pkg-price"><sup>₹</sup>62,999</div>
+            <div class="pkg-per">incl. flights & taxes</div>
+          </div>
+        </div>
+        <a href="checkout.html" class="btn-pkg">Book This Package</a>
+      </div>
+    </div>
+
+    <!-- Japan -->
+    <div class="pkg-card reveal" data-cat="city adventure luxury">
+      <div class="pkg-img-wrap">
+        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80" alt="Japan">
+        <span class="pkg-nights-badge">8 Nights / 9 Days</span>
+        <span class="pkg-type-badge badge-luxury">💎 Luxury</span>
+        <button class="pkg-wishlist" onclick="toggleWishlist(this)">🤍</button>
+      </div>
+      <div class="pkg-content">
+        <div class="pkg-title">Japan — Cherry Blossom Trail</div>
+        <div class="pkg-location">📍 Tokyo, Kyoto & Osaka, Japan</div>
+        <div class="pkg-includes">
+          <span class="inc-tag inc-tag-flight">✈ Flights</span>
+          <span class="inc-tag inc-tag-hotel">🏨 Ryokan + Hotel</span>
+          <span class="inc-tag inc-tag-tours">🍱 Food Tour</span>
+          <span class="inc-tag inc-tag-meals">🍽 Breakfast</span>
+        </div>
+        <div class="pkg-bottom">
+          <div class="pkg-rating">
+            <span class="stars">★★★★★</span>
+            <span class="pkg-rval">4.9</span>
+            <span class="pkg-rcount">(788)</span>
+          </div>
+          <div class="pkg-price-block">
+            <div class="pkg-from">per person</div>
+            <div class="pkg-price"><sup>₹</sup>1,09,999</div>
+            <div class="pkg-per">incl. flights & taxes</div>
+          </div>
+        </div>
+        <a href="checkout.html" class="btn-pkg">Book This Package</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Newsletter Banner -->
+<div class="newsletter-banner reveal">
+  <h3>✉ Get Exclusive Holiday Deals</h3>
+  <p>Subscribe and be the first to know about flash sales, limited-time packages, and secret deals.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Enter your email address">
+    <button onclick="twToast('🎉 You\'re subscribed! Check your inbox.')">Subscribe Now</button>
+  </div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+function filterPkgs(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.pkg-card').forEach(card => {
+    if (cat === 'all' || (card.dataset.cat || '').includes(cat)) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+function toggleWishlist(btn) {
+  btn.textContent = btn.textContent === '🤍' ? '❤️' : '🤍';
+  twToast(btn.textContent === '❤️' ? '❤️ Added to Wishlist!' : 'Removed from Wishlist');
+}
+</script>
+</body>
+</html>

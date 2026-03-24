@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TravelWise — Book Flights, Hotels & Holidays</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.hero {
+  position:relative; overflow:hidden; min-height:92vh;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; padding:90px 24px 120px; text-align:center;
+  background: linear-gradient(160deg, var(--hero-from) 0%, var(--hero-to) 100%);
+}
+[data-theme="light"] .hero {
+  background: linear-gradient(160deg, #6C2BD9 0%, #9D4EDD 40%, #3B82F6 70%, #0EA5E9 100%);
+}
+.hero-canvas { position:absolute; inset:0; pointer-events:none; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
+  padding:7px 18px; border-radius:100px; font-size:13px; font-weight:600;
+  margin-bottom:24px; backdrop-filter:blur(8px); letter-spacing:.3px;
+  color:white; position:relative; z-index:2;
+  animation: fadeUp .6s .1s var(--ease) both;
+}
+.hero-badge::before {
+  content:''; width:8px; height:8px; background:#4ADE80;
+  border-radius:50%; box-shadow:0 0 0 3px rgba(74,222,128,.3);
+  animation:shimmer 2s ease-in-out infinite;
+}
+.hero-h1 {
+  font-family:var(--display); font-size:58px; font-weight:800;
+  line-height:1.1; margin-bottom:18px; position:relative; z-index:2;
+  letter-spacing:-.8px; color:white;
+  animation: fadeUp .6s .2s var(--ease) both;
+}
+.hero-h1 em { color:#FFD166; font-style:normal; }
+.hero-sub {
+  font-size:18px; color:rgba(255,255,255,.80); max-width:500px;
+  margin:0 auto 40px; line-height:1.7; position:relative; z-index:2;
+  animation: fadeUp .6s .3s var(--ease) both;
+}
+.search-card-wrap {
+  position:relative; z-index:2; width:100%; max-width:960px;
+  animation: fadeUp .6s .4s var(--ease) both;
+}
+.hero-stats {
+  display:flex; justify-content:center; align-items:center; gap:0;
+  margin-top:44px; position:relative; z-index:2;
+  flex-wrap:wrap; animation: fadeUp .6s .6s var(--ease) both;
+}
+.hero-stat { text-align:center; padding:0 28px; }
+.hero-stat-val { font-family:var(--display); font-size:30px; font-weight:800; color:white; letter-spacing:-.5px; }
+.hero-stat-lbl { font-size:13px; color:rgba(255,255,255,.72); margin-top:4px; font-weight:500; }
+.hero-divider { width:1px; height:44px; background:rgba(255,255,255,.18); flex-shrink:0; }
+.hero-orb {
+  position:absolute; border-radius:50%; filter:blur(70px); opacity:.15; pointer-events:none;
+}
+.orb1 { width:500px; height:500px; background:#6C2BD9; top:-100px; right:-80px; animation:float 10s ease-in-out infinite; }
+.orb2 { width:350px; height:350px; background:#00C9FF; bottom:-80px; left:-60px; animation:float 8s ease-in-out infinite reverse; }
+.orb3 { width:250px; height:250px; background:#FF6B35; top:40%; left:10%; animation:float 12s ease-in-out infinite 2s; }
+
+/* ── Marquee ── */
+.brands-strip { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:16px 0; overflow:hidden; }
+.brands-track {
+  display:flex; align-items:center; gap:0; width:max-content;
+  animation:marquee 28s linear infinite;
+}
+.brands-track:hover { animation-play-state:paused; }
+.brand-item {
+  padding:8px 36px; font-family:var(--display); font-size:15px; font-weight:700;
+  color:var(--muted); white-space:nowrap; letter-spacing:.5px; opacity:.6;
+  transition:opacity .3s;
+}
+.brand-item:hover { opacity:1; color:var(--text-strong); }
+
+/* ── Trust bar ── */
+.tw-trust {
+  background: var(--bg2); padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.tw-trust-inner {
+  max-width:1280px; margin:0 auto;
+  display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap;
+}
+.tw-trust-item {
+  display:flex; align-items:center; gap:9px;
+  font-size:13px; font-weight:600; color:var(--text);
+}
+.tw-trust-icon {
+  width:34px; height:34px; border-radius:9px;
+  background:linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+
+/* ── Why TravelWise ── */
+.why-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+}
+.why-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:32px;
+  transition:all var(--t) var(--ease); position:relative; overflow:hidden;
+}
+[data-theme="light"] .why-card { background:#FFFFFF; box-shadow:0 2px 20px rgba(108,43,217,.06); }
+.why-card::before {
+  content:''; position:absolute; inset:-1px;
+  background:linear-gradient(135deg,rgba(108,43,217,.3),rgba(0,201,255,.2));
+  border-radius:inherit; opacity:0; transition:opacity var(--t);
+  z-index:-1;
+}
+.why-card:hover { transform:translateY(-6px); box-shadow:0 24px 60px var(--shadow); }
+.why-card:hover::before { opacity:1; }
+.why-icon {
+  width:56px; height:56px; border-radius:16px; margin-bottom:20px;
+  background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px; box-shadow:0 8px 24px rgba(108,43,217,.3);
+}
+.why-title { font-family:var(--display); font-size:18px; font-weight:700; color:var(--text-strong); margin-bottom:8px; }
+.why-text { font-size:14px; color:var(--muted); line-height:1.7; }
+
+/* ── Trending flights ── */
+.flight-mini {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:20px;
+  transition:all var(--t) var(--ease); cursor:pointer;
+}
+[data-theme="light"] .flight-mini { background:#FFFFFF; box-shadow:0 2px 12px rgba(108,43,217,.05); }
+.flight-mini:hover { border-color:rgba(108,43,217,.4); transform:translateY(-3px); box-shadow:0 16px 40px var(--shadow); }
+.flight-mini-route { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.fm-city { font-family:var(--display); font-size:22px; font-weight:700; color:var(--text-strong); }
+.fm-arrow { font-size:20px; color:var(--muted); }
+.fm-price { font-family:var(--display); font-size:20px; font-weight:700; color:var(--purple); }
+.fm-meta { font-size:12px; color:var(--muted); margin-top:2px; }
+.fm-tag {
+  display:inline-block; padding:3px 9px; border-radius:6px; font-size:11px;
+  font-weight:700; background:rgba(16,185,129,.12); color:var(--green); margin-top:8px;
+}
+
+/* ── Hotel mini card ── */
+.hotel-mini {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); overflow:hidden; cursor:pointer;
+  transition:all var(--t) var(--ease);
+}
+[data-theme="light"] .hotel-mini { background:#FFFFFF; box-shadow:0 2px 12px rgba(108,43,217,.05); }
+.hotel-mini:hover { border-color:rgba(108,43,217,.35); transform:translateY(-4px); box-shadow:0 20px 50px var(--shadow); }
+.hotel-mini-img { height:180px; background-size:cover; background-position:center; position:relative; }
+.hotel-mini-body { padding:16px; }
+.hotel-mini-name { font-family:var(--display); font-size:16px; font-weight:700; color:var(--text-strong); margin-bottom:4px; }
+.hotel-mini-loc { font-size:12px; color:var(--muted); margin-bottom:10px; }
+.hotel-mini-footer { display:flex; align-items:center; justify-content:space-between; }
+.hotel-mini-price { font-family:var(--display); font-size:18px; font-weight:700; color:var(--purple); }
+.hotel-mini-price small { font-size:11px; font-weight:400; color:var(--muted); font-family:var(--font); }
+
+/* ── Testimonials ── */
+.testimonials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.testi-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:28px;
+  transition:all var(--t) var(--ease);
+}
+[data-theme="light"] .testi-card { background:#FFFFFF; box-shadow:0 2px 16px rgba(108,43,217,.05); }
+.testi-card:hover { border-color:var(--border2); box-shadow:0 12px 40px var(--shadow); transform:translateY(-3px); }
+.testi-quote { font-size:36px; line-height:1; margin-bottom:14px; opacity:.6; }
+.testi-text { font-size:15px; color:var(--text); line-height:1.75; margin-bottom:20px; }
+.testi-author { display:flex; align-items:center; gap:12px; }
+.testi-avatar {
+  width:44px; height:44px; border-radius:50%;
+  background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; color:white; font-size:15px; flex-shrink:0;
+}
+.testi-name { font-weight:700; font-size:14px; color:var(--text-strong); }
+.testi-trip { font-size:12px; color:var(--muted); }
+
+/* ── App section ── */
+.app-section {
+  background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  border-radius:var(--radius-xl); padding:60px 48px;
+  display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+  position:relative; overflow:hidden;
+}
+.app-section::before {
+  content:''; position:absolute; top:-80px; right:-60px;
+  width:300px; height:300px; border-radius:50%;
+  background:rgba(255,255,255,.08); pointer-events:none;
+}
+.app-section::after {
+  content:''; position:absolute; bottom:-60px; left:-40px;
+  width:200px; height:200px; border-radius:50%;
+  background:rgba(255,255,255,.06); pointer-events:none;
+}
+.app-title { font-family:var(--display); font-size:36px; font-weight:800; color:white; line-height:1.2; margin-bottom:14px; letter-spacing:-.5px; }
+.app-sub { font-size:15px; color:rgba(255,255,255,.8); line-height:1.7; margin-bottom:28px; }
+.app-btns { display:flex; gap:12px; flex-wrap:wrap; }
+.app-btn {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(255,255,255,.12); border:1.5px solid rgba(255,255,255,.25);
+  color:white; padding:12px 20px; border-radius:12px; cursor:pointer;
+  transition:all var(--t); font-family:var(--font);
+}
+.app-btn:hover { background:rgba(255,255,255,.2); border-color:white; transform:translateY(-2px); }
+.app-btn-icon { font-size:22px; }
+.app-btn-label { font-size:12px; opacity:.8; }
+.app-btn-store { font-size:15px; font-weight:700; }
+.app-phones {
+  display:flex; justify-content:center; align-items:flex-end; gap:16px; position:relative;
+}
+.phone-mock {
+  width:160px; height:290px; border-radius:28px;
+  background:rgba(255,255,255,.12); border:2px solid rgba(255,255,255,.25);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  backdrop-filter:blur(12px); position:relative; overflow:hidden;
+  animation:float 6s ease-in-out infinite;
+}
+.phone-mock:first-child { transform:rotate(-8deg); animation-delay:0.5s; height:260px; }
+.phone-mock:last-child  { transform:rotate(8deg);  animation-delay:1s;   height:260px; }
+.phone-screen { font-size:40px; text-align:center; }
+.phone-screen p { font-size:11px; color:rgba(255,255,255,.7); margin-top:8px; font-weight:500; }
+
+/* ── Newsletter ── */
+.newsletter-wrap {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:44px; text-align:center;
+  max-width:640px; margin:0 auto; position:relative; overflow:hidden;
+}
+[data-theme="light"] .newsletter-wrap { background:#FFFFFF; box-shadow:0 4px 24px rgba(108,43,217,.07); }
+.newsletter-wrap::before {
+  content:''; position:absolute; top:-60px; left:-60px;
+  width:200px; height:200px; border-radius:50%;
+  background:linear-gradient(135deg,rgba(108,43,217,.08),rgba(0,201,255,.04));
+  pointer-events:none;
+}
+.newsletter-input-row { display:flex; gap:10px; margin-top:24px; max-width:440px; margin:24px auto 0; }
+.newsletter-input {
+  flex:1; padding:12px 16px; border:1.5px solid var(--border);
+  border-radius:10px; background:var(--input-bg); font-family:var(--font);
+  font-size:14px; color:var(--text-strong); outline:none;
+  transition:border-color var(--t);
+}
+.newsletter-input:focus { border-color:var(--purple); }
+.newsletter-btn {
+  padding:12px 22px; background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
+  color:white; border:none; border-radius:10px; font-size:14px; font-weight:700;
+  cursor:pointer; font-family:var(--font); transition:all var(--t);
+  white-space:nowrap; box-shadow:0 4px 16px rgba(108,43,217,.3);
+}
+.newsletter-btn:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(108,43,217,.4); }
+
+/* ── Tab content ── */
+.tab-content { display:none; }
+.tab-content.active { display:block; animation:scaleIn .2s var(--ease) both; }
+
+/* ── Responsive ── */
+@media (max-width:1024px) {
+  .why-grid { grid-template-columns:1fr 1fr; }
+  .testimonials-grid { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:768px) {
+  .hero-h1 { font-size:38px; }
+  .why-grid { grid-template-columns:1fr; }
+  .testimonials-grid { grid-template-columns:1fr; }
+  .app-section { grid-template-columns:1fr; padding:36px 24px; }
+  .app-phones { display:none; }
+}
+@media (max-width:640px) {
+  .hero-h1 { font-size:32px; }
+  .hero-sub { font-size:15px; }
+  .hero-stat-val { font-size:22px; }
+  .tw-trust-inner { gap:20px; justify-content:flex-start; }
+  .dest-grid { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Toast -->
+<div class="toast" id="tw-toast"></div>
+
+<!-- Nav root (injected by nav.js) -->
+<div id="nav-root"></div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero">
+  <canvas class="hero-canvas" id="hero-canvas"></canvas>
+  <div class="orb1 hero-orb"></div>
+  <div class="orb2 hero-orb"></div>
+  <div class="orb3 hero-orb"></div>
+
+  <div class="hero-badge">🌟 Trusted by 50 million+ travellers</div>
+
+  <h1 class="hero-h1">Explore the World<br>at <em>Best Prices</em></h1>
+  <p class="hero-sub">Flights, Hotels, Holidays &amp; more — all in one place. Book smarter, travel better.</p>
+
+  <!-- Search Card -->
+  <div class="search-card-wrap">
+    <div class="search-card">
+      <div class="search-tabs">
+        <button class="stab active" onclick="switchTab('t-flights',this)">✈ Flights</button>
+        <button class="stab" onclick="switchTab('t-hotels',this)">🏨 Hotels</button>
+        <button class="stab" onclick="switchTab('t-holidays',this)">🌴 Holidays</button>
+        <button class="stab" onclick="switchTab('t-trains',this)">🚂 Trains</button>
+        <button class="stab" onclick="switchTab('t-buses',this)">🚌 Buses</button>
+      </div>
+
+      <!-- Flights tab -->
+      <div id="t-flights" class="tab-content active">
+        <div class="trip-type">
+          <label class="trip-radio"><input type="radio" name="trip" checked> One Way</label>
+          <label class="trip-radio"><input type="radio" name="trip"> Return</label>
+          <label class="trip-radio"><input type="radio" name="trip"> Multi-city</label>
+        </div>
+        <div class="search-form">
+          <div class="field">
+            <label>From</label>
+            <input type="text" id="from-inp" value="Delhi (DEL)" placeholder="City or Airport" autocomplete="off" oninput="doAC(this,'from-ac')">
+            <div class="autocomplete-list" id="from-ac" style="display:none"></div>
+          </div>
+          <div class="field">
+            <label>To</label>
+            <input type="text" id="to-inp" placeholder="City or Airport" autocomplete="off" oninput="doAC(this,'to-ac')">
+            <div class="autocomplete-list" id="to-ac" style="display:none"></div>
+          </div>
+          <div class="field"><label>Departure</label><input type="date" value="2026-04-15"></div>
+          <div class="field">
+            <label>Travellers & Class</label>
+            <select><option>1 Adult, Economy</option><option>2 Adults, Economy</option><option>1 Adult, Business</option><option>2 Adults, Business</option><option>Family (2+2)</option></select>
+          </div>
+          <button class="search-btn" onclick="location.href='flights.html'">🔍 SEARCH</button>
+        </div>
+      </div>
+
+      <!-- Hotels tab -->
+      <div id="t-hotels" class="tab-content">
+        <div class="search-form search-form-2col">
+          <div class="field">
+            <label>City / Area</label>
+            <input type="text" placeholder="Where are you going?" autocomplete="off" oninput="doAC(this,'hotel-ac')">
+            <div class="autocomplete-list" id="hotel-ac" style="display:none"></div>
+          </div>
+          <div class="field"><label>Check-in</label><input type="date" value="2026-04-15"></div>
+          <div class="field"><label>Check-out</label><input type="date" value="2026-04-18"></div>
+          <button class="search-btn" onclick="location.href='hotels.html'">🔍 SEARCH</button>
+        </div>
+      </div>
+
+      <!-- Holidays tab -->
+      <div id="t-holidays" class="tab-content">
+        <div class="search-form" style="grid-template-columns:1fr 1fr 1fr auto">
+          <div class="field">
+            <label>Going To</label>
+            <input type="text" placeholder="Destination" autocomplete="off" oninput="doAC(this,'hol-ac')">
+            <div class="autocomplete-list" id="hol-ac" style="display:none"></div>
+          </div>
+          <div class="field"><label>Departure Date</label><input type="date" value="2026-04-15"></div>
+          <div class="field">
+            <label>Travellers</label>
+            <select><option>2 Adults</option><option>2 Adults, 1 Child</option><option>4 Adults</option><option>Solo</option></select>
+          </div>
+          <button class="search-btn" onclick="location.href='holidays.html'">🔍 SEARCH</button>
+        </div>
+      </div>
+
+      <!-- Trains tab -->
+      <div id="t-trains" class="tab-content">
+        <div class="search-form" style="grid-template-columns:1fr 1fr 1fr auto">
+          <div class="field"><label>From Station</label><input type="text" placeholder="Delhi (NDLS)"></div>
+          <div class="field"><label>To Station</label><input type="text" placeholder="Mumbai (CSMT)"></div>
+          <div class="field"><label>Journey Date</label><input type="date" value="2026-04-15"></div>
+          <button class="search-btn" onclick="location.href='trains.html'">🔍 SEARCH</button>
+        </div>
+      </div>
+
+      <!-- Buses tab -->
+      <div id="t-buses" class="tab-content">
+        <div class="search-form" style="grid-template-columns:1fr 1fr 1fr auto">
+          <div class="field"><label>From</label><input type="text" placeholder="Departure City"></div>
+          <div class="field"><label>To</label><input type="text" placeholder="Destination City"></div>
+          <div class="field"><label>Journey Date</label><input type="date" value="2026-04-15"></div>
+          <button class="search-btn" onclick="twToast('🚌 Bus search coming soon! Stay tuned.')">🔍 SEARCH</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero stats -->
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-val">50M+</div>
+      <div class="hero-stat-lbl">Happy Travellers</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">200+</div>
+      <div class="hero-stat-lbl">Destinations</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">₹2,500</div>
+      <div class="hero-stat-lbl">Avg. Savings</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">4.8★</div>
+      <div class="hero-stat-lbl">App Rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TRUST BAR ═══════════════════ -->
+<div class="tw-trust">
+  <div class="tw-trust-inner">
+    <div class="tw-trust-item">
+      <div class="tw-trust-icon">🔒</div>
+      <span>100% Secure Payments</span>
+    </div>
+    <div class="tw-trust-item">
+      <div class="tw-trust-icon">💰</div>
+      <span>Best Price Guarantee</span>
+    </div>
+    <div class="tw-trust-item">
+      <div class="tw-trust-icon">🕐</div>
+      <span>24/7 Customer Support</span>
+    </div>
+    <div class="tw-trust-item">
+      <div class="tw-trust-icon">↩️</div>
+      <span>Free Cancellations</span>
+    </div>
+    <div class="tw-trust-item">
+      <div class="tw-trust-icon">🏆</div>
+      <span>Award Winning Service</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ BRANDS MARQUEE ═══════════════════ -->
+<div class="brands-strip">
+  <div class="brands-track">
+    <span class="brand-item">IndiGo</span>
+    <span class="brand-item">Air India</span>
+    <span class="brand-item">Emirates</span>
+    <span class="brand-item">Singapore Airlines</span>
+    <span class="brand-item">Marriott</span>
+    <span class="brand-item">Hilton</span>
+    <span class="brand-item">Hyatt</span>
+    <span class="brand-item">IHG</span>
+    <span class="brand-item">Vistara</span>
+    <span class="brand-item">Qatar Airways</span>
+    <span class="brand-item">British Airways</span>
+    <span class="brand-item">Accor Hotels</span>
+    <span class="brand-item">OYO</span>
+    <span class="brand-item">Taj Hotels</span>
+    <span class="brand-item">IndiGo</span>
+    <span class="brand-item">Air India</span>
+    <span class="brand-item">Emirates</span>
+    <span class="brand-item">Singapore Airlines</span>
+    <span class="brand-item">Marriott</span>
+    <span class="brand-item">Hilton</span>
+    <span class="brand-item">Hyatt</span>
+    <span class="brand-item">IHG</span>
+    <span class="brand-item">Vistara</span>
+    <span class="brand-item">Qatar Airways</span>
+    <span class="brand-item">British Airways</span>
+    <span class="brand-item">Accor Hotels</span>
+    <span class="brand-item">OYO</span>
+    <span class="brand-item">Taj Hotels</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ POPULAR DESTINATIONS ═══════════════════ -->
+<section class="section" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-label">🗺 Destinations</div>
+        <h2 class="section-title">Popular Destinations</h2>
+        <p class="section-sub">Top picks from our travellers this season</p>
+      </div>
+      <button class="see-all" onclick="location.href='holidays.html'">See all →</button>
+    </div>
+    <div class="dest-grid">
+      <div class="dest-card reveal" onclick="location.href='hotels.html'">
+        <div class="dest-overlay"></div>
+        <div class="dest-bg" style="background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 55%),url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80') center/cover">
+          <div class="dest-info"><div class="dest-name">🌿 Goa</div><div class="dest-price">From ₹4,299</div></div>
+        </div>
+        <div class="dest-badge">🔥 Hot</div>
+      </div>
+      <div class="dest-card reveal" onclick="location.href='hotels.html'" style="transition-delay:.1s">
+        <div class="dest-overlay"></div>
+        <div class="dest-bg" style="background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 55%),url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80') center/cover">
+          <div class="dest-info"><div class="dest-name">🏛 Dubai</div><div class="dest-price">From ₹18,499</div></div>
+        </div>
+      </div>
+      <div class="dest-card reveal" onclick="location.href='hotels.html'" style="transition-delay:.2s">
+        <div class="dest-overlay"></div>
+        <div class="dest-bg" style="background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 55%),url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80') center/cover">
+          <div class="dest-info"><div class="dest-name">🗼 Paris</div><div class="dest-price">From ₹42,999</div></div>
+        </div>
+      </div>
+      <div class="dest-card reveal" onclick="location.href='hotels.html'" style="transition-delay:.3s">
+        <div class="dest-overlay"></div>
+        <div class="dest-bg" style="background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 55%),url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80') center/cover">
+          <div class="dest-info"><div class="dest-name">🏝 Maldives</div><div class="dest-price">From ₹55,000</div></div>
+        </div>
+      </div>
+      <div class="dest-card reveal" onclick="location.href='hotels.html'" style="transition-delay:.4s">
+        <div class="dest-overlay"></div>
+        <div class="dest-bg" style="background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 55%),url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80') center/cover">
+          <div class="dest-info"><div class="dest-name">⛩ Kyoto</div><div class="dest-price">From ₹65,999</div></div>
+        </div>
+      </div>
+      <div class="dest-card reveal" onclick="location.href='hotels.html'" style="transition-delay:.5s">
+        <div class="dest-overlay"></div>
+        <div class="dest-bg" style="background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 55%),url('https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=800&q=80') center/cover">
+          <div class="dest-info"><div class="dest-name">🗽 New York</div><div class="dest-price">From ₹70,499</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ WHY TRAVELWISE ═══════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <div style="text-align:center;margin-bottom:48px">
+      <div class="section-label" style="display:inline-flex">✨ Why Us</div>
+      <h2 class="section-title" style="margin-top:10px">Why Millions Choose TravelWise</h2>
+      <p class="section-sub">We go beyond just booking. We create experiences.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">💰</div>
+        <div class="why-title">Guaranteed Best Price</div>
+        <div class="why-text">We scan 500+ airlines and 1M+ hotels in real-time. If you find a lower price anywhere, we'll match it — no questions asked.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.1s">
+        <div class="why-icon">🤖</div>
+        <div class="why-title">AI-Powered Recommendations</div>
+        <div class="why-text">Our smart travel engine learns your preferences and surfaces the most relevant deals, itineraries and experiences just for you.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.2s">
+        <div class="why-icon">🛡️</div>
+        <div class="why-title">Zero-Hassle Cancellations</div>
+        <div class="why-text">Life is unpredictable. Book with confidence — most bookings offer free cancellation up to 24 hours before travel.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.3s">
+        <div class="why-icon">📱</div>
+        <div class="why-title">All-in-One App</div>
+        <div class="why-text">Manage all your bookings, check-in online, get real-time flight alerts, and access your e-tickets — all in one beautiful app.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.4s">
+        <div class="why-icon">🎁</div>
+        <div class="why-title">TravelWise Rewards</div>
+        <div class="why-text">Earn points on every booking. Redeem them for free flights, hotel upgrades, lounge access, and exclusive travel perks.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.5s">
+        <div class="why-icon">🆘</div>
+        <div class="why-title">24/7 Concierge Support</div>
+        <div class="why-text">Our travel experts are available around the clock via chat, call, or email — no bots, just real humans who care about your trip.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TRENDING FLIGHTS ═══════════════════ -->
+<section class="section" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-label">✈ Flights</div>
+        <h2 class="section-title">Trending Flight Deals</h2>
+        <p class="section-sub">Low fares on popular routes this week</p>
+      </div>
+      <button class="see-all" onclick="location.href='flights.html'">View all flights →</button>
+    </div>
+    <div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">
+      <div class="flight-mini reveal" onclick="location.href='flights.html'">
+        <div class="flight-mini-route">
+          <div><div class="fm-city">DEL</div><div class="fm-meta">New Delhi</div></div>
+          <div class="fm-arrow">✈</div>
+          <div style="text-align:right"><div class="fm-city">GOI</div><div class="fm-meta">Goa</div></div>
+        </div>
+        <div class="fm-price">₹2,899 <small style="font-size:12px;font-weight:400;color:var(--muted)">/ person</small></div>
+        <div class="fm-meta">Non-stop · 2h 25m</div>
+        <div class="fm-tag">🔥 35% OFF</div>
+      </div>
+      <div class="flight-mini reveal" onclick="location.href='flights.html'" style="transition-delay:.1s">
+        <div class="flight-mini-route">
+          <div><div class="fm-city">BOM</div><div class="fm-meta">Mumbai</div></div>
+          <div class="fm-arrow">✈</div>
+          <div style="text-align:right"><div class="fm-city">DXB</div><div class="fm-meta">Dubai</div></div>
+        </div>
+        <div class="fm-price">₹12,499 <small style="font-size:12px;font-weight:400;color:var(--muted)">/ person</small></div>
+        <div class="fm-meta">Non-stop · 3h 15m</div>
+        <div class="fm-tag">💼 Business available</div>
+      </div>
+      <div class="flight-mini reveal" onclick="location.href='flights.html'" style="transition-delay:.2s">
+        <div class="flight-mini-route">
+          <div><div class="fm-city">BLR</div><div class="fm-meta">Bengaluru</div></div>
+          <div class="fm-arrow">✈</div>
+          <div style="text-align:right"><div class="fm-city">SIN</div><div class="fm-meta">Singapore</div></div>
+        </div>
+        <div class="fm-price">₹18,200 <small style="font-size:12px;font-weight:400;color:var(--muted)">/ person</small></div>
+        <div class="fm-meta">Non-stop · 5h 30m</div>
+        <div class="fm-tag">⭐ Top rated</div>
+      </div>
+      <div class="flight-mini reveal" onclick="location.href='flights.html'" style="transition-delay:.3s">
+        <div class="flight-mini-route">
+          <div><div class="fm-city">DEL</div><div class="fm-meta">New Delhi</div></div>
+          <div class="fm-arrow">✈</div>
+          <div style="text-align:right"><div class="fm-city">LHR</div><div class="fm-meta">London</div></div>
+        </div>
+        <div class="fm-price">₹38,999 <small style="font-size:12px;font-weight:400;color:var(--muted)">/ person</small></div>
+        <div class="fm-meta">1 stop · 10h 45m</div>
+        <div class="fm-tag">🌟 Flash sale</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TOP HOTELS ═══════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-label">🏨 Hotels</div>
+        <h2 class="section-title">Handpicked Hotels</h2>
+        <p class="section-sub">Premium stays curated for every type of traveller</p>
+      </div>
+      <button class="see-all" onclick="location.href='hotels.html'">View all hotels →</button>
+    </div>
+    <div class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
+      <div class="hotel-mini reveal" onclick="location.href='hotel-detail.html'">
+        <div class="hotel-mini-img" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80')">
+          <div class="dest-badge">⭐ 4.9</div>
+        </div>
+        <div class="hotel-mini-body">
+          <div class="hotel-mini-name">The Leela Palace</div>
+          <div class="hotel-mini-loc">📍 New Delhi, India</div>
+          <div class="hotel-mini-footer">
+            <div class="hotel-mini-price">₹12,500 <small>/night</small></div>
+            <button class="btn-coral" style="padding:7px 14px;font-size:13px" onclick="event.stopPropagation();location.href='hotel-detail.html'">Book</button>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-mini reveal" onclick="location.href='hotel-detail.html'" style="transition-delay:.1s">
+        <div class="hotel-mini-img" style="background-image:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=600&q=80')">
+          <div class="dest-badge">⭐ 4.8</div>
+        </div>
+        <div class="hotel-mini-body">
+          <div class="hotel-mini-name">Atlantis, The Palm</div>
+          <div class="hotel-mini-loc">📍 Dubai, UAE</div>
+          <div class="hotel-mini-footer">
+            <div class="hotel-mini-price">₹24,800 <small>/night</small></div>
+            <button class="btn-coral" style="padding:7px 14px;font-size:13px" onclick="event.stopPropagation();location.href='hotel-detail.html'">Book</button>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-mini reveal" onclick="location.href='hotel-detail.html'" style="transition-delay:.2s">
+        <div class="hotel-mini-img" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80')">
+          <div class="dest-badge">⭐ 4.7</div>
+        </div>
+        <div class="hotel-mini-body">
+          <div class="hotel-mini-name">Conrad Maldives</div>
+          <div class="hotel-mini-loc">📍 Rangali Island, Maldives</div>
+          <div class="hotel-mini-footer">
+            <div class="hotel-mini-price">₹65,000 <small>/night</small></div>
+            <button class="btn-coral" style="padding:7px 14px;font-size:13px" onclick="event.stopPropagation();location.href='hotel-detail.html'">Book</button>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-mini reveal" onclick="location.href='hotel-detail.html'" style="transition-delay:.3s">
+        <div class="hotel-mini-img" style="background-image:url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=600&q=80')">
+          <div class="dest-badge">⭐ 4.9</div>
+        </div>
+        <div class="hotel-mini-body">
+          <div class="hotel-mini-name">Four Seasons Paris</div>
+          <div class="hotel-mini-loc">📍 Paris, France</div>
+          <div class="hotel-mini-footer">
+            <div class="hotel-mini-price">₹45,200 <small>/night</small></div>
+            <button class="btn-coral" style="padding:7px 14px;font-size:13px" onclick="event.stopPropagation();location.href='hotel-detail.html'">Book</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ HOLIDAY PACKAGES ═══════════════════ -->
+<section class="section" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-label">🌴 Packages</div>
+        <h2 class="section-title">Curated Holiday Packages</h2>
+        <p class="section-sub">Everything included — flights, hotel, transfers & more</p>
+      </div>
+      <button class="see-all" onclick="location.href='holidays.html'">See all packages →</button>
+    </div>
+    <div class="cards-grid">
+      <div class="pkg-card reveal" onclick="location.href='holidays.html'">
+        <div class="pkg-img">
+          <div class="pkg-img-inner" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80')"></div>
+          <div class="pkg-badge">5 Nights / 6 Days</div>
+          <div class="pkg-hot">🔥 Bestseller</div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-title">Dubai Dream Escape</div>
+          <div class="pkg-loc">🏙 Dubai, UAE</div>
+          <div class="pkg-includes">
+            <span class="pkg-tag">✈ Flights</span>
+            <span class="pkg-tag">🏨 5★ Hotel</span>
+            <span class="pkg-tag">🍽 Breakfast</span>
+            <span class="pkg-tag">🚐 Transfers</span>
+          </div>
+          <div class="pkg-footer">
+            <div class="pkg-price">₹52,999 <small>/ person</small></div>
+            <div class="pkg-rating"><span class="stars">★★★★★</span> 4.9</div>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card reveal" onclick="location.href='holidays.html'" style="transition-delay:.1s">
+        <div class="pkg-img">
+          <div class="pkg-img-inner" style="background-image:url('https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=80')"></div>
+          <div class="pkg-badge">7 Nights / 8 Days</div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-title">Bali Paradise</div>
+          <div class="pkg-loc">🌺 Bali, Indonesia</div>
+          <div class="pkg-includes">
+            <span class="pkg-tag">✈ Flights</span>
+            <span class="pkg-tag">🏨 Villa Stay</span>
+            <span class="pkg-tag">🍽 All Meals</span>
+            <span class="pkg-tag">🤿 Activities</span>
+          </div>
+          <div class="pkg-footer">
+            <div class="pkg-price">₹68,500 <small>/ person</small></div>
+            <div class="pkg-rating"><span class="stars">★★★★★</span> 4.8</div>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card reveal" onclick="location.href='holidays.html'" style="transition-delay:.2s">
+        <div class="pkg-img">
+          <div class="pkg-img-inner" style="background-image:url('https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80')"></div>
+          <div class="pkg-badge">4 Nights / 5 Days</div>
+          <div class="pkg-hot">⚡ Flash Deal</div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-title">Thailand Beach Break</div>
+          <div class="pkg-loc">🏖 Phuket, Thailand</div>
+          <div class="pkg-includes">
+            <span class="pkg-tag">✈ Flights</span>
+            <span class="pkg-tag">🏨 Resort</span>
+            <span class="pkg-tag">🍽 Breakfast</span>
+          </div>
+          <div class="pkg-footer">
+            <div class="pkg-price">₹38,299 <small>/ person</small></div>
+            <div class="pkg-rating"><span class="stars">★★★★☆</span> 4.6</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TESTIMONIALS ═══════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <div style="text-align:center;margin-bottom:48px">
+      <div class="section-label" style="display:inline-flex">💬 Reviews</div>
+      <h2 class="section-title" style="margin-top:10px">What Travellers Say</h2>
+      <p class="section-sub">Real experiences from real people</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">Booked our entire honeymoon through TravelWise — flights, hotels, transfers. Everything was seamless. The customer support was incredibly responsive when our flight got delayed.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">AR</div>
+          <div>
+            <div class="testi-name">Arjun & Riya</div>
+            <div class="testi-trip">✈ Maldives Honeymoon • April 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.1s">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">Found a business class deal to London that was 40% cheaper than any other site! The price calendar feature is genius — I now always find the cheapest dates to fly.</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,var(--coral),#FF3CAC)">PS</div>
+          <div>
+            <div class="testi-name">Priya Sharma</div>
+            <div class="testi-trip">✈ Delhi → London • March 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.2s">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">The TravelWise app is on another level. Got instant notifications when prices dropped for our Bali trip. Saved over ₹12,000 compared to what I would have paid directly!</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,var(--green),#047857)">RK</div>
+          <div>
+            <div class="testi-name">Rahul Kumar</div>
+            <div class="testi-trip">🌴 Bali Package • Feb 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ APP DOWNLOAD ═══════════════════ -->
+<section class="section" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="app-section reveal">
+      <div>
+        <div class="app-title">Take TravelWise<br>Everywhere You Go</div>
+        <div class="app-sub">Download the app and manage all your bookings on the go. Get exclusive app-only deals, real-time flight alerts, and offline boarding passes.</div>
+        <div class="app-btns">
+          <div class="app-btn" onclick="twToast('📱 App Store coming soon!')">
+            <div class="app-btn-icon">🍎</div>
+            <div>
+              <div class="app-btn-label">Download on the</div>
+              <div class="app-btn-store">App Store</div>
+            </div>
+          </div>
+          <div class="app-btn" onclick="twToast('📱 Play Store coming soon!')">
+            <div class="app-btn-icon">▶</div>
+            <div>
+              <div class="app-btn-label">Get it on</div>
+              <div class="app-btn-store">Google Play</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-phones">
+        <div class="phone-mock">
+          <div class="phone-screen">✈<br><p>Flight Alert!</p></div>
+        </div>
+        <div class="phone-mock">
+          <div class="phone-screen">🏨<br><p>Hotel Booked!</p></div>
+        </div>
+        <div class="phone-mock">
+          <div class="phone-screen">🌴<br><p>Trip Starts!</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ NEWSLETTER ═══════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="newsletter-wrap reveal">
+      <div class="section-label" style="display:inline-flex;margin-bottom:12px">📬 Newsletter</div>
+      <h2 class="section-title">Never Miss a Deal</h2>
+      <p class="section-sub" style="margin-top:8px">Get the best flight deals, hotel offers and travel inspiration straight to your inbox.</p>
+      <div class="newsletter-input-row">
+        <input type="email" class="newsletter-input" placeholder="Enter your email address">
+        <button class="newsletter-btn" onclick="twToast('🎉 You\'re subscribed! Welcome to TravelWise.')">Subscribe</button>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:12px">Join 2M+ subscribers. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer root (injected by nav.js) -->
+<div id="footer-root"></div>
+
+<script src="nav.js"></script>
+<script>
+/* ── Airport autocomplete data ── */
+var AIRPORTS = [
+  {code:'DEL',name:'Indira Gandhi Intl',city:'New Delhi',flag:'🇮🇳'},
+  {code:'BOM',name:'Chhatrapati Shivaji Intl',city:'Mumbai',flag:'🇮🇳'},
+  {code:'BLR',name:'Kempegowda Intl',city:'Bengaluru',flag:'🇮🇳'},
+  {code:'MAA',name:'Chennai Intl',city:'Chennai',flag:'🇮🇳'},
+  {code:'CCU',name:'Netaji Subhas Chandra Bose',city:'Kolkata',flag:'🇮🇳'},
+  {code:'HYD',name:'Rajiv Gandhi Intl',city:'Hyderabad',flag:'🇮🇳'},
+  {code:'GOI',name:'Goa Intl (Dabolim)',city:'Goa',flag:'🇮🇳'},
+  {code:'AMD',name:'Sardar Vallabhbhai Patel',city:'Ahmedabad',flag:'🇮🇳'},
+  {code:'JAI',name:'Jaipur Intl',city:'Jaipur',flag:'🇮🇳'},
+  {code:'PNQ',name:'Pune Intl',city:'Pune',flag:'🇮🇳'},
+  {code:'DXB',name:'Dubai Intl',city:'Dubai',flag:'🇦🇪'},
+  {code:'AUH',name:'Abu Dhabi Intl',city:'Abu Dhabi',flag:'🇦🇪'},
+  {code:'SIN',name:'Changi Airport',city:'Singapore',flag:'🇸🇬'},
+  {code:'LHR',name:'Heathrow',city:'London',flag:'🇬🇧'},
+  {code:'CDG',name:'Charles de Gaulle',city:'Paris',flag:'🇫🇷'},
+  {code:'JFK',name:'John F. Kennedy Intl',city:'New York',flag:'🇺🇸'},
+  {code:'LAX',name:'Los Angeles Intl',city:'Los Angeles',flag:'🇺🇸'},
+  {code:'NRT',name:'Narita Intl',city:'Tokyo',flag:'🇯🇵'},
+  {code:'BKK',name:'Suvarnabhumi Airport',city:'Bangkok',flag:'🇹🇭'},
+  {code:'KUL',name:'Kuala Lumpur Intl',city:'Kuala Lumpur',flag:'🇲🇾'},
+  {code:'SYD',name:'Kingsford Smith',city:'Sydney',flag:'🇦🇺'},
+  {code:'FRA',name:'Frankfurt Airport',city:'Frankfurt',flag:'🇩🇪'},
+  {code:'AMS',name:'Amsterdam Schiphol',city:'Amsterdam',flag:'🇳🇱'},
+];
+
+function doAC(input, listId) {
+  var list = document.getElementById(listId);
+  if (!list) return;
+  var q = input.value.trim().toLowerCase();
+  if (q.length < 1) { list.style.display='none'; return; }
+  var matches = AIRPORTS.filter(function(a) {
+    return a.code.toLowerCase().includes(q) ||
+           a.city.toLowerCase().includes(q) ||
+           a.name.toLowerCase().includes(q);
+  }).slice(0,6);
+  if (!matches.length) { list.style.display='none'; return; }
+  list.innerHTML = matches.map(function(a) {
+    return '<div class="ac-item" onclick="pickAC(\''+listId+'\',\''+a.city+' ('+a.code+')\')">' +
+      '<span class="ac-icon">'+a.flag+'</span>' +
+      '<div><div class="ac-main">'+a.city+' ('+a.code+')</div><div class="ac-sub">'+a.name+'</div></div>' +
+    '</div>';
+  }).join('');
+  list.style.display = 'block';
+}
+
+function pickAC(listId, val) {
+  var list = document.getElementById(listId);
+  var inp  = list && list.previousElementSibling;
+  if (inp) inp.value = val;
+  if (list) list.style.display='none';
+}
+
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('.autocomplete-list').forEach(function(l) {
+    if (!l.parentElement.contains(e.target)) l.style.display='none';
+  });
+});
+
+/* ── Tab switching ── */
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.stab').forEach(function(b) { b.classList.remove('active'); });
+  var el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+/* ── Canvas particle animation ── */
+(function() {
+  var canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H, particles = [], mouse = {x:0,y:0};
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (var i = 0; i < 80; i++) {
+    particles.push({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
+      r: Math.random()*2+.5,
+      alpha: Math.random()*.5+.1
+    });
+  }
+
+  canvas.addEventListener('mousemove', function(e) {
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(function(p,i) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x<0||p.x>W) p.vx*=-1;
+      if (p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,255,255,'+p.alpha+')';
+      ctx.fill();
+      // lines between nearby
+      for (var j=i+1; j<particles.length; j++) {
+        var dx = particles[j].x-p.x, dy = particles[j].y-p.y;
+        var dist = Math.sqrt(dx*dx+dy*dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(p.x,p.y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle = 'rgba(255,255,255,'+(0.08*(1-dist/100))+')';
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Scroll parallax on hero orbs ── */
+window.addEventListener('scroll', function() {
+  var y = window.scrollY;
+  var orbs = document.querySelectorAll('.hero-orb');
+  orbs.forEach(function(o,i) {
+    o.style.transform = 'translateY('+(y * (0.1+i*0.05))+'px)';
+  });
+});
+</script>
+</body>
+</html>
