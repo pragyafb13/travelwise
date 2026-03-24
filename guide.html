@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Guide | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Guide Page Styles ── */
+.guide-hero {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #03091A 0%, #0d1f4e 40%, #1a0a3e 70%, #03091A 100%);
+}
+.guide-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(108,43,217,.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(0,201,255,.25) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 50% 80%, rgba(255,107,53,.15) 0%, transparent 60%);
+  animation: heroShift 8s ease-in-out infinite alternate;
+}
+@keyframes heroShift {
+  0%   { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.05) rotate(2deg); }
+}
+.guide-hero-content { position: relative; z-index: 2; max-width: 800px; padding: 2rem; }
+.guide-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+.guide-hero p {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,.75);
+  margin-bottom: 2.5rem;
+}
+.hero-search {
+  display: flex;
+  gap: .5rem;
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 60px;
+  padding: .4rem .4rem .4rem 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  font-family: var(--font);
+}
+.hero-search input::placeholder { color: rgba(255,255,255,.5); }
+.hero-search button {
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: .75rem 1.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--t);
+  white-space: nowrap;
+}
+.hero-search button:hover { transform: scale(1.04); box-shadow: 0 4px 20px rgba(108,43,217,.5); }
+
+.floating-tags {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+.floating-tag {
+  background: rgba(255,255,255,.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.85);
+  padding: .35rem 1rem;
+  border-radius: 50px;
+  font-size: .85rem;
+  cursor: pointer;
+  transition: var(--t);
+}
+.floating-tag:hover { background: rgba(108,43,217,.4); border-color: var(--purple); }
+
+/* Destination Cards */
+.section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-label {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.section-header h2 {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--text-strong);
+  margin-bottom: .75rem;
+}
+.section-header p { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+.dest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.75rem;
+}
+.dest-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--t);
+  cursor: pointer;
+}
+.dest-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.15); border-color: var(--purple); }
+.dest-img { position: relative; height: 220px; overflow: hidden; }
+.dest-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.dest-card:hover .dest-img img { transform: scale(1.07); }
+.dest-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(0,0,0,.5);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  padding: .3rem .8rem;
+  border-radius: 50px;
+  font-size: .78rem;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,.2);
+}
+.dest-rating {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--gold);
+  color: #000;
+  padding: .3rem .8rem;
+  border-radius: 50px;
+  font-size: .82rem;
+  font-weight: 700;
+}
+.dest-body { padding: 1.5rem; }
+.dest-body h3 { font-family: var(--display); font-size: 1.3rem; font-weight: 700; color: var(--text-strong); margin-bottom: .3rem; }
+.dest-meta { display: flex; gap: 1rem; flex-wrap: wrap; margin: .75rem 0; }
+.dest-meta-item { font-size: .82rem; color: var(--muted); display: flex; align-items: center; gap: .3rem; }
+.dest-highlights { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+.highlight-tag {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: .78rem;
+  padding: .25rem .7rem;
+  border-radius: 50px;
+}
+.dest-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: 1.25rem;
+  color: var(--purple);
+  font-weight: 600;
+  font-size: .9rem;
+  text-decoration: none;
+  transition: var(--t);
+}
+.dest-cta:hover { gap: .7rem; }
+
+/* Quick Tips */
+.tips-bg { background: var(--bg2); }
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+.tip-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  transition: var(--t);
+}
+.tip-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.1); }
+.tip-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+.tip-icon.purple { background: linear-gradient(135deg, rgba(108,43,217,.15), rgba(108,43,217,.05)); }
+.tip-icon.teal   { background: linear-gradient(135deg, rgba(0,201,255,.15), rgba(0,201,255,.05)); }
+.tip-icon.coral  { background: linear-gradient(135deg, rgba(255,107,53,.15), rgba(255,107,53,.05)); }
+.tip-icon.green  { background: linear-gradient(135deg, rgba(16,185,129,.15), rgba(16,185,129,.05)); }
+.tip-card h4 { font-family: var(--display); font-size: 1.05rem; font-weight: 700; color: var(--text-strong); margin-bottom: .5rem; }
+.tip-card p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+/* Calendar */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 180px repeat(12, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: .78rem;
+}
+.cal-cell {
+  background: var(--card);
+  padding: .6rem .3rem;
+  text-align: center;
+  transition: var(--t);
+}
+.cal-header { background: var(--bg2); font-weight: 700; color: var(--text-strong); font-size: .75rem; }
+.cal-region { background: var(--bg3); font-weight: 600; color: var(--text); text-align: left; padding-left: .75rem; }
+.cal-cell.best { background: linear-gradient(135deg, rgba(16,185,129,.2), rgba(0,201,255,.1)); color: var(--green); font-weight: 600; }
+.cal-cell.good { background: rgba(245,158,11,.1); color: var(--gold); }
+.cal-cell.avoid { background: rgba(255,107,53,.07); color: var(--coral); }
+.cal-legend { display: flex; gap: 1.5rem; margin-top: 1rem; justify-content: center; flex-wrap: wrap; }
+.cal-legend-item { display: flex; align-items: center; gap: .4rem; font-size: .85rem; color: var(--muted); }
+.cal-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+/* Packing Checklist */
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.checklist-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+.checklist-card h4 {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: var(--t);
+}
+.check-item:last-child { border-bottom: none; }
+.check-item:hover { color: var(--purple); }
+.check-item input[type=checkbox] { accent-color: var(--purple); width: 16px; height: 16px; cursor: pointer; }
+.check-item label { cursor: pointer; font-size: .9rem; color: var(--text); transition: var(--t); flex: 1; }
+.check-item.checked label { text-decoration: line-through; color: var(--muted); }
+.checklist-progress { height: 4px; background: var(--border); border-radius: 99px; margin-top: 1rem; overflow: hidden; }
+.checklist-bar { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); border-radius: 99px; transition: width .4s ease; }
+
+/* FAQ */
+.faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: .75rem; }
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--t);
+}
+.faq-item.open { border-color: var(--purple); }
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-strong);
+  gap: 1rem;
+}
+.faq-q:hover { color: var(--purple); }
+.faq-icon { font-size: 1.2rem; transition: transform .3s ease; flex-shrink: 0; color: var(--purple); }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s ease, padding .3s ease;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: .95rem;
+}
+.faq-item.open .faq-a { max-height: 300px; padding: 0 1.5rem 1.25rem; }
+
+@media (max-width: 768px) {
+  .dest-grid { grid-template-columns: 1fr; }
+  .tips-grid { grid-template-columns: 1fr 1fr; }
+  .checklist-grid { grid-template-columns: 1fr; }
+  .calendar-grid { grid-template-columns: 120px repeat(12, 1fr); font-size: .65rem; }
+}
+@media (max-width: 480px) {
+  .tips-grid { grid-template-columns: 1fr; }
+  .calendar-grid { overflow-x: auto; display: block; }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- HERO -->
+<section class="guide-hero">
+  <div class="guide-hero-content">
+    <div class="section-label">Your Complete Travel Companion</div>
+    <h1>Explore the World<br>with Confidence</h1>
+    <p>Expert guides, local insights, and everything you need to plan the perfect trip — from visa tips to packing lists.</p>
+    <div class="hero-search">
+      <input type="text" id="destSearch" placeholder="Search destinations, tips, guides..." />
+      <button onclick="handleSearch()">🔍 Search</button>
+    </div>
+    <div class="floating-tags">
+      <span class="floating-tag" onclick="filterDest('beach')">🏖 Beach</span>
+      <span class="floating-tag" onclick="filterDest('mountain')">🏔 Mountains</span>
+      <span class="floating-tag" onclick="filterDest('heritage')">🏛 Heritage</span>
+      <span class="floating-tag" onclick="filterDest('adventure')">🧗 Adventure</span>
+      <span class="floating-tag" onclick="filterDest('luxury')">✨ Luxury</span>
+      <span class="floating-tag" onclick="filterDest('budget')">💰 Budget</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED DESTINATIONS -->
+<div style="background:var(--bg)">
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Destination Guides</div>
+    <h2>Handpicked by Our Travel Experts</h2>
+    <p>Deep-dive guides with everything you need to know — best time, budget, must-sees, and hidden gems.</p>
+  </div>
+
+  <div class="dest-grid" id="destGrid">
+
+    <div class="dest-card" data-tag="beach heritage">
+      <div class="dest-img">
+        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80" alt="Goa">
+        <span class="dest-badge">🇮🇳 India</span>
+        <span class="dest-rating">⭐ 4.7</span>
+      </div>
+      <div class="dest-body">
+        <h3>Goa</h3>
+        <div class="dest-meta">
+          <span class="dest-meta-item">🗓 Best: Nov–Mar</span>
+          <span class="dest-meta-item">💰 Avg: ₹4,000/day</span>
+          <span class="dest-meta-item">🌡 25–32°C</span>
+        </div>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.6">Sun-kissed beaches, vibrant nightlife, Portuguese heritage, and incredible seafood make Goa India's favourite coastal escape.</p>
+        <div class="dest-highlights">
+          <span class="highlight-tag">Baga Beach</span>
+          <span class="highlight-tag">Old Goa Churches</span>
+          <span class="highlight-tag">Dudhsagar Falls</span>
+          <span class="highlight-tag">Anjuna Flea Market</span>
+        </div>
+        <a class="dest-cta" href="holidays.html">Explore Packages →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-tag="heritage adventure luxury">
+      <div class="dest-img">
+        <img src="https://images.unsplash.com/photo-1477587458883-47145ed31741?auto=format&fit=crop&w=800&q=80" alt="Rajasthan">
+        <span class="dest-badge">🇮🇳 India</span>
+        <span class="dest-rating">⭐ 4.9</span>
+      </div>
+      <div class="dest-body">
+        <h3>Rajasthan</h3>
+        <div class="dest-meta">
+          <span class="dest-meta-item">🗓 Best: Oct–Mar</span>
+          <span class="dest-meta-item">💰 Avg: ₹5,500/day</span>
+          <span class="dest-meta-item">🌡 15–28°C</span>
+        </div>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.6">The land of maharajas, golden deserts, and majestic forts. Rajasthan offers an unmatched royal experience steeped in colour and culture.</p>
+        <div class="dest-highlights">
+          <span class="highlight-tag">Jaipur Pink City</span>
+          <span class="highlight-tag">Thar Desert Safari</span>
+          <span class="highlight-tag">Udaipur Lakes</span>
+          <span class="highlight-tag">Ranthambore Tigers</span>
+        </div>
+        <a class="dest-cta" href="holidays.html">Explore Packages →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-tag="beach adventure luxury">
+      <div class="dest-img">
+        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80" alt="Bali">
+        <span class="dest-badge">🇮🇩 Indonesia</span>
+        <span class="dest-rating">⭐ 4.8</span>
+      </div>
+      <div class="dest-body">
+        <h3>Bali</h3>
+        <div class="dest-meta">
+          <span class="dest-meta-item">🗓 Best: Apr–Oct</span>
+          <span class="dest-meta-item">💰 Avg: ₹6,000/day</span>
+          <span class="dest-meta-item">🌡 26–30°C</span>
+        </div>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.6">Island of the Gods — where spiritual temples meet terraced rice paddies, world-class surf, and a thriving arts and wellness scene.</p>
+        <div class="dest-highlights">
+          <span class="highlight-tag">Ubud Rice Terraces</span>
+          <span class="highlight-tag">Tanah Lot Temple</span>
+          <span class="highlight-tag">Seminyak Beach</span>
+          <span class="highlight-tag">Mount Batur Trek</span>
+        </div>
+        <a class="dest-cta" href="holidays.html">Explore Packages →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-tag="beach luxury">
+      <div class="dest-img">
+        <img src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=800&q=80" alt="Maldives">
+        <span class="dest-badge">🇲🇻 Maldives</span>
+        <span class="dest-rating">⭐ 5.0</span>
+      </div>
+      <div class="dest-body">
+        <h3>Maldives</h3>
+        <div class="dest-meta">
+          <span class="dest-meta-item">🗓 Best: Dec–Apr</span>
+          <span class="dest-meta-item">💰 Avg: ₹18,000/day</span>
+          <span class="dest-meta-item">🌡 28–32°C</span>
+        </div>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.6">Crystal-clear lagoons, overwater bungalows, and the world's finest coral reefs. The Maldives is the ultimate luxury escape.</p>
+        <div class="dest-highlights">
+          <span class="highlight-tag">Overwater Villas</span>
+          <span class="highlight-tag">Snorkelling & Diving</span>
+          <span class="highlight-tag">Private Islands</span>
+          <span class="highlight-tag">Whale Shark Swim</span>
+        </div>
+        <a class="dest-cta" href="holidays.html">Explore Packages →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-tag="heritage luxury">
+      <div class="dest-img">
+        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80" alt="Paris">
+        <span class="dest-badge">🇫🇷 France</span>
+        <span class="dest-rating">⭐ 4.8</span>
+      </div>
+      <div class="dest-body">
+        <h3>Paris</h3>
+        <div class="dest-meta">
+          <span class="dest-meta-item">🗓 Best: Apr–Jun</span>
+          <span class="dest-meta-item">💰 Avg: ₹14,000/day</span>
+          <span class="dest-meta-item">🌡 12–22°C</span>
+        </div>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.6">The City of Light captivates with Haussmann boulevards, Michelin-starred bistros, iconic art, and an effortless joie de vivre.</p>
+        <div class="dest-highlights">
+          <span class="highlight-tag">Eiffel Tower</span>
+          <span class="highlight-tag">Louvre Museum</span>
+          <span class="highlight-tag">Montmartre</span>
+          <span class="highlight-tag">Seine River Cruise</span>
+        </div>
+        <a class="dest-cta" href="holidays.html">Explore Packages →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-tag="heritage adventure">
+      <div class="dest-img">
+        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80" alt="Tokyo">
+        <span class="dest-badge">🇯🇵 Japan</span>
+        <span class="dest-rating">⭐ 4.9</span>
+      </div>
+      <div class="dest-body">
+        <h3>Tokyo</h3>
+        <div class="dest-meta">
+          <span class="dest-meta-item">🗓 Best: Mar–May</span>
+          <span class="dest-meta-item">💰 Avg: ₹12,000/day</span>
+          <span class="dest-meta-item">🌡 10–20°C</span>
+        </div>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.6">A mesmerising blend of ancient temples and futuristic skyscrapers, world-class ramen, cherry blossoms, and impeccable hospitality.</p>
+        <div class="dest-highlights">
+          <span class="highlight-tag">Shibuya Crossing</span>
+          <span class="highlight-tag">Senso-ji Temple</span>
+          <span class="highlight-tag">Akihabara</span>
+          <span class="highlight-tag">Tsukiji Market</span>
+        </div>
+        <a class="dest-cta" href="holidays.html">Explore Packages →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- QUICK TIPS -->
+<div class="tips-bg">
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Traveller Essentials</div>
+    <h2>Quick Tips Every Traveller Needs</h2>
+    <p>Smart advice to travel smarter, safer, and stress-free every time.</p>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-icon purple">🛡️</div>
+      <h4>Travel Insurance</h4>
+      <p>Always get comprehensive travel insurance covering medical emergencies, trip cancellation, and baggage loss. Compare plans on platforms like PolicyBazaar for India-specific needs. Budget ₹500–₹2,000 depending on duration and destination.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon teal">🛂</div>
+      <h4>Visa Information</h4>
+      <p>Check visa requirements 3–6 months ahead for international trips. Indian passport holders get visa-on-arrival in 60+ countries. Use official embassy websites or trusted services like iVisa for accurate, up-to-date requirements.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon coral">💱</div>
+      <h4>Currency & Money</h4>
+      <p>Use Forex cards or multi-currency wallets for international travel — avoid airport exchange counters which charge 5–8% markup. Notify your bank before travel. Keep a small amount of local cash for emergencies and tipping.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon green">💊</div>
+      <h4>Health & Vaccinations</h4>
+      <p>Visit a travel clinic 4–8 weeks before departure. Common vaccines for SE Asia include Hep A, Typhoid, and Japanese Encephalitis. Carry a basic med kit: ORS, antacids, antihistamines, pain relief, and your prescriptions.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon purple">📱</div>
+      <h4>Connectivity Tips</h4>
+      <p>Buy a local SIM on arrival for best rates, or use an eSIM service like Airalo for instant connectivity. Download Google Maps offline for your destination. Use WhatsApp or Signal for free international messaging.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon teal">🏨</div>
+      <h4>Accommodation Hacks</h4>
+      <p>Book refundable rates and cancel if you find better deals. Hostels offer great social experiences for solo travellers. For longer stays, Airbnb or serviced apartments beat hotels on value. Always read reviews from the last 3 months.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon coral">✈️</div>
+      <h4>Flight Strategy</h4>
+      <p>Tuesday–Wednesday departures are typically cheapest. Book 6–8 weeks ahead for domestic, 3–4 months for international. Set price alerts on Google Flights. Use the 24-hr rule: airlines must allow free cancellation within 24 hrs of booking.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon green">🌿</div>
+      <h4>Sustainable Travel</h4>
+      <p>Choose trains over flights for short distances, carry a reusable bottle and bag, stay in locally-owned guesthouses, eat at local restaurants, and avoid single-use plastics. Offset your carbon footprint through certified providers.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SEASONAL CALENDAR -->
+<div style="background:var(--bg)">
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Travel Calendar</div>
+    <h2>When to Go Where</h2>
+    <p>Plan your trips around the best weather windows for each region.</p>
+  </div>
+  <div style="overflow-x:auto;">
+    <div class="calendar-grid" style="min-width:700px">
+      <div class="cal-cell cal-header">Region</div>
+      <div class="cal-cell cal-header">Jan</div><div class="cal-cell cal-header">Feb</div>
+      <div class="cal-cell cal-header">Mar</div><div class="cal-cell cal-header">Apr</div>
+      <div class="cal-cell cal-header">May</div><div class="cal-cell cal-header">Jun</div>
+      <div class="cal-cell cal-header">Jul</div><div class="cal-cell cal-header">Aug</div>
+      <div class="cal-cell cal-header">Sep</div><div class="cal-cell cal-header">Oct</div>
+      <div class="cal-cell cal-header">Nov</div><div class="cal-cell cal-header">Dec</div>
+
+      <div class="cal-cell cal-region">🌴 Goa / Kerala</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell good">~</div><div class="cal-cell good">~</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell good">~</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+
+      <div class="cal-cell cal-region">🏜 Rajasthan</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell good">~</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell good">~</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+
+      <div class="cal-cell cal-region">🏔 Himalayas</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell good">~</div><div class="cal-cell good">~</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell good">~</div><div class="cal-cell avoid">✗</div>
+
+      <div class="cal-cell cal-region">🌺 Southeast Asia</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell good">~</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+
+      <div class="cal-cell cal-region">🗼 Europe</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell good">~</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell good">~</div><div class="cal-cell good">~</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell good">~</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+
+      <div class="cal-cell cal-region">🏝 Maldives</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell best">✓</div><div class="cal-cell best">✓</div>
+      <div class="cal-cell good">~</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell avoid">✗</div><div class="cal-cell avoid">✗</div>
+      <div class="cal-cell good">~</div><div class="cal-cell best">✓</div>
+    </div>
+  </div>
+  <div class="cal-legend">
+    <div class="cal-legend-item"><div class="cal-dot" style="background:var(--green)"></div> Best Time</div>
+    <div class="cal-legend-item"><div class="cal-dot" style="background:var(--gold)"></div> Good Time</div>
+    <div class="cal-legend-item"><div class="cal-dot" style="background:var(--coral)"></div> Avoid</div>
+  </div>
+</div>
+</div>
+
+<!-- PACKING CHECKLIST -->
+<div class="tips-bg">
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Smart Packing</div>
+    <h2>The Ultimate Packing Checklist</h2>
+    <p>Never forget the essentials again. Your progress is saved automatically.</p>
+  </div>
+  <div class="checklist-grid" id="checklistGrid">
+
+    <div class="checklist-card">
+      <h4>📋 Documents</h4>
+      <div class="check-item"><input type="checkbox" id="c1"><label for="c1">Passport / Visa</label></div>
+      <div class="check-item"><input type="checkbox" id="c2"><label for="c2">Flight tickets & boarding pass</label></div>
+      <div class="check-item"><input type="checkbox" id="c3"><label for="c3">Hotel booking confirmations</label></div>
+      <div class="check-item"><input type="checkbox" id="c4"><label for="c4">Travel insurance documents</label></div>
+      <div class="check-item"><input type="checkbox" id="c5"><label for="c5">International driving license</label></div>
+      <div class="check-item"><input type="checkbox" id="c6"><label for="c6">Emergency contact list</label></div>
+      <div class="checklist-progress"><div class="checklist-bar" id="bar-docs" style="width:0%"></div></div>
+    </div>
+
+    <div class="checklist-card">
+      <h4>👗 Clothing</h4>
+      <div class="check-item"><input type="checkbox" id="c7"><label for="c7">T-shirts / light tops (5–7)</label></div>
+      <div class="check-item"><input type="checkbox" id="c8"><label for="c8">Trousers / shorts (3)</label></div>
+      <div class="check-item"><input type="checkbox" id="c9"><label for="c9">Comfortable walking shoes</label></div>
+      <div class="check-item"><input type="checkbox" id="c10"><label for="c10">Flip flops / sandals</label></div>
+      <div class="check-item"><input type="checkbox" id="c11"><label for="c11">Light jacket / rain poncho</label></div>
+      <div class="check-item"><input type="checkbox" id="c12"><label for="c12">Swimwear</label></div>
+      <div class="checklist-progress"><div class="checklist-bar" id="bar-clothing" style="width:0%"></div></div>
+    </div>
+
+    <div class="checklist-card">
+      <h4>💻 Electronics</h4>
+      <div class="check-item"><input type="checkbox" id="c13"><label for="c13">Phone + charger</label></div>
+      <div class="check-item"><input type="checkbox" id="c14"><label for="c14">Universal power adapter</label></div>
+      <div class="check-item"><input type="checkbox" id="c15"><label for="c15">Portable power bank</label></div>
+      <div class="check-item"><input type="checkbox" id="c16"><label for="c16">Earphones / headphones</label></div>
+      <div class="check-item"><input type="checkbox" id="c17"><label for="c17">Camera + memory cards</label></div>
+      <div class="check-item"><input type="checkbox" id="c18"><label for="c18">Laptop + cables</label></div>
+      <div class="checklist-progress"><div class="checklist-bar" id="bar-electronics" style="width:0%"></div></div>
+    </div>
+
+    <div class="checklist-card">
+      <h4>🧴 Toiletries</h4>
+      <div class="check-item"><input type="checkbox" id="c19"><label for="c19">Sunscreen SPF 50+</label></div>
+      <div class="check-item"><input type="checkbox" id="c20"><label for="c20">Toothbrush & toothpaste</label></div>
+      <div class="check-item"><input type="checkbox" id="c21"><label for="c21">Shampoo & body wash</label></div>
+      <div class="check-item"><input type="checkbox" id="c22"><label for="c22">Mosquito repellent</label></div>
+      <div class="check-item"><input type="checkbox" id="c23"><label for="c23">Hand sanitiser</label></div>
+      <div class="check-item"><input type="checkbox" id="c24"><label for="c24">Basic first-aid kit</label></div>
+      <div class="checklist-progress"><div class="checklist-bar" id="bar-toiletries" style="width:0%"></div></div>
+    </div>
+
+  </div>
+  <div style="text-align:center;margin-top:1.5rem">
+    <button onclick="resetChecklist()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:.6rem 1.5rem;border-radius:50px;cursor:pointer;transition:var(--t)" onmouseover="this.style.borderColor='var(--coral)';this.style.color='var(--coral)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Reset Checklist</button>
+  </div>
+</div>
+</div>
+
+<!-- FAQ -->
+<div style="background:var(--bg)">
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">Common Questions</div>
+    <h2>Travel FAQs</h2>
+    <p>Quick answers to the questions every traveller asks.</p>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How far in advance should I book international flights?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">For international flights, booking 2–4 months in advance typically yields the best prices. Popular routes during peak season (Dec–Jan, summer) may require booking 5–6 months ahead. Use Google Flights price tracking to monitor fare changes and book when you see a significant dip.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What travel insurance do I really need?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">At minimum, get medical coverage (minimum USD 1,00,000 for international), trip cancellation, and baggage insurance. For adventure activities like trekking or scuba diving, ensure your policy covers them. Single-trip policies work for occasional travel; annual multi-trip plans save money if you travel 3+ times per year.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How do I avoid forex fees and currency scams?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">Use a multi-currency Forex card from HDFC, ICICI, or Thomas Cook for locked-in rates. Avoid exchanging at airports — rates are 5–8% worse. In popular tourist areas, politely refuse 'dynamic currency conversion' at ATMs, which charges extra fees. Always pay in local currency when using cards abroad.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Is it safe to travel solo in India and abroad?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">Solo travel can be incredibly rewarding with the right precautions. Share your itinerary with family/friends, stay in well-reviewed accommodations, trust your instincts, and keep copies of all documents. Join travel communities on Reddit and Facebook for destination-specific safety advice. For women solo travellers, apps like bSafe and community groups provide extra support.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What is the best way to experience local food safely?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">Eat where locals eat — busy, bustling spots with high turnover usually mean fresh food. Avoid pre-cut fruits and raw salads in high-risk regions. Street food cooked fresh in front of you is often safer than buffets. Always drink sealed bottled water or use a LifeStraw filter bottle. Start with milder dishes if your stomach isn't acclimatised.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How do I get a visa for popular international destinations?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">Visa processes vary widely. For Schengen (Europe), apply through the embassy of your primary destination country. Thailand, Malaysia, and many SE Asian countries offer visa-on-arrival or e-visa. UK, USA, Canada require advance applications (6–12 weeks). Always check official embassy websites or use services like iVisa or VFS Global for guided assistance.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What should I do if my passport or wallet is lost/stolen?</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">First, file a police report — you'll need this for insurance claims. Contact the nearest Indian Embassy/Consulate immediately for emergency travel documents. Block your cards via mobile banking apps. Share your digital document copies (stored in Google Drive or email) with someone at home. Most travel insurance covers emergency document replacement expenses.</div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+// Scroll animations
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); } });
+}, { threshold: 0.08 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Search
+function handleSearch() {
+  const q = document.getElementById('destSearch').value.trim();
+  if (q) { if (typeof twToast === 'function') twToast(`Searching for "${q}"…`); }
+}
+document.getElementById('destSearch').addEventListener('keydown', e => { if (e.key === 'Enter') handleSearch(); });
+
+// Destination filter
+function filterDest(tag) {
+  const cards = document.querySelectorAll('.dest-card');
+  cards.forEach(c => {
+    const tags = c.getAttribute('data-tag') || '';
+    c.style.display = tags.includes(tag) ? '' : 'none';
+  });
+  if (typeof twToast === 'function') twToast(`Showing ${tag} destinations`);
+}
+
+// FAQ accordion
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Packing checklist with localStorage
+const checkIds = ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','c12','c13','c14','c15','c16','c17','c18','c19','c20','c21','c22','c23','c24'];
+const groups = {
+  'bar-docs': ['c1','c2','c3','c4','c5','c6'],
+  'bar-clothing': ['c7','c8','c9','c10','c11','c12'],
+  'bar-electronics': ['c13','c14','c15','c16','c17','c18'],
+  'bar-toiletries': ['c19','c20','c21','c22','c23','c24']
+};
+
+function loadChecklist() {
+  const saved = JSON.parse(localStorage.getItem('tw-checklist') || '{}');
+  checkIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.checked = !!saved[id];
+    el.closest('.check-item').classList.toggle('checked', !!saved[id]);
+  });
+  updateBars();
+}
+
+function saveChecklist() {
+  const state = {};
+  checkIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) state[id] = el.checked;
+  });
+  localStorage.setItem('tw-checklist', JSON.stringify(state));
+  updateBars();
+}
+
+function updateBars() {
+  Object.entries(groups).forEach(([barId, ids]) => {
+    const checked = ids.filter(id => { const el = document.getElementById(id); return el && el.checked; }).length;
+    const pct = Math.round((checked / ids.length) * 100);
+    const bar = document.getElementById(barId);
+    if (bar) bar.style.width = pct + '%';
+  });
+}
+
+function resetChecklist() {
+  localStorage.removeItem('tw-checklist');
+  checkIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.checked = false;
+    el.closest('.check-item').classList.remove('checked');
+  });
+  updateBars();
+  if (typeof twToast === 'function') twToast('Checklist reset!');
+}
+
+checkIds.forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('change', () => {
+    el.closest('.check-item').classList.toggle('checked', el.checked);
+    saveChecklist();
+  });
+});
+
+loadChecklist();
+</script>
+</body>
+</html>

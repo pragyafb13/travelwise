@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Train Search Results — Delhi to Mumbai | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.trains-hero {
+  background: linear-gradient(135deg, #0B1D3E 0%, #1E3A8A 50%, #3B82F6 100%);
+  padding: 100px 24px 44px; position: relative; overflow: hidden;
+}
+.trains-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1600&q=20') center/cover;
+  opacity: 0.12;
+}
+.trains-hero-inner { position: relative; z-index: 2; max-width: 960px; margin: 0 auto; }
+.trains-hero h1 { font-family: var(--display); font-size: clamp(1.5rem,3vw,2.2rem); color: #fff; margin-bottom: 22px; font-weight: 700; }
+.search-box {
+  background: var(--card); backdrop-filter: blur(20px);
+  border: 1px solid var(--border2); border-radius: var(--radius-lg);
+  padding: 20px 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+}
+.s-field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 140px; }
+.s-field label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+.s-field input, .s-field select {
+  background: var(--input-bg); border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); padding: 10px 14px; color: var(--text-strong);
+  font-size: 14px; font-family: var(--font); font-weight: 600; outline: none;
+  transition: border-color var(--t);
+}
+.s-field input:focus, .s-field select:focus { border-color: var(--purple); }
+.search-swap {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg,#3B82F6,var(--teal));
+  border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: #fff; align-self: flex-end; flex-shrink: 0;
+  transition: transform .3s var(--ease-bounce);
+}
+.search-swap:hover { transform: rotate(180deg); }
+.btn-search-trains {
+  padding: 10px 28px; background: linear-gradient(135deg,#FF6B35,#FF3CAC);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 15px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  align-self: flex-end; transition: opacity var(--t); white-space: nowrap;
+}
+.btn-search-trains:hover { opacity: .9; }
+
+/* ── Layout ── */
+.results-layout {
+  max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px;
+  display: grid; grid-template-columns: 260px 1fr; gap: 28px;
+}
+@media(max-width:900px){ .results-layout { grid-template-columns: 1fr; } }
+
+/* ── Sidebar ── */
+.sidebar {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px; height: fit-content;
+  position: sticky; top: 90px;
+}
+.sidebar h3 { font-family: var(--display); font-size: 15px; font-weight: 700; color: var(--text-strong); margin-bottom: 18px; }
+.filter-group { margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 18px; }
+.filter-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.filter-group h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-bottom: 10px; }
+.filter-opt { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer; }
+.filter-opt input { accent-color: var(--purple); width: 15px; height: 15px; cursor: pointer; }
+.filter-opt label { font-size: 13px; color: var(--text); cursor: pointer; flex: 1; }
+.time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.time-chip {
+  padding: 8px 4px; border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  font-size: 11px; font-weight: 600; text-align: center; cursor: pointer;
+  transition: all var(--t); color: var(--muted);
+}
+.time-chip:hover, .time-chip.active { border-color: var(--purple); background: rgba(108,43,217,.1); color: var(--purple); }
+.clear-btn {
+  width: 100%; padding: 8px; border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  background: transparent; color: var(--muted); font-size: 13px; font-family: var(--font); cursor: pointer;
+  transition: all var(--t);
+}
+.clear-btn:hover { border-color: var(--coral); color: var(--coral); }
+
+/* ── Sort Bar ── */
+.sort-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.sort-bar span { font-size: 13px; color: var(--muted); font-weight: 600; }
+.sort-chip {
+  padding: 7px 16px; border: 1px solid var(--border2); border-radius: 100px;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all var(--t);
+  color: var(--text); background: transparent;
+}
+.sort-chip.active { background: linear-gradient(135deg,#3B82F6,var(--teal)); color: #fff; border-color: transparent; }
+.sort-chip:hover { border-color: #3B82F6; color: #3B82F6; }
+.results-meta { font-size: 13px; color: var(--muted); margin-left: auto; }
+
+/* ── Train Card ── */
+.train-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px 22px; margin-bottom: 14px;
+  transition: all var(--t);
+}
+.train-card:hover { border-color: var(--border2); box-shadow: 0 8px 28px rgba(59,130,246,.1); transform: translateY(-2px); }
+.train-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+.train-name-block { }
+.train-name { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text-strong); margin-bottom: 3px; }
+.train-number { font-size: 12px; color: var(--muted); font-weight: 600; }
+.train-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.train-badge { padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; }
+.badge-rajdhani { background: linear-gradient(135deg,rgba(239,68,68,.15),rgba(239,68,68,.08)); color: #EF4444; border: 1px solid rgba(239,68,68,.25); }
+.badge-express { background: rgba(59,130,246,.12); color: #3B82F6; }
+.badge-superfast { background: rgba(16,185,129,.12); color: var(--green); }
+
+.train-route { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+.station-block { text-align: center; }
+.station-time { font-family: var(--display); font-size: 24px; font-weight: 800; color: var(--text-strong); }
+.station-code { font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 2px; }
+.station-name { font-size: 11px; color: var(--muted); }
+.route-middle { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.route-track { width: 100%; height: 2px; background: var(--border2); position: relative; }
+.route-track::before { content: '🚂'; position: absolute; left: 50%; top: -10px; transform: translateX(-50%); font-size: 16px; }
+.route-duration { font-size: 12px; font-weight: 700; color: var(--text); }
+.route-days { font-size: 11px; color: var(--muted); }
+
+/* ── Class Options ── */
+.class-options { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.class-option {
+  padding: 8px 14px; border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  cursor: pointer; transition: all var(--t); text-align: center;
+}
+.class-option:hover { border-color: #3B82F6; }
+.class-option.selected { border-color: #3B82F6; background: rgba(59,130,246,.08); }
+.class-option.unavailable { opacity: .4; cursor: not-allowed; }
+.class-name { font-size: 12px; font-weight: 700; color: var(--text-strong); }
+.class-price { font-size: 14px; font-weight: 800; color: #3B82F6; margin-top: 2px; }
+.class-avail { font-size: 10px; margin-top: 1px; }
+.class-avail.avail-good { color: var(--green); }
+.class-avail.avail-low { color: var(--coral); }
+.class-avail.avail-wl { color: var(--muted); }
+
+.train-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.train-perks { display: flex; gap: 8px; flex-wrap: wrap; }
+.train-perk { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.btn-book-train {
+  padding: 10px 24px; background: linear-gradient(135deg,#FF6B35,#FF3CAC);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  transition: opacity var(--t); text-decoration: none; display: inline-block;
+}
+.btn-book-train:hover { opacity: .9; }
+
+/* ── IRCTC Banner ── */
+.irctc-banner {
+  background: rgba(59,130,246,.07); border: 1px solid rgba(59,130,246,.2);
+  border-radius: var(--radius-lg); padding: 14px 18px; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.irctc-banner p { font-size: 13px; color: var(--text); flex: 1; }
+.irctc-banner p strong { color: var(--text-strong); }
+.irctc-banner a { font-size: 13px; font-weight: 700; color: #3B82F6; text-decoration: none; white-space: nowrap; }
+.irctc-banner a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div class="toast" id="tw-toast"></div>
+
+<!-- Hero -->
+<div class="trains-hero">
+  <div class="trains-hero-inner">
+    <h1>🚂 Delhi NDLS → Mumbai CSMT — Mon, 6 Apr 2026</h1>
+    <div class="search-box">
+      <div class="s-field">
+        <label>From Station</label>
+        <input type="text" value="New Delhi (NDLS)">
+      </div>
+      <button class="search-swap" onclick="twToast('Swapped!')">⇄</button>
+      <div class="s-field">
+        <label>To Station</label>
+        <input type="text" value="Mumbai CSMT (CSTM)">
+      </div>
+      <div class="s-field" style="max-width:150px">
+        <label>Travel Date</label>
+        <input type="date" value="2026-04-06">
+      </div>
+      <div class="s-field" style="max-width:130px">
+        <label>Class</label>
+        <select>
+          <option>All Classes</option>
+          <option>Sleeper (SL)</option>
+          <option>3rd AC (3A)</option>
+          <option>2nd AC (2A)</option>
+          <option>1st AC (1A)</option>
+        </select>
+      </div>
+      <div class="s-field" style="max-width:120px">
+        <label>Quota</label>
+        <select>
+          <option>General</option>
+          <option>Ladies</option>
+          <option>Senior Citizen</option>
+        </select>
+      </div>
+      <button class="btn-search-trains" onclick="twToast('Searching trains...')">Search</button>
+    </div>
+  </div>
+</div>
+
+<div class="results-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar reveal">
+    <h3>🎛 Filters</h3>
+
+    <div class="filter-group">
+      <h4>Class</h4>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Sleeper (SL)</label></label>
+      <label class="filter-opt"><input type="checkbox" checked> <label>3rd AC (3A)</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>2nd AC (2A)</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>1st AC (1A)</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>AC Chair Car (CC)</label></label>
+    </div>
+
+    <div class="filter-group">
+      <h4>Departure Time</h4>
+      <div class="time-grid">
+        <div class="time-chip" onclick="this.classList.toggle('active')">🌅 Early<br><small>00–06</small></div>
+        <div class="time-chip active" onclick="this.classList.toggle('active')">🌞 Morning<br><small>06–12</small></div>
+        <div class="time-chip" onclick="this.classList.toggle('active')">🌇 Afternoon<br><small>12–18</small></div>
+        <div class="time-chip" onclick="this.classList.toggle('active')">🌃 Evening<br><small>18–24</small></div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>Availability</h4>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Available</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Waitlisted</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>RAC</label></label>
+    </div>
+
+    <div class="filter-group">
+      <h4>Train Type</h4>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Rajdhani</label></label>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Shatabdi</label></label>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Duronto</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Express</label></label>
+    </div>
+
+    <button class="clear-btn" onclick="twToast('Filters cleared')">✕ Clear All Filters</button>
+  </aside>
+
+  <!-- Results -->
+  <div>
+    <!-- IRCTC Info Banner -->
+    <div class="irctc-banner">
+      <span style="font-size:22px">🚂</span>
+      <p><strong>Book directly</strong> via TravelWise — powered by IRCTC. Login required for booking. Check PNR status, seat availability and live train tracking.</p>
+      <a href="#" onclick="twToast('Opening IRCTC login...');return false">IRCTC Login →</a>
+    </div>
+
+    <div class="sort-bar">
+      <span>Sort by:</span>
+      <button class="sort-chip active" onclick="setActive(this)">Departure</button>
+      <button class="sort-chip" onclick="setActive(this)">Duration</button>
+      <button class="sort-chip" onclick="setActive(this)">Arrival</button>
+      <button class="sort-chip" onclick="setActive(this)">Price</button>
+      <span class="results-meta">5 trains found</span>
+    </div>
+
+    <!-- Rajdhani Express -->
+    <div class="train-card reveal">
+      <div class="train-header">
+        <div class="train-name-block">
+          <div class="train-name">Rajdhani Express</div>
+          <div class="train-number">Train No: 12951 · Runs: Mon, Tue, Thu, Sat</div>
+        </div>
+        <div class="train-badges">
+          <span class="train-badge badge-rajdhani">🔴 Rajdhani</span>
+          <span class="train-badge badge-superfast">⚡ Superfast</span>
+        </div>
+      </div>
+      <div class="train-route">
+        <div class="station-block">
+          <div class="station-time">16:35</div>
+          <div class="station-code">NDLS</div>
+          <div class="station-name">New Delhi</div>
+        </div>
+        <div class="route-middle">
+          <div class="route-duration">15h 35m</div>
+          <div class="route-track"></div>
+          <div class="route-days">Overnight · No stops</div>
+        </div>
+        <div class="station-block">
+          <div class="station-time">08:10</div>
+          <div class="station-code">CSTM</div>
+          <div class="station-name">Mumbai CSMT (+1)</div>
+        </div>
+      </div>
+      <div class="class-options">
+        <div class="class-option selected" onclick="selectClass(this)">
+          <div class="class-name">3A</div>
+          <div class="class-price">₹1,945</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">2A</div>
+          <div class="class-price">₹2,750</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">1A</div>
+          <div class="class-price">₹4,680</div>
+          <div class="class-avail avail-low">⚠ 3 left</div>
+        </div>
+      </div>
+      <div class="train-footer">
+        <div class="train-perks">
+          <span class="train-perk">🍽 Meals Included</span>
+          <span class="train-perk">🛏 Bedroll Included</span>
+          <span class="train-perk">📶 e-Catering</span>
+        </div>
+        <a href="checkout.html" class="btn-book-train">Book Now — ₹1,945</a>
+      </div>
+    </div>
+
+    <!-- Shatabdi Express -->
+    <div class="train-card reveal">
+      <div class="train-header">
+        <div class="train-name-block">
+          <div class="train-name">Mumbai Shatabdi Express</div>
+          <div class="train-number">Train No: 12009 · Runs: Mon–Sat (Except Sun)</div>
+        </div>
+        <div class="train-badges">
+          <span class="train-badge badge-express">🔵 Shatabdi</span>
+          <span class="train-badge badge-superfast">⚡ Superfast</span>
+        </div>
+      </div>
+      <div class="train-route">
+        <div class="station-block">
+          <div class="station-time">06:00</div>
+          <div class="station-code">NDLS</div>
+          <div class="station-name">New Delhi</div>
+        </div>
+        <div class="route-middle">
+          <div class="route-duration">20h 00m</div>
+          <div class="route-track"></div>
+          <div class="route-days">Via Kota, Vadodara</div>
+        </div>
+        <div class="station-block">
+          <div class="station-time">02:00</div>
+          <div class="station-code">CSTM</div>
+          <div class="station-name">Mumbai CSMT (+1)</div>
+        </div>
+      </div>
+      <div class="class-options">
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">SL</div>
+          <div class="class-price">₹595</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+        <div class="class-option selected" onclick="selectClass(this)">
+          <div class="class-name">3A</div>
+          <div class="class-price">₹1,625</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">2A</div>
+          <div class="class-price">₹2,310</div>
+          <div class="class-avail avail-low">⚠ 6 left</div>
+        </div>
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">1A</div>
+          <div class="class-price">₹3,950</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+      </div>
+      <div class="train-footer">
+        <div class="train-perks">
+          <span class="train-perk">🍽 Pantry Car</span>
+          <span class="train-perk">🚿 Clean Toilets</span>
+        </div>
+        <a href="checkout.html" class="btn-book-train">Book Now — ₹1,625</a>
+      </div>
+    </div>
+
+    <!-- Duronto Express -->
+    <div class="train-card reveal">
+      <div class="train-header">
+        <div class="train-name-block">
+          <div class="train-name">Duronto Express</div>
+          <div class="train-number">Train No: 12263 · Runs: Tue, Fri, Sun</div>
+        </div>
+        <div class="train-badges">
+          <span class="train-badge" style="background:rgba(108,43,217,.12);color:var(--purple);border:1px solid rgba(108,43,217,.25)">🟣 Duronto</span>
+          <span class="train-badge badge-superfast">⚡ Non-stop</span>
+        </div>
+      </div>
+      <div class="train-route">
+        <div class="station-block">
+          <div class="station-time">11:10</div>
+          <div class="station-code">NDLS</div>
+          <div class="station-name">New Delhi</div>
+        </div>
+        <div class="route-middle">
+          <div class="route-duration">16h 40m</div>
+          <div class="route-track"></div>
+          <div class="route-days">Direct · Zero commercial halts</div>
+        </div>
+        <div class="station-block">
+          <div class="station-time">03:50</div>
+          <div class="station-code">CSTM</div>
+          <div class="station-name">Mumbai CSMT (+1)</div>
+        </div>
+      </div>
+      <div class="class-options">
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">SL</div>
+          <div class="class-price">₹740</div>
+          <div class="class-avail avail-low">⚠ WL 15</div>
+        </div>
+        <div class="class-option selected" onclick="selectClass(this)">
+          <div class="class-name">3A</div>
+          <div class="class-price">₹1,845</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">2A</div>
+          <div class="class-price">₹2,620</div>
+          <div class="class-avail avail-low">⚠ 2 left</div>
+        </div>
+        <div class="class-option unavailable">
+          <div class="class-name">1A</div>
+          <div class="class-price">₹4,420</div>
+          <div class="class-avail avail-wl">WL 3</div>
+        </div>
+      </div>
+      <div class="train-footer">
+        <div class="train-perks">
+          <span class="train-perk">🍽 Meals Included</span>
+          <span class="train-perk">🛏 Bedroll Included</span>
+          <span class="train-perk">🚫 No Stops</span>
+        </div>
+        <a href="checkout.html" class="btn-book-train">Book Now — ₹1,845</a>
+      </div>
+    </div>
+
+    <!-- August Kranti Express -->
+    <div class="train-card reveal">
+      <div class="train-header">
+        <div class="train-name-block">
+          <div class="train-name">August Kranti Rajdhani</div>
+          <div class="train-number">Train No: 12953 · Runs: Daily</div>
+        </div>
+        <div class="train-badges">
+          <span class="train-badge badge-rajdhani">🔴 Rajdhani</span>
+        </div>
+      </div>
+      <div class="train-route">
+        <div class="station-block">
+          <div class="station-time">17:40</div>
+          <div class="station-code">NDLS</div>
+          <div class="station-name">New Delhi</div>
+        </div>
+        <div class="route-middle">
+          <div class="route-duration">16h 05m</div>
+          <div class="route-track"></div>
+          <div class="route-days">Via Vadodara, Surat</div>
+        </div>
+        <div class="station-block">
+          <div class="station-time">09:45</div>
+          <div class="station-code">BCT</div>
+          <div class="station-name">Mumbai Central (+1)</div>
+        </div>
+      </div>
+      <div class="class-options">
+        <div class="class-option selected" onclick="selectClass(this)">
+          <div class="class-name">3A</div>
+          <div class="class-price">₹2,050</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">2A</div>
+          <div class="class-price">₹2,895</div>
+          <div class="class-avail avail-low">⚠ 4 left</div>
+        </div>
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">1A</div>
+          <div class="class-price">₹4,850</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+      </div>
+      <div class="train-footer">
+        <div class="train-perks">
+          <span class="train-perk">🍽 Meals Included</span>
+          <span class="train-perk">🛏 Bedroll Included</span>
+          <span class="train-perk">📶 WiFi Available</span>
+        </div>
+        <a href="checkout.html" class="btn-book-train">Book Now — ₹2,050</a>
+      </div>
+    </div>
+
+    <!-- Garib Rath Express -->
+    <div class="train-card reveal">
+      <div class="train-header">
+        <div class="train-name-block">
+          <div class="train-name">Garib Rath Express</div>
+          <div class="train-number">Train No: 12909 · Runs: Wed, Sat</div>
+        </div>
+        <div class="train-badges">
+          <span class="train-badge" style="background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)">🟢 Budget AC</span>
+          <span class="train-badge badge-express">🔵 Express</span>
+        </div>
+      </div>
+      <div class="train-route">
+        <div class="station-block">
+          <div class="station-time">15:30</div>
+          <div class="station-code">NDLS</div>
+          <div class="station-name">New Delhi</div>
+        </div>
+        <div class="route-middle">
+          <div class="route-duration">21h 15m</div>
+          <div class="route-track"></div>
+          <div class="route-days">Via Kota, Ratlam</div>
+        </div>
+        <div class="station-block">
+          <div class="station-time">12:45</div>
+          <div class="station-code">CSTM</div>
+          <div class="station-name">Mumbai CSMT (+1)</div>
+        </div>
+      </div>
+      <div class="class-options">
+        <div class="class-option" onclick="selectClass(this)">
+          <div class="class-name">SL</div>
+          <div class="class-price">₹490</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+        <div class="class-option selected" onclick="selectClass(this)">
+          <div class="class-name">3A</div>
+          <div class="class-price">₹1,220</div>
+          <div class="class-avail avail-good">✓ Available</div>
+        </div>
+      </div>
+      <div class="train-footer">
+        <div class="train-perks">
+          <span class="train-perk">💰 Budget Friendly</span>
+          <span class="train-perk">🛏 AC Coach</span>
+          <span class="train-perk">🍽 Pantry Car</span>
+        </div>
+        <a href="checkout.html" class="btn-book-train">Book Now — ₹1,220</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+function setActive(btn) {
+  document.querySelectorAll('.sort-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+}
+function selectClass(el) {
+  if (el.classList.contains('unavailable')) return;
+  var card = el.closest('.train-card');
+  card.querySelectorAll('.class-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  var price = el.querySelector('.class-price').textContent;
+  var btn = card.querySelector('.btn-book-train');
+  btn.textContent = 'Book Now — ' + price;
+}
+</script>
+</body>
+</html>

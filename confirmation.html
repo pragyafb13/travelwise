@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Confirmed! — TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Confetti ── */
+.confetti-container { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; }
+.confetti-piece {
+  position: absolute; top: -12px; width: 10px; height: 10px; border-radius: 2px;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── Success Section ── */
+.confirm-wrap { max-width: 840px; margin: 0 auto; padding: 100px 24px 80px; }
+.success-hero { text-align: center; margin-bottom: 40px; }
+.checkmark-ring {
+  width: 90px; height: 90px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--green), #059669);
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+  box-shadow: 0 0 0 16px rgba(16,185,129,.15), 0 0 0 32px rgba(16,185,129,.06);
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(16,185,129,.4), 0 0 0 0 rgba(16,185,129,.15); }
+  50% { box-shadow: 0 0 0 16px rgba(16,185,129,.15), 0 0 0 32px rgba(16,185,129,.06); }
+  100% { box-shadow: 0 0 0 24px rgba(16,185,129,.0), 0 0 0 48px rgba(16,185,129,.0); }
+}
+.checkmark { font-size: 42px; animation: checkPop .5s .3s var(--ease-bounce) both; }
+@keyframes checkPop { 0%{transform:scale(0)} 100%{transform:scale(1)} }
+.success-headline { font-family: var(--display); font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800; color: var(--text-strong); margin-bottom: 10px; }
+.success-sub { font-size: 16px; color: var(--muted); margin-bottom: 24px; }
+.booking-ref-box {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--card); border: 1px solid var(--border2); border-radius: var(--radius-lg);
+  padding: 16px 28px; margin-bottom: 8px;
+}
+.booking-ref-label { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+.booking-ref-code { font-family: var(--display); font-size: 20px; font-weight: 800; color: var(--purple); letter-spacing: 2px; }
+.copy-ref-btn {
+  padding: 6px 14px; background: transparent; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); font-size: 12px; font-weight: 700; color: var(--muted);
+  cursor: pointer; font-family: var(--font); transition: all var(--t);
+}
+.copy-ref-btn:hover { border-color: var(--purple); color: var(--purple); }
+
+/* ── Trip Summary ── */
+.trip-summary-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 28px; margin-bottom: 24px;
+}
+.ts-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.ts-title { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text-strong); }
+.ts-status { padding: 5px 14px; background: rgba(16,185,129,.12); color: var(--green); border-radius: 100px; font-size: 13px; font-weight: 700; border: 1px solid rgba(16,185,129,.3); }
+.ts-flight { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.ts-airport { text-align: center; }
+.ts-time { font-family: var(--display); font-size: 28px; font-weight: 800; color: var(--text-strong); }
+.ts-code { font-size: 13px; color: var(--muted); font-weight: 600; margin-top: 3px; }
+.ts-middle { text-align: center; }
+.ts-airline-logo { font-size: 32px; margin-bottom: 4px; }
+.ts-airline-name { font-size: 13px; font-weight: 700; color: var(--text-strong); }
+.ts-flight-no { font-size: 12px; color: var(--muted); }
+.ts-duration { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.ts-divider { width: 80px; height: 1px; background: var(--border2); position: relative; display: inline-block; }
+.ts-divider::after { content: '✈'; position: absolute; right: -8px; top: -9px; font-size: 14px; color: var(--purple); }
+.ts-details-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+@media(max-width:600px){ .ts-details-grid { grid-template-columns: 1fr 1fr; } }
+.ts-detail { }
+.ts-detail-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+.ts-detail-val { font-size: 14px; font-weight: 700; color: var(--text-strong); }
+
+/* ── Timeline ── */
+.timeline-section { margin-bottom: 28px; }
+.timeline-section h3 { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text-strong); margin-bottom: 20px; }
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before { content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+.tl-item { position: relative; margin-bottom: 22px; }
+.tl-dot {
+  position: absolute; left: -32px; top: 4px; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--card); border: 2px solid var(--border2);
+  display: flex; align-items: center; justify-content: center; font-size: 11px;
+}
+.tl-item.done .tl-dot { background: var(--green); border-color: var(--green); color: #fff; }
+.tl-item.active .tl-dot { background: linear-gradient(135deg,var(--purple),var(--teal)); border-color: transparent; }
+.tl-title { font-size: 14px; font-weight: 700; color: var(--text-strong); margin-bottom: 3px; }
+.tl-sub { font-size: 12px; color: var(--muted); }
+
+/* ── Action Buttons ── */
+.action-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+@media(max-width:600px){ .action-grid { grid-template-columns: 1fr; } }
+.action-btn {
+  padding: 13px 20px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); text-decoration: none; text-align: center;
+  display: block; transition: all var(--t); border: none;
+}
+.action-btn-primary { background: linear-gradient(135deg,var(--purple),var(--teal)); color: #fff; }
+.action-btn-primary:hover { opacity: .9; }
+.action-btn-coral { background: linear-gradient(135deg,#FF6B35,#FF3CAC); color: #fff; }
+.action-btn-coral:hover { opacity: .9; }
+.action-btn-outline { background: transparent; border: 1px solid var(--border2); color: var(--text); }
+.action-btn-outline:hover { border-color: var(--purple); color: var(--purple); }
+
+/* ── Share ── */
+.share-strip { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.share-strip span { font-size: 14px; font-weight: 600; color: var(--text); }
+.share-btns { display: flex; gap: 8px; }
+.share-btn { padding: 6px 16px; border: 1px solid var(--border2); border-radius: 100px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: var(--font); background: transparent; color: var(--text); transition: all var(--t); }
+.share-btn:hover { border-color: var(--purple); color: var(--purple); }
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div class="toast" id="tw-toast"></div>
+<div class="confetti-container" id="confetti"></div>
+
+<div class="confirm-wrap">
+  <!-- Success Hero -->
+  <div class="success-hero">
+    <div class="checkmark-ring"><span class="checkmark">✓</span></div>
+    <h1 class="success-headline">Booking Confirmed! 🎉</h1>
+    <p class="success-sub">Your flight has been booked successfully. Check your email for the e-ticket.</p>
+    <div class="booking-ref-box">
+      <div>
+        <div class="booking-ref-label">Booking Reference</div>
+        <div class="booking-ref-code" id="ref-code">TWS-2026-XXXXX</div>
+      </div>
+      <button class="copy-ref-btn" onclick="copyRef()">📋 Copy</button>
+    </div>
+    <br>
+    <small style="color:var(--muted);font-size:12px">Confirmation sent to rahul.sharma@email.com</small>
+  </div>
+
+  <!-- Trip Summary -->
+  <div class="trip-summary-card reveal">
+    <div class="ts-header">
+      <div class="ts-title">✈ Flight Summary</div>
+      <div class="ts-status">✅ Confirmed</div>
+    </div>
+    <div class="ts-flight">
+      <div class="ts-airport">
+        <div class="ts-time">05:55</div>
+        <div class="ts-code">DEL · New Delhi</div>
+      </div>
+      <div class="ts-middle">
+        <div class="ts-airline-logo">✈</div>
+        <div class="ts-airline-name">IndiGo</div>
+        <div class="ts-flight-no">6E-2011</div>
+        <div style="margin:6px 0"><div class="ts-divider"></div></div>
+        <div class="ts-duration">2h 15m · Non-stop</div>
+      </div>
+      <div class="ts-airport">
+        <div class="ts-time">08:10</div>
+        <div class="ts-code">GOI · Goa</div>
+      </div>
+    </div>
+    <div class="ts-details-grid">
+      <div class="ts-detail"><div class="ts-detail-label">Date</div><div class="ts-detail-val">Sat, 5 Apr 2026</div></div>
+      <div class="ts-detail"><div class="ts-detail-label">Passenger</div><div class="ts-detail-val">Rahul Sharma</div></div>
+      <div class="ts-detail"><div class="ts-detail-label">Seat</div><div class="ts-detail-val">3F — Window</div></div>
+      <div class="ts-detail"><div class="ts-detail-label">Baggage</div><div class="ts-detail-val">15kg Check-in + 7kg Cabin</div></div>
+      <div class="ts-detail"><div class="ts-detail-label">Meal</div><div class="ts-detail-val">Veg Meal Pre-booked</div></div>
+      <div class="ts-detail"><div class="ts-detail-label">Total Paid</div><div class="ts-detail-val" style="color:var(--green)">₹6,799</div></div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline-section reveal">
+    <h3>📅 What's Next</h3>
+    <div class="timeline">
+      <div class="tl-item done">
+        <div class="tl-dot">✓</div>
+        <div class="tl-title">Booking Confirmed</div>
+        <div class="tl-sub">Today · 11:42 AM — Your booking is confirmed and payment processed</div>
+      </div>
+      <div class="tl-item done">
+        <div class="tl-dot">✓</div>
+        <div class="tl-title">E-Ticket Sent</div>
+        <div class="tl-sub">Today · 11:43 AM — E-ticket sent to rahul.sharma@email.com</div>
+      </div>
+      <div class="tl-item active">
+        <div class="tl-dot">→</div>
+        <div class="tl-title">Web Check-in Opens</div>
+        <div class="tl-sub">Thu, 3 Apr · 08:10 AM — Check-in opens 48 hours before departure</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">⌚</div>
+        <div class="tl-title">Download Boarding Pass</div>
+        <div class="tl-sub">Fri, 4 Apr · Available after web check-in</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">✈</div>
+        <div class="tl-title">Departure</div>
+        <div class="tl-sub">Sat, 5 Apr · 05:55 AM — Arrive at airport at least 2 hours early</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🏖</div>
+        <div class="tl-title">Arrival in Goa</div>
+        <div class="tl-sub">Sat, 5 Apr · 08:10 AM — Gate D7, Terminal 1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-grid reveal">
+    <a href="my-trips.html" class="action-btn action-btn-primary">🗺 View My Trips</a>
+    <button class="action-btn action-btn-outline" onclick="downloadItinerary()">⬇ Download Itinerary</button>
+    <a href="flights.html" class="action-btn action-btn-coral">✈ Book Another Trip</a>
+  </div>
+
+  <!-- Share Strip -->
+  <div class="share-strip reveal">
+    <span>Share your trip with friends!</span>
+    <div class="share-btns">
+      <button class="share-btn" onclick="twToast('Shared on WhatsApp!')">📱 WhatsApp</button>
+      <button class="share-btn" onclick="twToast('Link copied!')">🔗 Copy Link</button>
+      <button class="share-btn" onclick="twToast('Shared on Twitter!')">🐦 Twitter</button>
+    </div>
+  </div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+/* Generate random booking ref */
+var ref = 'TWS-2026-' + Math.random().toString(36).substring(2,7).toUpperCase();
+document.getElementById('ref-code').textContent = ref;
+
+function copyRef() {
+  navigator.clipboard.writeText(ref).then(function(){ twToast('📋 Booking reference copied!'); });
+}
+
+function downloadItinerary() {
+  twToast('⬇ Itinerary PDF download started!');
+}
+
+/* Confetti */
+function spawnConfetti() {
+  var colors = ['#6C2BD9','#00C9FF','#FF6B35','#10B981','#FF3CAC','#F59E0B'];
+  var container = document.getElementById('confetti');
+  for (var i = 0; i < 60; i++) {
+    (function(i) {
+      setTimeout(function() {
+        var piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.width = (Math.random() * 8 + 6) + 'px';
+        piece.style.height = (Math.random() * 8 + 6) + 'px';
+        piece.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
+        piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        piece.style.animationDelay = Math.random() * 1 + 's';
+        container.appendChild(piece);
+        setTimeout(function(){ piece.remove(); }, 4500);
+      }, i * 35);
+    })(i);
+  }
+}
+spawnConfetti();
+setTimeout(spawnConfetti, 2000);
+</script>
+</body>
+</html>

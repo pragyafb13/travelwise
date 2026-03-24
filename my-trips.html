@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Trips — TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.trips-hero {
+  background: linear-gradient(135deg, #0B1D3E 0%, #6C2BD9 60%, #00C9FF 100%);
+  padding: 110px 24px 60px; position: relative; overflow: hidden;
+}
+.trips-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=20') center/cover;
+  opacity: 0.1;
+}
+.trips-hero-inner { position: relative; z-index: 2; max-width: 960px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.trips-hero h1 { font-family: var(--display); font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800; color: #fff; margin-bottom: 8px; }
+.trips-hero p { color: rgba(255,255,255,.75); font-size: 16px; }
+.hero-stats { display: flex; gap: 28px; flex-wrap: wrap; }
+.hero-stat { text-align: center; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15); border-radius: var(--radius-lg); padding: 14px 22px; }
+.hero-stat .num { font-family: var(--display); font-size: 24px; font-weight: 800; color: #fff; }
+.hero-stat .lbl { font-size: 11px; color: rgba(255,255,255,.65); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+
+/* ── Tabs ── */
+.trips-tabs-bar { border-bottom: 1px solid var(--border); padding: 0 24px; background: var(--bg2); position: sticky; top: 70px; z-index: 10; }
+.trips-tabs { max-width: 960px; margin: 0 auto; display: flex; gap: 4px; overflow-x: auto; }
+.tab-btn {
+  padding: 14px 22px; font-size: 14px; font-weight: 600; font-family: var(--font);
+  background: none; border: none; border-bottom: 3px solid transparent;
+  color: var(--muted); cursor: pointer; white-space: nowrap; transition: all var(--t);
+}
+.tab-btn:hover { color: var(--text-strong); }
+.tab-btn.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+/* ── Content ── */
+.trips-content { max-width: 960px; margin: 0 auto; padding: 36px 24px 80px; }
+
+/* ── Trip Card ── */
+.trip-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-xl);
+  padding: 22px 24px; margin-bottom: 16px; display: grid;
+  grid-template-columns: auto 1fr auto; gap: 18px; align-items: center;
+  transition: all var(--t);
+}
+.trip-card:hover { border-color: var(--border2); box-shadow: 0 8px 30px rgba(108,43,217,.08); transform: translateY(-2px); }
+@media(max-width:640px){ .trip-card { grid-template-columns: 1fr; } }
+
+.trip-icon {
+  width: 60px; height: 60px; border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  display: flex; align-items: center; justify-content: center; font-size: 28px;
+  flex-shrink: 0;
+}
+.trip-icon.hotel { background: linear-gradient(135deg, #FF6B35, #FF3CAC); }
+.trip-icon.completed { background: var(--bg2); }
+.trip-icon.cancelled { background: var(--bg2); filter: grayscale(1); }
+
+.trip-info { min-width: 0; }
+.trip-route { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text-strong); margin-bottom: 4px; }
+.trip-meta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 8px; }
+.trip-meta-item { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+.trip-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.trip-tag { padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+.tag-flight { background: rgba(108,43,217,.1); color: var(--purple); }
+.tag-hotel-t { background: rgba(255,107,53,.1); color: var(--coral); }
+.tag-refundable { background: rgba(16,185,129,.1); color: var(--green); }
+.tag-nonref { background: rgba(239,68,68,.1); color: var(--danger); }
+
+.trip-right { text-align: right; flex-shrink: 0; }
+.status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
+.status-upcoming { background: rgba(16,185,129,.12); color: var(--green); border: 1px solid rgba(16,185,129,.25); }
+.status-completed { background: rgba(100,116,139,.12); color: var(--muted); border: 1px solid var(--border2); }
+.status-cancelled { background: rgba(239,68,68,.1); color: var(--danger); border: 1px solid rgba(239,68,68,.25); }
+.trip-price { font-family: var(--display); font-size: 18px; font-weight: 800; color: var(--text-strong); margin-bottom: 8px; }
+.btn-view {
+  padding: 8px 18px; background: transparent; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;
+  color: var(--text); cursor: pointer; font-family: var(--font); text-decoration: none;
+  display: inline-block; transition: all var(--t); white-space: nowrap;
+}
+.btn-view:hover { border-color: var(--purple); color: var(--purple); background: rgba(108,43,217,.05); }
+.trip-card.cancelled .trip-route { text-decoration: line-through; opacity: .7; }
+
+/* ── Empty State ── */
+.empty-state { text-align: center; padding: 60px 20px; display: none; }
+.empty-state.visible { display: block; }
+.empty-icon { font-size: 64px; margin-bottom: 16px; opacity: .5; }
+.empty-state h3 { font-family: var(--display); font-size: 20px; font-weight: 700; color: var(--text-strong); margin-bottom: 8px; }
+.empty-state p { color: var(--muted); margin-bottom: 24px; }
+.btn-book-new {
+  padding: 12px 28px; background: linear-gradient(135deg,var(--purple),var(--teal));
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 15px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  text-decoration: none; display: inline-block; transition: opacity var(--t);
+}
+.btn-book-new:hover { opacity: .9; }
+
+/* ── Promo Banner ── */
+.promo-banner {
+  background: linear-gradient(135deg, rgba(108,43,217,.12), rgba(0,201,255,.08));
+  border: 1px solid rgba(108,43,217,.25); border-radius: var(--radius-lg);
+  padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
+}
+.promo-banner-text h4 { font-family: var(--display); font-size: 15px; font-weight: 700; color: var(--text-strong); margin-bottom: 4px; }
+.promo-banner-text p { font-size: 13px; color: var(--muted); }
+.btn-promo { padding: 8px 20px; background: linear-gradient(135deg,var(--purple),var(--teal)); color: #fff; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer; font-family: var(--font); text-decoration: none; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div class="toast" id="tw-toast"></div>
+
+<!-- Hero -->
+<div class="trips-hero">
+  <div class="trips-hero-inner">
+    <div>
+      <h1>🗺 My Trips</h1>
+      <p>All your bookings in one place</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">4</div><div class="lbl">Total Trips</div></div>
+      <div class="hero-stat"><div class="num">2</div><div class="lbl">Upcoming</div></div>
+      <div class="hero-stat"><div class="num">₹42K</div><div class="lbl">Total Spent</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="trips-tabs-bar">
+  <div class="trips-tabs">
+    <button class="tab-btn active" onclick="filterTrips('all',this)">✈ All Trips (4)</button>
+    <button class="tab-btn" onclick="filterTrips('upcoming',this)">🟢 Upcoming (2)</button>
+    <button class="tab-btn" onclick="filterTrips('completed',this)">✅ Completed (1)</button>
+    <button class="tab-btn" onclick="filterTrips('cancelled',this)">❌ Cancelled (1)</button>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="trips-content">
+  <!-- Promo Banner -->
+  <div class="promo-banner reveal">
+    <div class="promo-banner-text">
+      <h4>🎁 Loyalty Reward: ₹1,500 Travel Credit Earned!</h4>
+      <p>You've unlocked Silver Tier. Use your credit on next booking.</p>
+    </div>
+    <a href="offers.html" class="btn-promo">View Rewards</a>
+  </div>
+
+  <div id="trips-list">
+    <!-- Trip 1: Upcoming Flight -->
+    <div class="trip-card reveal" data-status="upcoming">
+      <div class="trip-icon">✈</div>
+      <div class="trip-info">
+        <div class="trip-route">Delhi → Goa</div>
+        <div class="trip-meta-row">
+          <span class="trip-meta-item">📅 Sat, 5 Apr 2026</span>
+          <span class="trip-meta-item">✈ IndiGo 6E-2011</span>
+          <span class="trip-meta-item">🕔 05:55 – 08:10</span>
+          <span class="trip-meta-item">💺 Seat 3F</span>
+        </div>
+        <div class="trip-tags">
+          <span class="trip-tag tag-flight">✈ Flight</span>
+          <span class="trip-tag tag-refundable">🔄 Free Cancellation</span>
+          <span class="trip-tag" style="background:rgba(0,201,255,.1);color:var(--teal)">🎒 15kg Baggage</span>
+        </div>
+      </div>
+      <div class="trip-right">
+        <div class="status-badge status-upcoming">🟢 Upcoming</div>
+        <div class="trip-price">₹6,799</div>
+        <a href="confirmation.html" class="btn-view">View Details</a>
+      </div>
+    </div>
+
+    <!-- Trip 2: Upcoming Hotel -->
+    <div class="trip-card reveal" data-status="upcoming">
+      <div class="trip-icon hotel">🏨</div>
+      <div class="trip-info">
+        <div class="trip-route">Taj Holiday Village — Goa</div>
+        <div class="trip-meta-row">
+          <span class="trip-meta-item">📅 5 Apr – 12 Apr 2026</span>
+          <span class="trip-meta-item">🌙 7 Nights</span>
+          <span class="trip-meta-item">🛏 Deluxe Room</span>
+          <span class="trip-meta-item">👥 2 Adults</span>
+        </div>
+        <div class="trip-tags">
+          <span class="trip-tag tag-hotel-t">🏨 Hotel</span>
+          <span class="trip-tag tag-refundable">🔄 Free Cancellation</span>
+          <span class="trip-tag" style="background:rgba(245,158,11,.1);color:var(--gold)">🍳 Breakfast Incl.</span>
+        </div>
+      </div>
+      <div class="trip-right">
+        <div class="status-badge status-upcoming">🟢 Upcoming</div>
+        <div class="trip-price">₹87,500</div>
+        <a href="hotel-detail.html" class="btn-view">View Details</a>
+      </div>
+    </div>
+
+    <!-- Trip 3: Completed -->
+    <div class="trip-card reveal" data-status="completed">
+      <div class="trip-icon completed">✈</div>
+      <div class="trip-info">
+        <div class="trip-route">Mumbai → Dubai</div>
+        <div class="trip-meta-row">
+          <span class="trip-meta-item">📅 15–22 Jan 2026</span>
+          <span class="trip-meta-item">✈ Air India AI-995</span>
+          <span class="trip-meta-item">🕔 10:30 – 12:45</span>
+        </div>
+        <div class="trip-tags">
+          <span class="trip-tag tag-flight">✈ Flight + Hotel</span>
+          <span class="trip-tag" style="background:var(--bg2);color:var(--muted);border:1px solid var(--border)">Completed</span>
+        </div>
+      </div>
+      <div class="trip-right">
+        <div class="status-badge status-completed">✅ Completed</div>
+        <div class="trip-price">₹1,63,150</div>
+        <a href="confirmation.html" class="btn-view">View &amp; Review</a>
+      </div>
+    </div>
+
+    <!-- Trip 4: Cancelled -->
+    <div class="trip-card cancelled reveal" data-status="cancelled">
+      <div class="trip-icon cancelled">✈</div>
+      <div class="trip-info">
+        <div class="trip-route">Delhi → Bangalore</div>
+        <div class="trip-meta-row">
+          <span class="trip-meta-item">📅 10 Mar 2026</span>
+          <span class="trip-meta-item">✈ SpiceJet SG-217</span>
+        </div>
+        <div class="trip-tags">
+          <span class="trip-tag tag-flight">✈ Flight</span>
+          <span class="trip-tag tag-nonref">⚠ Non-refundable</span>
+        </div>
+      </div>
+      <div class="trip-right">
+        <div class="status-badge status-cancelled">❌ Cancelled</div>
+        <div class="trip-price" style="text-decoration:line-through;opacity:.6">₹3,299</div>
+        <button class="btn-view" onclick="twToast('Cancellation details sent to your email')">View Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" id="empty-state">
+    <div class="empty-icon">🗺</div>
+    <h3>No trips found</h3>
+    <p>Looks like you don't have any trips in this category.</p>
+    <a href="flights.html" class="btn-book-new">✈ Book a New Trip</a>
+  </div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+function filterTrips(status, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  var cards = document.querySelectorAll('.trip-card');
+  var visible = 0;
+  cards.forEach(function(card) {
+    if (status === 'all' || card.dataset.status === status) {
+      card.style.display = ''; visible++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  var empty = document.getElementById('empty-state');
+  empty.classList.toggle('visible', visible === 0);
+}
+</script>
+</body>
+</html>

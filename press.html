@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press & Media | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Press Page ── */
+.press-hero {
+  min-height: 60vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #03091A 0%, #0f0528 50%, #031428 100%);
+}
+.press-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 50%, rgba(108,43,217,.28) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 80% 30%, rgba(0,201,255,.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 60% 90%, rgba(16,185,129,.12) 0%, transparent 50%);
+  animation: pressHero 10s ease-in-out infinite alternate;
+}
+@keyframes pressHero { 0%{opacity:1;transform:scale(1)} 100%{opacity:.85;transform:scale(1.03)} }
+.press-hero-content { position: relative; z-index: 2; max-width: 680px; padding: 2rem; }
+.press-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800; color: #fff;
+  line-height: 1.1; margin-bottom: 1rem;
+}
+.press-hero p { color: rgba(255,255,255,.7); font-size: 1.1rem; margin-bottom: 2rem; }
+
+.section-label {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-weight: 700; font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem;
+}
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-header h2 { font-family: var(--display); font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; color: var(--text-strong); margin-bottom: .75rem; }
+.section-header p { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
+
+/* Press stats */
+.press-stats { background: rgba(255,255,255,.04); border-top: 1px solid rgba(255,255,255,.08); }
+.press-stats-inner { max-width: 800px; margin: 0 auto; padding: 2.5rem 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.pstat { text-align: center; }
+.pstat-num {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800; line-height: 1;
+  background: linear-gradient(135deg, var(--teal), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: .35rem;
+}
+.pstat-label { color: rgba(255,255,255,.55); font-size: .85rem; }
+
+/* Press releases */
+.pr-section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
+.pr-list { display: flex; flex-direction: column; gap: 1.25rem; }
+.pr-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.75rem 2rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  transition: var(--t); flex-wrap: wrap;
+}
+.pr-card:hover { border-color: var(--purple); box-shadow: 0 8px 30px rgba(0,0,0,.1); }
+.pr-date-chip {
+  background: linear-gradient(135deg, rgba(108,43,217,.12), rgba(0,201,255,.08));
+  border: 1px solid rgba(108,43,217,.2);
+  padding: .5rem 1rem; border-radius: var(--radius);
+  text-align: center; min-width: 70px; flex-shrink: 0;
+}
+.pr-date-chip .day { font-family: var(--display); font-size: 1.5rem; font-weight: 800; color: var(--purple); line-height: 1; }
+.pr-date-chip .mon { font-size: .72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; }
+.pr-body { flex: 1; min-width: 200px; }
+.pr-body h4 { font-family: var(--display); font-size: 1.05rem; font-weight: 700; color: var(--text-strong); margin-bottom: .3rem; }
+.pr-body p { color: var(--muted); font-size: .88rem; line-height: 1.55; }
+.pr-actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+.btn-dl {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .55rem 1.2rem; border-radius: 50px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text); font-size: .82rem; font-weight: 600;
+  cursor: pointer; transition: var(--t); font-family: var(--font);
+}
+.btn-dl:hover { border-color: var(--purple); color: var(--purple); background: rgba(108,43,217,.05); }
+.btn-view {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .55rem 1.2rem; border-radius: 50px;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; font-size: .82rem; font-weight: 600;
+  cursor: pointer; transition: var(--t); font-family: var(--font); border: none;
+}
+.btn-view:hover { transform: scale(1.04); }
+
+/* Media coverage */
+.coverage-section { background: var(--bg2); padding: 5rem 2rem; }
+.coverage-inner { max-width: 1200px; margin: 0 auto; }
+.coverage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.coverage-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.5rem;
+  transition: var(--t); cursor: pointer;
+}
+.coverage-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.1); border-color: var(--purple); }
+.outlet-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .3rem .85rem; border-radius: 50px;
+  font-size: .75rem; font-weight: 700;
+  margin-bottom: 1rem;
+}
+.coverage-card h4 { font-family: var(--display); font-size: .98rem; font-weight: 700; color: var(--text-strong); line-height: 1.4; margin-bottom: .5rem; }
+.coverage-card .excerpt { color: var(--muted); font-size: .85rem; line-height: 1.55; }
+.coverage-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; padding-top: .75rem; border-top: 1px solid var(--border); }
+.coverage-date { font-size: .78rem; color: var(--muted); }
+.read-link { font-size: .82rem; font-weight: 600; color: var(--purple); text-decoration: none; transition: var(--t); }
+.read-link:hover { gap: .5rem; }
+
+/* Media kit */
+.kit-section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
+.kit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.kit-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 2rem;
+  text-align: center; transition: var(--t);
+}
+.kit-card:hover { transform: translateY(-5px); box-shadow: 0 16px 50px rgba(0,0,0,.1); border-color: var(--purple); }
+.kit-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.kit-card h4 { font-family: var(--display); font-size: 1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .4rem; }
+.kit-card p { color: var(--muted); font-size: .85rem; margin-bottom: 1.25rem; }
+.kit-btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; border: none; border-radius: 50px;
+  padding: .6rem 1.5rem; font-size: .85rem; font-weight: 600;
+  cursor: pointer; transition: var(--t); font-family: var(--font);
+}
+.kit-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(108,43,217,.35); }
+
+/* Press contact */
+.contact-section { background: var(--bg2); padding: 4rem 2rem; }
+.contact-inner { max-width: 700px; margin: 0 auto; }
+.contact-card {
+  background: linear-gradient(135deg, rgba(108,43,217,.1), rgba(0,201,255,.06));
+  border: 1px solid rgba(108,43,217,.25);
+  border-radius: var(--radius-lg); padding: 2.5rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+}
+.contact-info h4 { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .4rem; }
+.contact-info p { color: var(--muted); font-size: .9rem; margin-bottom: 1rem; }
+.contact-detail { display: flex; align-items: center; gap: .6rem; margin-bottom: .6rem; }
+.contact-detail a { color: var(--purple); text-decoration: none; font-weight: 600; font-size: .9rem; }
+.contact-detail a:hover { text-decoration: underline; }
+
+/* Awards */
+.awards-section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+.award-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+.award-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.75rem;
+  text-align: center; transition: var(--t);
+}
+.award-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,.1); }
+.award-trophy {
+  width: 60px; height: 60px; border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; margin: 0 auto 1rem;
+}
+.award-card h5 { font-family: var(--display); font-size: .92rem; font-weight: 700; color: var(--text-strong); margin-bottom: .3rem; }
+.award-card p { font-size: .8rem; color: var(--muted); }
+.award-year { display: inline-block; margin-top: .5rem; font-size: .75rem; font-weight: 700; color: var(--purple); background: rgba(108,43,217,.08); padding: .15rem .6rem; border-radius: 50px; }
+
+@media (max-width: 700px) {
+  .press-stats-inner { grid-template-columns: 1fr 1fr 1fr; }
+  .pr-card { flex-direction: column; align-items: flex-start; }
+  .contact-card { grid-template-columns: 1fr; }
+  .coverage-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .press-stats-inner { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- HERO -->
+<section class="press-hero">
+  <div class="press-hero-content">
+    <div class="section-label">Newsroom</div>
+    <h1>TravelWise in the News</h1>
+    <p>The latest press releases, media coverage, brand assets, and everything journalists need to tell our story.</p>
+  </div>
+
+  <div class="press-stats" style="position:absolute;bottom:0;left:0;right:0">
+    <div class="press-stats-inner">
+      <div class="pstat">
+        <div class="pstat-num">500+</div>
+        <div class="pstat-label">Media Mentions</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-num">18</div>
+        <div class="pstat-label">Countries Coverage</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-num">12</div>
+        <div class="pstat-label">Awards Won</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS RELEASES -->
+<div style="background:var(--bg)">
+<div class="pr-section reveal">
+  <div class="section-header">
+    <div class="section-label">Press Releases</div>
+    <h2>Latest Announcements</h2>
+    <p>Official statements and news directly from TravelWise.</p>
+  </div>
+  <div class="pr-list">
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">18</div>
+        <div class="mon">Mar 2026</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Crosses 2 Million Active Users, Announces IPO Plans for Late 2026</h4>
+        <p>India's fastest-growing travel platform reaches the 2 million user milestone and confirms preparations for a public market listing on the NSE and BSE.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-view" onclick="viewPR('IPO Announcement')">View Release</button>
+        <button class="btn-dl" onclick="dlPR()">📄 PDF</button>
+      </div>
+    </div>
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">05</div>
+        <div class="mon">Feb 2026</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Launches TravelWise Pro: AI-Powered Corporate Travel Platform</h4>
+        <p>New B2B product targets India's ₹85,000 crore corporate travel market with AI-driven policy compliance, real-time rebooking, and integrated expense management.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-view" onclick="viewPR('TravelWise Pro Launch')">View Release</button>
+        <button class="btn-dl" onclick="dlPR()">📄 PDF</button>
+      </div>
+    </div>
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">14</div>
+        <div class="mon">Jan 2026</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Partners with Air India for Exclusive Fare Access and Co-Branded Holidays</h4>
+        <p>Strategic partnership unlocks exclusive inventory, priority check-in benefits for TravelWise users, and a new range of Air India co-branded holiday packages.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-view" onclick="viewPR('Air India Partnership')">View Release</button>
+        <button class="btn-dl" onclick="dlPR()">📄 PDF</button>
+      </div>
+    </div>
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">22</div>
+        <div class="mon">Nov 2025</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Raises ₹400 Crore in Series C Funding Led by Tiger Global</h4>
+        <p>New funding round values TravelWise at ₹3,200 crore pre-money. Capital will be deployed to expand engineering, international marketing, and hotel partnerships.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-view" onclick="viewPR('Series C Announcement')">View Release</button>
+        <button class="btn-dl" onclick="dlPR()">📄 PDF</button>
+      </div>
+    </div>
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">08</div>
+        <div class="mon">Sep 2025</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Launches Carbon Offset Programme, Pledges Net-Zero by 2030</h4>
+        <p>New sustainability initiative allows users to offset trip emissions at checkout. TravelWise pledges to match all user contributions 1:1 through verified forest conservation projects.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-view" onclick="viewPR('Carbon Offset Programme')">View Release</button>
+        <button class="btn-dl" onclick="dlPR()">📄 PDF</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- MEDIA COVERAGE -->
+<div class="coverage-section">
+<div class="coverage-inner reveal">
+  <div class="section-header">
+    <div class="section-label">In the Media</div>
+    <h2>What the Press Is Saying</h2>
+    <p>Coverage from India's top business, tech, and lifestyle publications.</p>
+  </div>
+  <div class="coverage-grid">
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(255,107,53,.12);color:var(--coral)">Economic Times</span>
+      <h4>"TravelWise is rewriting the rules of online travel in India"</h4>
+      <p class="excerpt">With a focus on price transparency and no-fee cancellations, TravelWise has built loyalty in a market historically defined by hidden charges.</p>
+      <div class="coverage-footer">
+        <span class="coverage-date">March 15, 2026</span>
+        <a href="#" class="read-link" onclick="readArticle(event)">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(108,43,217,.12);color:var(--purple)">YourStory</span>
+      <h4>"From 2 founders to 250 employees: The TravelWise origin story"</h4>
+      <p class="excerpt">Aryan Kapoor and Sneha Malhotra share the rollercoaster of building a travel startup through a global pandemic and coming out stronger.</p>
+      <div class="coverage-footer">
+        <span class="coverage-date">March 10, 2026</span>
+        <a href="#" class="read-link" onclick="readArticle(event)">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(0,201,255,.1);color:var(--teal)">TechCrunch</span>
+      <h4>"TravelWise's Series C signals India's travel market is back — and booming"</h4>
+      <p class="excerpt">The ₹400Cr raise reflects renewed global investor confidence in India's outbound tourism, projected to hit $42 billion by 2027.</p>
+      <div class="coverage-footer">
+        <span class="coverage-date">Nov 24, 2025</span>
+        <a href="#" class="read-link" onclick="readArticle(event)">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(16,185,129,.12);color:var(--green)">Forbes India</span>
+      <h4>"The 30 Under 30 making India's startup ecosystem proud in 2025"</h4>
+      <p class="excerpt">TravelWise CTO Sneha Malhotra features in Forbes India's coveted 30 Under 30 list for her work on AI-driven travel personalisation.</p>
+      <div class="coverage-footer">
+        <span class="coverage-date">Oct 2, 2025</span>
+        <a href="#" class="read-link" onclick="readArticle(event)">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(245,158,11,.12);color:var(--gold)">Inc42</span>
+      <h4>"Why TravelWise's 4.8-star rating is nearly impossible to maintain — and how they do it"</h4>
+      <p class="excerpt">A deep-dive into the customer operations playbook that keeps TravelWise's satisfaction scores consistently above industry averages.</p>
+      <div class="coverage-footer">
+        <span class="coverage-date">Sep 18, 2025</span>
+        <a href="#" class="read-link" onclick="readArticle(event)">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(255,107,53,.1);color:var(--coral)">Business Standard</span>
+      <h4>"Corporate travel is the next frontier for TravelWise Pro"</h4>
+      <p class="excerpt">With the launch of TravelWise Pro, the startup enters a high-margin B2B market that even MakeMyTrip and Yatra have struggled to crack.</p>
+      <div class="coverage-footer">
+        <span class="coverage-date">Feb 8, 2026</span>
+        <a href="#" class="read-link" onclick="readArticle(event)">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(108,43,217,.12);color:var(--purple)">The Ken</span>
+      <h4>"TravelWise's sustainability bet could reshape how Indians book trips"</h4>
+      <p class="excerpt">Carbon offsets at checkout are novel in India. Can TravelWise make eco-conscious travel the default rather than the exception?</p>
+      <div class="coverage-footer">
+        <span class="coverage-date">Sep 12, 2025</span>
+        <a href="#" class="read-link" onclick="readArticle(event)">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(0,201,255,.1);color:var(--teal)">Mint</span>
+      <h4>"How TravelWise's AI trip planner is changing first-time international travellers' journeys"</h4>
+      <p class="excerpt">TravelWise's AI assistant, which builds complete itineraries in under 60 seconds, is seeing 3x month-on-month usage growth among Tier-2 city users.</p>
+      <div class="coverage-footer">
+        <span class="coverage-date">Jan 30, 2026</span>
+        <a href="#" class="read-link" onclick="readArticle(event)">Read Article →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- MEDIA KIT -->
+<div style="background:var(--bg)">
+<div class="kit-section reveal">
+  <div class="section-header">
+    <div class="section-label">Media Resources</div>
+    <h2>Download Our Media Kit</h2>
+    <p>Everything you need to write about TravelWise — logos, brand guidelines, executive headshots, and approved product screenshots.</p>
+  </div>
+  <div class="kit-grid">
+    <div class="kit-card">
+      <div class="kit-icon">🎨</div>
+      <h4>Brand Assets</h4>
+      <p>Full brand guidelines, colour palettes, typography, and brand voice documentation.</p>
+      <button class="kit-btn" onclick="handleDownload('Brand Assets.zip', '12.4MB')">Download ZIP</button>
+    </div>
+    <div class="kit-card">
+      <div class="kit-icon">🖼</div>
+      <h4>Logo Pack</h4>
+      <p>All logo variants in SVG, PNG, and EPS formats — light, dark, horizontal, and icon-only.</p>
+      <button class="kit-btn" onclick="handleDownload('TravelWise-Logos.zip', '4.2MB')">Download ZIP</button>
+    </div>
+    <div class="kit-card">
+      <div class="kit-icon">📸</div>
+      <h4>Press Photos</h4>
+      <p>High-resolution photos of the founding team, office spaces, and product screenshots.</p>
+      <button class="kit-btn" onclick="handleDownload('Press-Photos.zip', '87MB')">Download ZIP</button>
+    </div>
+    <div class="kit-card">
+      <div class="kit-icon">📋</div>
+      <h4>Company Fact Sheet</h4>
+      <p>Key statistics, milestones, leadership bios, and approved company descriptions.</p>
+      <button class="kit-btn" onclick="handleDownload('TravelWise-FactSheet.pdf', '1.2MB')">Download PDF</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- AWARDS -->
+<div style="background:var(--bg2)">
+<div class="awards-section reveal">
+  <div class="section-header">
+    <div class="section-label">Recognition</div>
+    <h2>Awards & Honours</h2>
+    <p>Proud to be recognised by India's most respected business and technology institutions.</p>
+  </div>
+  <div class="award-cards">
+    <div class="award-card">
+      <div class="award-trophy" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(255,107,53,.1))">🏆</div>
+      <h5>Startup of the Year</h5>
+      <p>Economic Times Tech Awards</p>
+      <span class="award-year">2022</span>
+    </div>
+    <div class="award-card">
+      <div class="award-trophy" style="background:linear-gradient(135deg,rgba(108,43,217,.2),rgba(0,201,255,.1))">🥇</div>
+      <h5>Best Travel App</h5>
+      <p>Google Play Best of India</p>
+      <span class="award-year">2023</span>
+    </div>
+    <div class="award-card">
+      <div class="award-trophy" style="background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(0,201,255,.1))">⭐</div>
+      <h5>Top 50 Workplaces</h5>
+      <p>Great Place to Work® India</p>
+      <span class="award-year">2024</span>
+    </div>
+    <div class="award-card">
+      <div class="award-trophy" style="background:linear-gradient(135deg,rgba(255,107,53,.2),rgba(245,158,11,.1))">🎯</div>
+      <h5>Most Innovative</h5>
+      <p>YourStory TechSparks</p>
+      <span class="award-year">2025</span>
+    </div>
+    <div class="award-card">
+      <div class="award-trophy" style="background:linear-gradient(135deg,rgba(0,201,255,.2),rgba(108,43,217,.1))">💡</div>
+      <h5>Best UX Design</h5>
+      <p>Product Design India</p>
+      <span class="award-year">2025</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PRESS CONTACT -->
+<div class="contact-section">
+<div class="contact-inner reveal">
+  <div style="text-align:center;margin-bottom:2rem">
+    <div class="section-label">Get in Touch</div>
+    <h2 style="font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--text-strong)">Press Contact</h2>
+  </div>
+  <div class="contact-card">
+    <div class="contact-info">
+      <h4>Media Enquiries</h4>
+      <p>For press enquiries, interview requests, and media permissions, reach out directly to our communications team.</p>
+      <div class="contact-detail">
+        <span>📧</span>
+        <a href="mailto:press@travelwise.in">press@travelwise.in</a>
+      </div>
+      <div class="contact-detail">
+        <span>📞</span>
+        <a href="tel:+918000123456">+91 80001 23456</a>
+      </div>
+      <div class="contact-detail">
+        <span>🕐</span>
+        <span style="font-size:.88rem;color:var(--muted)">Mon–Fri, 9am–7pm IST</span>
+      </div>
+    </div>
+    <div class="contact-info">
+      <h4>Response Times</h4>
+      <p>We aim to respond to all media enquiries promptly. Typical response times:</p>
+      <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem">
+        <div style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);border-radius:var(--radius);padding:.6rem 1rem;font-size:.85rem">
+          <strong style="color:var(--green)">🚀 Breaking News:</strong> <span style="color:var(--muted)">Within 1–2 hours</span>
+        </div>
+        <div style="background:rgba(0,201,255,.08);border:1px solid rgba(0,201,255,.15);border-radius:var(--radius);padding:.6rem 1rem;font-size:.85rem">
+          <strong style="color:var(--teal)">📰 General Enquiries:</strong> <span style="color:var(--muted)">Within 24 hours</span>
+        </div>
+        <div style="background:rgba(108,43,217,.08);border:1px solid rgba(108,43,217,.15);border-radius:var(--radius);padding:.6rem 1rem;font-size:.85rem">
+          <strong style="color:var(--purple)">🎤 Interview Requests:</strong> <span style="color:var(--muted)">Within 48 hours</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+// Reveal
+const revealEls = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.06});
+revealEls.forEach(el => ro.observe(el));
+
+function viewPR(title) {
+  if (typeof twToast === 'function') twToast(`Opening press release: ${title}`);
+}
+function dlPR() {
+  if (typeof twToast === 'function') twToast('Press release PDF download would start here');
+}
+function handleDownload(filename, size) {
+  if (typeof twToast === 'function') twToast(`Preparing download: ${filename} (${size})`);
+}
+function readArticle(e) {
+  e.preventDefault();
+  if (typeof twToast === 'function') twToast('Opening article in a new tab...');
+}
+</script>
+</body>
+</html>

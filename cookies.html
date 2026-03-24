@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Policy | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.legal-hero {
+  padding: 90px 24px 64px; text-align: center; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--bg2), var(--bg3));
+  border-bottom: 1px solid var(--border);
+}
+.legal-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(245,158,11,0.1) 0%, transparent 60%);
+}
+.legal-hero-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+.legal-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25);
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
+  color: var(--gold); margin-bottom: 20px;
+}
+.legal-hero h1 {
+  font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800;
+  color: var(--text-strong); margin-bottom: 14px;
+}
+.legal-hero p { font-size: 15px; color: var(--muted); margin-bottom: 16px; }
+.legal-meta { font-size: 13px; color: var(--muted); }
+.legal-meta span { background: var(--card); border: 1px solid var(--border); padding: 5px 14px; border-radius: 100px; margin: 0 4px; }
+
+/* ── Full width wrap ── */
+.cookie-wrap { max-width: 900px; margin: 0 auto; padding: 64px 24px; }
+
+/* ── What are cookies section ── */
+.what-cookies {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 56px;
+}
+@media (max-width: 700px) { .what-cookies { grid-template-columns: 1fr; } }
+.what-cookies-text {}
+.what-cookies-text h2 { font-family: var(--display); font-size: 1.5rem; font-weight: 700; color: var(--text-strong); margin-bottom: 14px; }
+.what-cookies-text p { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 14px; }
+.cookie-visual {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 32px; display: flex; flex-direction: column; gap: 14px;
+  align-items: flex-start; justify-content: center;
+}
+.cookie-visual-item { display: flex; align-items: center; gap: 12px; }
+.cvi-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.cvi-dot.essential { background: var(--purple); }
+.cvi-dot.analytics  { background: var(--teal); }
+.cvi-dot.marketing  { background: var(--coral); }
+.cvi-dot.prefs      { background: var(--gold); }
+.cvi-label { font-size: 14px; font-weight: 600; color: var(--text-strong); min-width: 100px; }
+.cvi-desc { font-size: 13px; color: var(--muted); }
+
+/* ── Section titles ── */
+.section-title { font-family: var(--display); font-size: 1.5rem; font-weight: 700; color: var(--text-strong); margin-bottom: 8px; }
+.section-sub { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
+
+/* ── Cookies Table ── */
+.cookies-table { width: 100%; border-collapse: collapse; margin-bottom: 56px; }
+.cookies-table thead th {
+  background: linear-gradient(135deg, #2D1B69, #1A1033);
+  color: rgba(255,255,255,0.9); font-family: var(--display); font-size: 12px;
+  font-weight: 700; padding: 13px 16px; text-align: left; letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.cookies-table thead th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+.cookies-table thead th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+.cookies-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.2s; }
+.cookies-table tbody tr:last-child { border-bottom: none; }
+.cookies-table tbody tr:hover { background: var(--card-hover); }
+.cookies-table td { padding: 16px 16px; font-size: 14px; color: var(--text); vertical-align: middle; }
+.cookies-table td:first-child { font-weight: 700; color: var(--text-strong); }
+.table-wrap { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 56px; }
+.can-badge {
+  display: inline-block; padding: 4px 12px; border-radius: 100px;
+  font-size: 12px; font-weight: 700;
+}
+.can-yes { background: rgba(16,185,129,0.12); color: var(--green); }
+.can-no  { background: rgba(239,68,68,0.12); color: #EF4444; }
+.type-tag {
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px;
+  border-radius: 8px; font-size: 13px; font-weight: 600;
+}
+.type-essential { background: rgba(108,43,217,0.1); color: var(--purple); }
+.type-analytics  { background: rgba(0,201,255,0.1); color: var(--teal); }
+.type-marketing  { background: rgba(255,107,53,0.1); color: var(--coral); }
+.type-prefs      { background: rgba(245,158,11,0.1); color: var(--gold); }
+
+/* ── Cookie Manager ── */
+.cookie-manager {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 40px 36px; margin-bottom: 56px;
+}
+.cookie-manager h2 { font-family: var(--display); font-size: 1.4rem; font-weight: 700; color: var(--text-strong); margin-bottom: 8px; }
+.cookie-manager > p { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+.cookie-toggle-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 0; border-bottom: 1px solid var(--border); gap: 20px;
+}
+.cookie-toggle-item:last-of-type { border-bottom: none; margin-bottom: 24px; }
+.cti-info { flex: 1; }
+.cti-info h4 { font-size: 15px; font-weight: 700; color: var(--text-strong); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.cti-info p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.required-tag {
+  font-size: 11px; background: rgba(108,43,217,0.1); color: var(--purple);
+  padding: 2px 8px; border-radius: 100px; font-weight: 700;
+}
+
+/* ── Toggle switch ── */
+.toggle-wrap { flex-shrink: 0; }
+.toggle-switch {
+  position: relative; display: inline-block; width: 50px; height: 28px;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; cursor: pointer; inset: 0; background: var(--border2);
+  border-radius: 28px; transition: background 0.3s;
+}
+.toggle-slider::before {
+  content: ''; position: absolute; height: 22px; width: 22px; left: 3px; bottom: 3px;
+  background: white; border-radius: 50%; transition: transform 0.3s var(--ease-bounce);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.toggle-switch input:checked + .toggle-slider { background: var(--green); }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(22px); }
+.toggle-switch input:disabled + .toggle-slider { cursor: not-allowed; opacity: 0.6; }
+
+.save-prefs-btn {
+  padding: 13px 32px; background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.save-prefs-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ── Third party list ── */
+.third-party-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 56px; }
+.third-party-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 18px; transition: all 0.2s;
+}
+.third-party-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.tp-name { font-size: 14px; font-weight: 700; color: var(--text-strong); margin-bottom: 4px; }
+.tp-type { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.tp-tag {
+  display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px;
+  border-radius: 100px;
+}
+.tp-analytics { background: rgba(0,201,255,0.1); color: var(--teal); }
+.tp-marketing { background: rgba(255,107,53,0.1); color: var(--coral); }
+.tp-payment { background: rgba(16,185,129,0.1); color: var(--green); }
+.tp-support  { background: rgba(108,43,217,0.1); color: var(--purple); }
+
+/* ── Browser instructions ── */
+.browser-section { margin-bottom: 56px; }
+.browser-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.browser-tab {
+  padding: 9px 20px; border-radius: var(--radius-sm); border: 1.5px solid var(--border2);
+  background: var(--card); font-size: 14px; font-weight: 600; color: var(--muted);
+  cursor: pointer; transition: all 0.2s;
+}
+.browser-tab.active { background: linear-gradient(135deg, var(--purple), var(--teal)); color: #fff; border-color: transparent; }
+.browser-tab:hover:not(.active) { border-color: var(--purple); color: var(--purple); }
+.browser-instructions { display: none; }
+.browser-instructions.show { display: block; }
+.browser-instructions ol { padding-left: 24px; }
+.browser-instructions li { font-size: 14px; color: var(--text); line-height: 1.8; margin-bottom: 8px; }
+.browser-instructions code {
+  background: var(--bg3); padding: 2px 8px; border-radius: 5px;
+  font-size: 13px; color: var(--purple); font-family: monospace;
+}
+
+/* ── Highlight boxes ── */
+.highlight-box {
+  border-radius: var(--radius); padding: 18px 22px; margin: 20px 0;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.highlight-box.gold   { background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.2); }
+.highlight-box.purple { background: rgba(108,43,217,0.07); border: 1px solid rgba(108,43,217,0.2); }
+.hb-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.hb-text { font-size: 14px; color: var(--text); line-height: 1.7; }
+.hb-text strong { color: var(--text-strong); }
+
+/* ── Contact ── */
+.contact-section {
+  background: linear-gradient(135deg, var(--bg2), var(--bg3));
+  border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 44px 40px;
+  text-align: center; margin-bottom: 64px;
+}
+.contact-section h2 { font-family: var(--display); font-size: 1.5rem; font-weight: 700; color: var(--text-strong); margin-bottom: 10px; }
+.contact-section p { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+.contact-link { color: var(--purple); font-weight: 600; }
+
+/* ── Progress bar ── */
+.reading-progress {
+  position: fixed; top: 0; left: 0; height: 3px; z-index: 999;
+  background: linear-gradient(90deg, var(--gold), var(--coral));
+  transition: width 0.1s linear; width: 0%;
+}
+
+@media (max-width: 700px) {
+  .cookie-manager { padding: 28px 20px; }
+  .contact-section { padding: 36px 24px; }
+}
+</style>
+</head>
+<body>
+<div class="reading-progress" id="reading-progress"></div>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- HERO -->
+<section class="legal-hero">
+  <div class="legal-hero-inner">
+    <div class="legal-eyebrow">🍪 Cookies</div>
+    <h1>Cookie Policy</h1>
+    <p>Learn how TravelWise uses cookies to enhance your experience, and manage your preferences at any time.</p>
+    <div class="legal-meta">
+      <span>Last Updated: March 2026</span>
+      <span>Effective: March 1, 2026</span>
+    </div>
+  </div>
+</section>
+
+<div class="cookie-wrap">
+
+  <!-- WHAT ARE COOKIES -->
+  <div class="what-cookies reveal">
+    <div class="what-cookies-text">
+      <h2>What Are Cookies?</h2>
+      <p>Cookies are small text files that are placed on your device (computer, smartphone, or tablet) when you visit a website. They are widely used to make websites work more efficiently, remember your preferences, and provide information to website owners.</p>
+      <p>Cookies can be "first-party" (set by the website you visit) or "third-party" (set by external services). They can be "session cookies" (deleted when you close your browser) or "persistent cookies" (remain until they expire or you delete them).</p>
+      <p>We use cookies to ensure the platform functions correctly, personalise your experience, and understand how our service is used so we can improve it.</p>
+    </div>
+    <div class="cookie-visual">
+      <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;">Cookie Types We Use</div>
+      <div class="cookie-visual-item"><div class="cvi-dot essential"></div><div class="cvi-label">Essential</div><div class="cvi-desc">Always on</div></div>
+      <div class="cookie-visual-item"><div class="cvi-dot analytics"></div><div class="cvi-label">Analytics</div><div class="cvi-desc">Can disable</div></div>
+      <div class="cookie-visual-item"><div class="cvi-dot marketing"></div><div class="cvi-label">Marketing</div><div class="cvi-desc">Can disable</div></div>
+      <div class="cookie-visual-item"><div class="cvi-dot prefs"></div><div class="cvi-label">Preferences</div><div class="cvi-desc">Can disable</div></div>
+    </div>
+  </div>
+
+  <!-- TYPES OF COOKIES TABLE -->
+  <div class="reveal">
+    <div class="section-title">Types of Cookies We Use</div>
+    <div class="section-sub">A breakdown of every cookie category, what it does, and whether you can disable it</div>
+    <div class="table-wrap">
+      <table class="cookies-table">
+        <thead>
+          <tr>
+            <th>Cookie Type</th>
+            <th>Purpose</th>
+            <th>Duration</th>
+            <th>Examples</th>
+            <th>Can Disable?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="type-tag type-essential">🔒 Essential</span></td>
+            <td>Required for core site functionality — login sessions, security tokens, cart data, and booking flow. Without these, the site cannot function properly.</td>
+            <td>Session / Up to 30 days</td>
+            <td>tw_session, tw_auth, XSRF-TOKEN</td>
+            <td><span class="can-badge can-no">No</span></td>
+          </tr>
+          <tr>
+            <td><span class="type-tag type-analytics">📊 Analytics</span></td>
+            <td>Help us understand how visitors interact with our site — which pages are popular, where users drop off, and how to improve the experience.</td>
+            <td>Up to 2 years</td>
+            <td>_ga, _gid, _gat (Google Analytics)</td>
+            <td><span class="can-badge can-yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td><span class="type-tag type-marketing">📢 Marketing</span></td>
+            <td>Track conversions and enable personalised advertising on external platforms. Help us show you relevant travel deals based on your interests.</td>
+            <td>Up to 1 year</td>
+            <td>_fbp (Meta Pixel), _gcl_aw</td>
+            <td><span class="can-badge can-yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td><span class="type-tag type-prefs">⚙️ Preferences</span></td>
+            <td>Remember your site preferences — chosen theme (dark/light), language, currency selection, and other personalisation settings.</td>
+            <td>Up to 1 year</td>
+            <td>tw-theme, tw-currency, tw-lang</td>
+            <td><span class="can-badge can-yes">Yes</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- COOKIE MANAGER -->
+  <div class="cookie-manager reveal" id="cookie-manager">
+    <h2>Manage Your Cookie Preferences</h2>
+    <p>Choose which categories of cookies you consent to. Your choices are saved locally and respected across your sessions. Essential cookies cannot be disabled as they are required for the site to function.</p>
+
+    <div class="cookie-toggle-item">
+      <div class="cti-info">
+        <h4>🔒 Essential Cookies <span class="required-tag">Required</span></h4>
+        <p>These cookies are strictly necessary for TravelWise to function. They manage your login session, protect against fraud, and enable the booking process. They cannot be disabled.</p>
+      </div>
+      <div class="toggle-wrap">
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-essential" checked disabled>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cookie-toggle-item">
+      <div class="cti-info">
+        <h4>📊 Analytics Cookies</h4>
+        <p>Allow us to measure and analyse how visitors use the platform. Data is aggregated and anonymised. Helps us identify popular features and improve usability.</p>
+      </div>
+      <div class="toggle-wrap">
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-analytics">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cookie-toggle-item">
+      <div class="cti-info">
+        <h4>📢 Marketing Cookies</h4>
+        <p>Used to track conversions and show you personalised travel deals and ads on other websites. If disabled, you may see generic rather than relevant advertising.</p>
+      </div>
+      <div class="toggle-wrap">
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-marketing">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cookie-toggle-item">
+      <div class="cti-info">
+        <h4>⚙️ Preference Cookies</h4>
+        <p>Remember your personalisation choices like dark/light theme, preferred language, and currency settings so you don't have to set them on every visit.</p>
+      </div>
+      <div class="toggle-wrap">
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-prefs" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <button class="save-prefs-btn" onclick="saveCookiePreferences()">Save My Preferences</button>
+  </div>
+
+  <!-- THIRD-PARTY COOKIES -->
+  <div class="reveal">
+    <div class="section-title">Third-Party Cookies</div>
+    <div class="section-sub">External services that may set cookies on your device when you use TravelWise</div>
+    <div class="third-party-grid">
+      <div class="third-party-card">
+        <div class="tp-name">Google Analytics</div>
+        <div class="tp-type">Usage analytics & behaviour</div>
+        <span class="tp-tag tp-analytics">Analytics</span>
+      </div>
+      <div class="third-party-card">
+        <div class="tp-name">Google Ads</div>
+        <div class="tp-type">Conversion tracking & ads</div>
+        <span class="tp-tag tp-marketing">Marketing</span>
+      </div>
+      <div class="third-party-card">
+        <div class="tp-name">Meta Pixel</div>
+        <div class="tp-type">Facebook/Instagram advertising</div>
+        <span class="tp-tag tp-marketing">Marketing</span>
+      </div>
+      <div class="third-party-card">
+        <div class="tp-name">Razorpay</div>
+        <div class="tp-type">Secure payment processing</div>
+        <span class="tp-tag tp-payment">Essential</span>
+      </div>
+      <div class="third-party-card">
+        <div class="tp-name">Intercom</div>
+        <div class="tp-type">Customer support chat</div>
+        <span class="tp-tag tp-support">Preference</span>
+      </div>
+      <div class="third-party-card">
+        <div class="tp-name">Firebase</div>
+        <div class="tp-type">App analytics & push notifications</div>
+        <span class="tp-tag tp-analytics">Analytics</span>
+      </div>
+      <div class="third-party-card">
+        <div class="tp-name">Hotjar</div>
+        <div class="tp-type">Heatmaps & user feedback</div>
+        <span class="tp-tag tp-analytics">Analytics</span>
+      </div>
+      <div class="third-party-card">
+        <div class="tp-name">Stripe</div>
+        <div class="tp-type">International payment processing</div>
+        <span class="tp-tag tp-payment">Essential</span>
+      </div>
+    </div>
+    <div class="highlight-box purple">
+      <div class="hb-icon">ℹ️</div>
+      <div class="hb-text"><strong>Third-party cookies</strong> are governed by the respective provider's privacy policy. Disabling marketing or analytics cookies in our Cookie Manager will also disable the corresponding third-party cookies where technically possible.</div>
+    </div>
+  </div>
+
+  <!-- HOW TO DISABLE IN BROWSER -->
+  <div class="browser-section reveal">
+    <div class="section-title">How to Disable Cookies in Your Browser</div>
+    <div class="section-sub">You can manage or disable cookies directly through your browser settings. Note that disabling essential cookies will affect site functionality.</div>
+
+    <div class="browser-tabs">
+      <button class="browser-tab active" onclick="showBrowser('chrome', this)">Chrome</button>
+      <button class="browser-tab" onclick="showBrowser('firefox', this)">Firefox</button>
+      <button class="browser-tab" onclick="showBrowser('safari', this)">Safari</button>
+      <button class="browser-tab" onclick="showBrowser('edge', this)">Edge</button>
+    </div>
+
+    <div class="browser-instructions show" id="browser-chrome">
+      <ol>
+        <li>Click the <code>⋮</code> (three dots) menu in the top-right corner of Chrome</li>
+        <li>Select <code>Settings</code></li>
+        <li>Click <code>Privacy and security</code> in the left sidebar</li>
+        <li>Select <code>Cookies and other site data</code></li>
+        <li>Choose your preferred option: "Allow all cookies", "Block third-party cookies in Incognito", "Block third-party cookies", or "Block all cookies"</li>
+        <li>To manage cookies for a specific site, scroll down to "Sites that can always use cookies" or "Sites that can never use cookies"</li>
+      </ol>
+    </div>
+    <div class="browser-instructions" id="browser-firefox">
+      <ol>
+        <li>Click the <code>☰</code> (hamburger) menu in the top-right corner of Firefox</li>
+        <li>Select <code>Settings</code></li>
+        <li>Click <code>Privacy & Security</code> in the left panel</li>
+        <li>Under "Enhanced Tracking Protection", choose "Standard", "Strict", or "Custom"</li>
+        <li>For custom control, select <code>Custom</code> and configure cookies, trackers, and fingerprinters separately</li>
+        <li>To delete existing cookies, scroll down to "Cookies and Site Data" and click <code>Clear Data</code></li>
+      </ol>
+    </div>
+    <div class="browser-instructions" id="browser-safari">
+      <ol>
+        <li>Click <code>Safari</code> in the top menu bar and select <code>Settings</code> (or <code>Preferences</code> on older versions)</li>
+        <li>Click the <code>Privacy</code> tab</li>
+        <li>Under "Cookies and website data", choose "Block all cookies" or "Prevent cross-site tracking"</li>
+        <li>On iPhone/iPad: Go to <code>Settings</code> → <code>Safari</code> → scroll to "Privacy & Security"</li>
+        <li>Toggle on "Prevent Cross-Site Tracking" and "Block All Cookies" as desired</li>
+        <li>To remove existing cookies, click <code>Manage Website Data</code> and remove as needed</li>
+      </ol>
+    </div>
+    <div class="browser-instructions" id="browser-edge">
+      <ol>
+        <li>Click the <code>⋯</code> (three dots) menu in the top-right corner of Edge</li>
+        <li>Select <code>Settings</code></li>
+        <li>Click <code>Cookies and site permissions</code> in the left sidebar</li>
+        <li>Click <code>Cookies and site data</code></li>
+        <li>Toggle "Block third-party cookies" on or off as desired</li>
+        <li>To manage cookies for specific sites, scroll down to "Allow" or "Block" sections and add site-specific rules</li>
+      </ol>
+    </div>
+
+    <div class="highlight-box gold">
+      <div class="hb-icon">⚠️</div>
+      <div class="hb-text"><strong>Note:</strong> Disabling all cookies in your browser will prevent TravelWise from working correctly — you may not be able to log in or complete bookings. We recommend using our <a href="#cookie-manager" style="color:var(--gold)">Cookie Manager</a> above for more granular control.</div>
+    </div>
+  </div>
+
+  <!-- CONSENT BANNER EXPLANATION -->
+  <div class="reveal" style="margin-bottom:56px;">
+    <div class="section-title">Our Cookie Consent Banner</div>
+    <div class="section-sub">How we obtain and record your consent</div>
+    <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:14px;">When you first visit TravelWise, you will see a cookie consent banner at the bottom of the page. This banner explains the types of cookies we use and gives you the option to:</p>
+    <ul style="font-size:15px;color:var(--text);line-height:1.8;padding-left:24px;margin-bottom:14px;">
+      <li><strong>Accept all cookies</strong> — enables essential, analytics, marketing, and preference cookies</li>
+      <li><strong>Reject non-essential</strong> — enables only essential cookies required for the site to function</li>
+      <li><strong>Customise preferences</strong> — opens the cookie manager to choose individual categories</li>
+    </ul>
+    <p style="font-size:15px;color:var(--text);line-height:1.8;">Your consent choice is stored in a cookie (<code style="background:var(--bg3);padding:2px 8px;border-radius:5px;font-size:13px;color:var(--purple)">tw_cookie_consent</code>) and honoured for 12 months. You can update your preferences at any time using the Cookie Manager on this page or via <a href="#cookie-manager" style="color:var(--purple)">this link</a>.</p>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-section reveal">
+    <h2>Questions About Our Cookie Use?</h2>
+    <p>If you have questions about how TravelWise uses cookies or your rights regarding your data, our Data Protection Officer is here to help.</p>
+    <p><a href="mailto:privacy@travelwise.com" class="contact-link">privacy@travelwise.com</a></p>
+    <p style="font-size:14px;color:var(--muted);margin-top:8px;">For general privacy questions, see our <a href="privacy.html" style="color:var(--purple)">Privacy Policy</a>. For terms of service, see our <a href="terms.html" style="color:var(--purple)">Terms of Use</a>.</p>
+  </div>
+
+</div><!-- /cookie-wrap -->
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+/* ── Reading progress ── */
+window.addEventListener('scroll', function() {
+  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  var progress = (window.scrollY / docHeight) * 100;
+  document.getElementById('reading-progress').style.width = Math.min(progress, 100) + '%';
+});
+
+/* ── Load saved cookie preferences ── */
+function loadCookiePrefs() {
+  var saved = JSON.parse(localStorage.getItem('tw-cookie-prefs') || '{}');
+  if (typeof saved.analytics !== 'undefined')  document.getElementById('toggle-analytics').checked = saved.analytics;
+  if (typeof saved.marketing !== 'undefined')  document.getElementById('toggle-marketing').checked = saved.marketing;
+  if (typeof saved.prefs !== 'undefined')      document.getElementById('toggle-prefs').checked = saved.prefs;
+}
+loadCookiePrefs();
+
+/* ── Save cookie preferences ── */
+function saveCookiePreferences() {
+  var prefs = {
+    essential: true, // always true
+    analytics: document.getElementById('toggle-analytics').checked,
+    marketing: document.getElementById('toggle-marketing').checked,
+    prefs: document.getElementById('toggle-prefs').checked
+  };
+  localStorage.setItem('tw-cookie-prefs', JSON.stringify(prefs));
+  localStorage.setItem('tw_cookie_consent', 'custom');
+
+  var summary = [];
+  if (prefs.analytics) summary.push('Analytics');
+  if (prefs.marketing) summary.push('Marketing');
+  if (prefs.prefs) summary.push('Preferences');
+  var msg = summary.length > 0
+    ? 'Cookie preferences saved. Enabled: ' + summary.join(', ') + '.'
+    : 'Preferences saved. Only essential cookies are enabled.';
+  twToast(msg);
+}
+
+/* ── Browser instruction tabs ── */
+function showBrowser(name, el) {
+  document.querySelectorAll('.browser-instructions').forEach(function(el){ el.classList.remove('show'); });
+  document.getElementById('browser-' + name).classList.add('show');
+  document.querySelectorAll('.browser-tab').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+/* ── Reveal on scroll ── */
+var revealEls = document.querySelectorAll('.reveal');
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if(e.isIntersecting){ e.target.classList.add('revealed'); io.unobserve(e.target); }});
+}, { threshold: 0.07 });
+revealEls.forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
