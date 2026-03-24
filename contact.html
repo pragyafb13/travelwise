@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Contact Page ── */
+.contact-hero {
+  min-height: 55vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #03091A 0%, #0e0530 50%, #021525 100%);
+}
+.contact-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 65% 70% at 15% 60%, rgba(0,201,255,.22) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 65% at 85% 25%, rgba(108,43,217,.25) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 50% at 50% 100%, rgba(16,185,129,.12) 0%, transparent 50%);
+  animation: contactHero 9s ease-in-out infinite alternate;
+}
+@keyframes contactHero { 0%{transform:scale(1)} 100%{transform:scale(1.04)} }
+.contact-hero-content { position: relative; z-index: 2; max-width: 640px; padding: 2rem; }
+.contact-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800; color: #fff;
+  line-height: 1.1; margin-bottom: 1rem;
+}
+.contact-hero h1 span {
+  background: linear-gradient(135deg, var(--teal), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.contact-hero p { color: rgba(255,255,255,.7); font-size: 1.1rem; }
+
+/* Response badges in hero */
+.response-row {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  margin-top: 1.75rem;
+}
+.response-badge {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50px; padding: .4rem 1rem;
+  font-size: .82rem; color: rgba(255,255,255,.8); font-weight: 500;
+  display: flex; align-items: center; gap: .4rem;
+}
+
+.section-label {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-weight: 700; font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem;
+}
+
+/* Main layout */
+.contact-layout {
+  max-width: 1200px; margin: 0 auto;
+  padding: 5rem 2rem;
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  gap: 4rem; align-items: start;
+}
+
+/* Form */
+.form-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 2.5rem;
+}
+.form-card h3 { font-family: var(--display); font-size: 1.5rem; font-weight: 700; color: var(--text-strong); margin-bottom: .5rem; }
+.form-card .subtitle { color: var(--muted); font-size: .95rem; margin-bottom: 2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-group { margin-bottom: 1.25rem; }
+.form-label { display: block; font-size: .85rem; font-weight: 600; color: var(--text); margin-bottom: .4rem; }
+.form-label .optional { color: var(--muted); font-weight: 400; margin-left: .3rem; }
+.form-input {
+  width: 100%; padding: .8rem 1rem; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--bg);
+  color: var(--text); font-family: var(--font); font-size: .9rem;
+  outline: none; transition: var(--t); box-sizing: border-box;
+}
+.form-input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(108,43,217,.1); }
+.form-input.error { border-color: var(--coral); box-shadow: 0 0 0 3px rgba(255,107,53,.1); }
+select.form-input { cursor: pointer; }
+textarea.form-input { resize: vertical; min-height: 130px; }
+.char-count { text-align: right; font-size: .75rem; color: var(--muted); margin-top: .25rem; }
+.submit-btn {
+  width: 100%; padding: 1rem;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; border: none; border-radius: 50px;
+  font-weight: 700; font-size: 1rem; cursor: pointer; transition: var(--t);
+  font-family: var(--font); display: flex; align-items: center; justify-content: center; gap: .5rem;
+  margin-top: .5rem;
+}
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(108,43,217,.4); }
+.submit-btn:active { transform: scale(.98); }
+.submit-btn.loading { opacity: .7; pointer-events: none; }
+
+/* Success state */
+.success-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 3.5rem 2.5rem;
+  text-align: center; display: none;
+}
+.success-card .s-icon { font-size: 4rem; margin-bottom: 1.25rem; }
+.success-card h3 { font-family: var(--display); font-size: 1.6rem; font-weight: 700; color: var(--text-strong); margin-bottom: .75rem; }
+.success-card p { color: var(--muted); line-height: 1.7; margin-bottom: 1.75rem; }
+.success-ref { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: .75rem 1.5rem; display: inline-block; font-family: monospace; color: var(--purple); font-weight: 700; letter-spacing: .05em; margin-bottom: 1.5rem; }
+.success-back-btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 50px; padding: .75rem 1.75rem;
+  color: var(--text); font-family: var(--font); font-weight: 600;
+  cursor: pointer; transition: var(--t);
+}
+.success-back-btn:hover { border-color: var(--purple); color: var(--purple); }
+
+/* Contact methods */
+.contact-methods { display: flex; flex-direction: column; gap: 1.25rem; }
+.method-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.5rem;
+  transition: var(--t); cursor: pointer;
+  display: flex; align-items: flex-start; gap: 1rem;
+}
+.method-card:hover { border-color: var(--purple); transform: translateX(4px); box-shadow: 0 8px 30px rgba(0,0,0,.08); }
+.method-icon {
+  width: 52px; height: 52px; border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+}
+.method-body h4 { font-family: var(--display); font-size: 1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .25rem; }
+.method-body p { color: var(--muted); font-size: .88rem; line-height: 1.5; }
+.method-cta { font-size: .85rem; font-weight: 600; color: var(--purple); margin-top: .4rem; display: block; }
+
+/* Office map */
+.office-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden; margin-top: 1.25rem;
+}
+.map-placeholder {
+  height: 180px;
+  background: linear-gradient(135deg,
+    rgba(108,43,217,.15) 0%, rgba(0,201,255,.1) 40%,
+    rgba(16,185,129,.08) 100%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.map-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(108,43,217,.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.map-pin { font-size: 2.5rem; position: relative; z-index: 2; filter: drop-shadow(0 4px 8px rgba(0,0,0,.3)); }
+.office-details { padding: 1.25rem 1.5rem; }
+.office-details h4 { font-family: var(--display); font-size: 1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .35rem; }
+.office-details p { color: var(--muted); font-size: .88rem; line-height: 1.55; }
+
+/* FAQ quick links */
+.faq-section { background: var(--bg2); padding: 5rem 2rem; }
+.faq-inner { max-width: 900px; margin: 0 auto; }
+.faq-section .section-header { text-align: center; margin-bottom: 2.5rem; }
+.faq-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.faq-link-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.25rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  text-decoration: none; transition: var(--t);
+}
+.faq-link-card:hover { border-color: var(--purple); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+.faq-link-icon { font-size: 1.5rem; flex-shrink: 0; }
+.faq-link-text { flex: 1; }
+.faq-link-text strong { display: block; color: var(--text-strong); font-size: .92rem; font-weight: 600; margin-bottom: .2rem; }
+.faq-link-text span { color: var(--muted); font-size: .8rem; }
+.faq-link-arr { color: var(--purple); font-size: 1rem; }
+
+/* Form validation error message */
+.field-error { color: var(--coral); font-size: .8rem; margin-top: .3rem; display: none; }
+.field-error.show { display: block; }
+
+@media (max-width: 900px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+@media (max-width: 500px) {
+  .form-row { grid-template-columns: 1fr; }
+  .form-card { padding: 1.75rem 1.25rem; }
+  .response-row { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- HERO -->
+<section class="contact-hero">
+  <div class="contact-hero-content">
+    <div class="section-label">Get in Touch</div>
+    <h1>We're Here to <span>Help</span></h1>
+    <p>Have a question about your booking, need a refund, or just want to say hello? Our team is ready to assist — fast.</p>
+    <div class="response-row">
+      <div class="response-badge">💬 Chat: &lt;2 min</div>
+      <div class="response-badge">📧 Email: &lt;4 hrs</div>
+      <div class="response-badge">📞 Phone: Mon–Sat 9am–8pm</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTACT SECTION -->
+<div style="background:var(--bg)">
+<div class="contact-layout reveal">
+
+  <!-- FORM COLUMN -->
+  <div>
+    <!-- Contact Form -->
+    <div class="form-card" id="contactFormCard">
+      <h3>Send Us a Message</h3>
+      <p class="subtitle">Fill out the form and we'll get back to you within 4 hours during business hours.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-input" id="cName" placeholder="Arjun Kumar">
+          <div class="field-error" id="err-name">Please enter your full name</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" class="form-input" id="cEmail" placeholder="you@example.com">
+          <div class="field-error" id="err-email">Please enter a valid email</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone Number <span class="optional">(optional)</span></label>
+          <input type="tel" class="form-input" id="cPhone" placeholder="+91 98765 43210">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject *</label>
+          <select class="form-input" id="cSubject">
+            <option value="">Select a topic…</option>
+            <option value="booking">Booking Issue</option>
+            <option value="refund">Refund Request</option>
+            <option value="technical">Technical Problem</option>
+            <option value="partnership">Partnership Enquiry</option>
+            <option value="feedback">Feedback & Suggestions</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="field-error" id="err-subject">Please select a subject</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Booking Reference <span class="optional">(if applicable)</span></label>
+        <input type="text" class="form-input" id="cRef" placeholder="e.g. TW-2026-XXXXXX">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Message *</label>
+        <textarea class="form-input" id="cMessage" placeholder="Describe your issue or question in detail. The more context you provide, the faster we can help." oninput="updateCharCount()"></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 1000 characters</div>
+        <div class="field-error" id="err-message">Please enter a message (minimum 20 characters)</div>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:.75rem;padding:1rem;background:var(--bg2);border-radius:var(--radius);margin-bottom:1.25rem">
+        <input type="checkbox" id="cConsent" style="margin-top:.2rem;accent-color:var(--purple);width:16px;height:16px">
+        <label for="cConsent" style="font-size:.85rem;color:var(--muted);cursor:pointer;line-height:1.5">
+          I agree to TravelWise processing my personal data to respond to this enquiry, in accordance with our <a href="#" style="color:var(--purple)">Privacy Policy</a>.
+        </label>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitContactForm()">
+        <span id="submitText">Send Message</span>
+        <span id="submitIcon">→</span>
+      </button>
+    </div>
+
+    <!-- Success State -->
+    <div class="success-card" id="successCard">
+      <div class="s-icon">✅</div>
+      <h3>Message Sent Successfully!</h3>
+      <p>Thanks for reaching out. Our support team will review your message and respond to your email within 4 hours during business hours (Mon–Sat, 9am–8pm IST).</p>
+      <div class="success-ref" id="successRef">TW-TICKET-XXXXXX</div>
+      <p style="font-size:.88rem;color:var(--muted)">Save this reference number for follow-up queries.</p>
+      <button class="success-back-btn" onclick="resetForm()">← Send Another Message</button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR COLUMN -->
+  <div>
+    <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--text-strong);margin-bottom:1.5rem">Other Ways to Reach Us</h3>
+
+    <div class="contact-methods">
+
+      <div class="method-card" onclick="openChat()">
+        <div class="method-icon" style="background:linear-gradient(135deg,rgba(108,43,217,.15),rgba(0,201,255,.08))">💬</div>
+        <div class="method-body">
+          <h4>Live Chat</h4>
+          <p>Chat with a support agent in real time. Average wait time under 2 minutes.</p>
+          <span class="method-cta">Start Chat →</span>
+        </div>
+      </div>
+
+      <div class="method-card" onclick="openEmail()">
+        <div class="method-icon" style="background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(0,201,255,.08))">📧</div>
+        <div class="method-body">
+          <h4>Email Support</h4>
+          <p>Prefer email? Write to us at support@travelwise.in — we respond within 4 hours.</p>
+          <span class="method-cta">support@travelwise.in</span>
+        </div>
+      </div>
+
+      <div class="method-card" onclick="openPhone()">
+        <div class="method-icon" style="background:linear-gradient(135deg,rgba(255,107,53,.15),rgba(245,158,11,.08))">📞</div>
+        <div class="method-body">
+          <h4>Phone Support</h4>
+          <p>Speak with a travel expert directly. Available Monday to Saturday, 9am–8pm IST.</p>
+          <span class="method-cta">+91 1800 209 1234 (Toll Free)</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Office address -->
+    <div class="office-card" style="margin-top:1.5rem">
+      <div class="map-placeholder">
+        <div class="map-pin">📍</div>
+      </div>
+      <div class="office-details">
+        <h4>TravelWise Headquarters</h4>
+        <p>Level 12, Prestige Meridian Tower,<br>MG Road, Bengaluru — 560001<br>Karnataka, India</p>
+        <a href="#" onclick="openMaps(event)" style="display:inline-flex;align-items:center;gap:.4rem;margin-top:.75rem;color:var(--purple);font-size:.88rem;font-weight:600;text-decoration:none">Open in Maps →</a>
+      </div>
+    </div>
+
+    <!-- Social links -->
+    <div style="margin-top:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem">
+      <h4 style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text-strong);margin-bottom:1rem">Follow & Connect</h4>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+        <a href="#" onclick="socialClick(event,'Instagram')" style="display:flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:50px;background:linear-gradient(135deg,rgba(255,107,53,.1),rgba(245,158,11,.08));border:1px solid rgba(255,107,53,.2);color:var(--coral);font-size:.85rem;font-weight:600;text-decoration:none;transition:var(--t)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">📸 Instagram</a>
+        <a href="#" onclick="socialClick(event,'Twitter')" style="display:flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:50px;background:rgba(0,201,255,.08);border:1px solid rgba(0,201,255,.2);color:var(--teal);font-size:.85rem;font-weight:600;text-decoration:none;transition:var(--t)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">🐦 Twitter / X</a>
+        <a href="#" onclick="socialClick(event,'LinkedIn')" style="display:flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:50px;background:rgba(108,43,217,.08);border:1px solid rgba(108,43,217,.2);color:var(--purple);font-size:.85rem;font-weight:600;text-decoration:none;transition:var(--t)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">💼 LinkedIn</a>
+        <a href="#" onclick="socialClick(event,'YouTube')" style="display:flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:50px;background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.2);color:var(--coral);font-size:.85rem;font-weight:600;text-decoration:none;transition:var(--t)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">▶ YouTube</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- FAQ QUICK LINKS -->
+<div class="faq-section">
+<div class="faq-inner reveal">
+  <div class="section-header">
+    <div class="section-label">Before You Write</div>
+    <h2 style="font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--text-strong);margin-bottom:.5rem">Quick Answers to Common Questions</h2>
+    <p>Many issues can be resolved instantly — check these before submitting a ticket.</p>
+  </div>
+  <div class="faq-links">
+
+    <a href="help.html#cancellation" class="faq-link-card">
+      <div class="faq-link-icon">✈️</div>
+      <div class="faq-link-text">
+        <strong>How do I cancel my booking?</strong>
+        <span>Cancellation policy, refund timelines</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+    <a href="help.html#refund" class="faq-link-card">
+      <div class="faq-link-icon">💰</div>
+      <div class="faq-link-text">
+        <strong>When will I receive my refund?</strong>
+        <span>Refund status, timelines by payment method</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+    <a href="help.html#reschedule" class="faq-link-card">
+      <div class="faq-link-icon">📅</div>
+      <div class="faq-link-text">
+        <strong>Can I change my travel dates?</strong>
+        <span>Rescheduling flights, hotels, holidays</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+    <a href="help.html#account" class="faq-link-card">
+      <div class="faq-link-icon">🔐</div>
+      <div class="faq-link-text">
+        <strong>I can't log into my account</strong>
+        <span>Password reset, account recovery</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+    <a href="help.html#payment" class="faq-link-card">
+      <div class="faq-link-icon">💳</div>
+      <div class="faq-link-text">
+        <strong>My payment failed but money was deducted</strong>
+        <span>Payment failures, duplicate charges</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+  </div>
+  <div style="text-align:center;margin-top:2rem">
+    <a href="help.html" style="display:inline-flex;align-items:center;gap:.5rem;color:var(--purple);font-weight:600;text-decoration:none;font-size:.95rem">View All Help Articles →</a>
+  </div>
+</div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+// Reveal
+const revealEls = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.06});
+revealEls.forEach(el => ro.observe(el));
+
+// Char count
+function updateCharCount() {
+  const msg = document.getElementById('cMessage').value;
+  document.getElementById('charCount').textContent = msg.length;
+}
+
+// Validation helpers
+function setError(id, errId, show) {
+  const el = document.getElementById(id);
+  const err = document.getElementById(errId);
+  if (el) el.classList.toggle('error', show);
+  if (err) err.classList.toggle('show', show);
+  return show;
+}
+
+// Form submit
+function submitContactForm() {
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const subject = document.getElementById('cSubject').value;
+  const message = document.getElementById('cMessage').value.trim();
+  const consent = document.getElementById('cConsent').checked;
+
+  let hasError = false;
+  if (!name) hasError = setError('cName','err-name',true) || hasError;
+  else setError('cName','err-name',false);
+
+  if (!email || !email.includes('@') || !email.includes('.')) hasError = setError('cEmail','err-email',true) || hasError;
+  else setError('cEmail','err-email',false);
+
+  if (!subject) hasError = setError('cSubject','err-subject',true) || hasError;
+  else setError('cSubject','err-subject',false);
+
+  if (message.length < 20) hasError = setError('cMessage','err-message',true) || hasError;
+  else setError('cMessage','err-message',false);
+
+  if (!consent) {
+    if (typeof twToast === 'function') twToast('Please agree to our privacy policy to continue.');
+    hasError = true;
+  }
+
+  if (hasError) return;
+
+  // Simulate submission
+  const btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+  document.getElementById('submitText').textContent = 'Sending…';
+  document.getElementById('submitIcon').textContent = '⏳';
+
+  setTimeout(() => {
+    const ref = 'TW-' + Date.now().toString(36).toUpperCase().slice(-8);
+    document.getElementById('successRef').textContent = ref;
+    document.getElementById('contactFormCard').style.display = 'none';
+    const sc = document.getElementById('successCard');
+    sc.style.display = 'block';
+    sc.style.animation = 'modalIn .4s ease';
+    btn.classList.remove('loading');
+    if (typeof twToast === 'function') twToast('Message sent! Reference: ' + ref);
+  }, 1400);
+}
+
+function resetForm() {
+  document.getElementById('successCard').style.display = 'none';
+  document.getElementById('contactFormCard').style.display = '';
+  ['cName','cEmail','cPhone','cRef','cMessage'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('cSubject').value = '';
+  document.getElementById('cConsent').checked = false;
+  document.getElementById('charCount').textContent = '0';
+  document.getElementById('submitText').textContent = 'Send Message';
+  document.getElementById('submitIcon').textContent = '→';
+}
+
+// Contact method actions
+function openChat() {
+  if (typeof twToast === 'function') twToast('Opening live chat — connecting you to an agent…');
+}
+function openEmail() {
+  if (typeof twToast === 'function') twToast('Opening email: support@travelwise.in');
+}
+function openPhone() {
+  if (typeof twToast === 'function') twToast('Our toll-free number: 1800 209 1234 (Mon–Sat 9am–8pm IST)');
+}
+function openMaps(e) {
+  e.preventDefault();
+  if (typeof twToast === 'function') twToast('Opening location in Maps…');
+}
+function socialClick(e, platform) {
+  e.preventDefault();
+  if (typeof twToast === 'function') twToast(`Opening TravelWise on ${platform}…`);
+}
+</script>
+</body>
+</html>

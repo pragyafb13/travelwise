@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlantis The Palm, Dubai — Hotel Details | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.detail-wrap { max-width: 1200px; margin: 0 auto; padding: 30px 24px 80px; }
+
+/* ── Breadcrumb ── */
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 20px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--purple); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb span { color: var(--muted); }
+
+/* ── Photo Grid ── */
+.photo-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 260px 200px; gap: 8px; border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 28px; }
+.photo-grid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s var(--ease); cursor: pointer; }
+.photo-grid img:hover { transform: scale(1.03); }
+.photo-main { grid-column: 1 / 3; grid-row: 1 / 3; }
+.photo-more-btn {
+  position: relative; grid-column: 3; grid-row: 2;
+}
+.photo-more-btn img { filter: brightness(.6); }
+.photo-more-btn span {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 17px; font-weight: 700; pointer-events: none;
+}
+@media(max-width:700px){ .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 140px; } }
+
+/* ── Content + Sidebar Grid ── */
+.content-sidebar { display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start; }
+@media(max-width:960px){ .content-sidebar { grid-template-columns: 1fr; } }
+
+/* ── Hotel Header ── */
+.hotel-header { margin-bottom: 24px; }
+.hotel-chains { font-size: 12px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 8px; }
+.hotel-name-h1 { font-family: var(--display); font-size: clamp(1.6rem,3vw,2.4rem); font-weight: 800; color: var(--text-strong); margin-bottom: 8px; line-height: 1.2; }
+.hotel-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 16px; }
+.hotel-location-line { font-size: 14px; color: var(--muted); }
+.stars-row { display: flex; gap: 2px; }
+.s { color: var(--gold); font-size: 18px; }
+.badge-big { background: var(--green); color: #fff; padding: 5px 13px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 800; }
+.rating-label { font-size: 15px; font-weight: 700; color: var(--text-strong); }
+.reviews-sub { font-size: 13px; color: var(--muted); }
+
+/* ── Rating Bars ── */
+.rating-bars { margin-bottom: 28px; }
+.rating-bars h3 { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text-strong); margin-bottom: 14px; }
+.rating-bar-item { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.rb-label { font-size: 13px; color: var(--text); width: 110px; flex-shrink: 0; }
+.rb-track { flex: 1; height: 8px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.rb-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--purple), var(--teal)); }
+.rb-val { font-size: 13px; font-weight: 700; color: var(--text-strong); width: 30px; text-align: right; }
+
+/* ── Amenities ── */
+.amenities-section { margin-bottom: 32px; }
+.amenities-section h3 { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text-strong); margin-bottom: 16px; }
+.amenities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.amenity-item {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 600; color: var(--text);
+}
+.amenity-icon { font-size: 20px; }
+
+/* ── Rooms ── */
+.rooms-section { margin-bottom: 32px; }
+.rooms-section h3 { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text-strong); margin-bottom: 16px; }
+.room-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; margin-bottom: 14px; display: grid; grid-template-columns: 200px 1fr;
+  transition: border-color var(--t);
+}
+.room-card:hover { border-color: var(--border2); }
+@media(max-width:600px){ .room-card { grid-template-columns: 1fr; } }
+.room-img img { width: 100%; height: 100%; object-fit: cover; min-height: 140px; display: block; }
+.room-info { padding: 16px 20px; display: flex; flex-direction: column; justify-content: space-between; }
+.room-name { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--text-strong); margin-bottom: 6px; }
+.room-feats { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.room-feat { font-size: 11px; padding: 3px 10px; border-radius: 100px; background: var(--bg2); color: var(--muted); font-weight: 600; border: 1px solid var(--border); }
+.room-bottom { display: flex; align-items: center; justify-content: space-between; }
+.room-price { font-family: var(--display); font-size: 22px; font-weight: 800; color: var(--text-strong); }
+.room-price sup { font-size: 12px; vertical-align: super; }
+.room-per { font-size: 11px; color: var(--muted); }
+.btn-select-room {
+  padding: 9px 20px; background: linear-gradient(135deg,var(--purple),var(--teal));
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  text-decoration: none; display: inline-block; transition: opacity var(--t);
+}
+.btn-select-room:hover { opacity: .88; }
+
+/* ── Reviews ── */
+.reviews-section { margin-bottom: 32px; }
+.reviews-section h3 { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text-strong); margin-bottom: 16px; }
+.review-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 18px 20px; margin-bottom: 12px;
+}
+.review-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.reviewer { display: flex; align-items: center; gap: 12px; }
+.reviewer-avatar {
+  width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg,var(--purple),var(--teal));
+  display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; font-weight: 700;
+}
+.reviewer-name { font-size: 14px; font-weight: 700; color: var(--text-strong); }
+.reviewer-date { font-size: 12px; color: var(--muted); }
+.review-rating { color: var(--gold); font-size: 14px; }
+.review-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+.review-badge { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; background: rgba(108,43,217,.1); color: var(--purple); }
+
+/* ── Sticky Sidebar ── */
+.booking-sidebar {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: var(--radius-xl); padding: 24px; position: sticky; top: 90px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.12);
+}
+.sidebar-hotel { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--text-strong); margin-bottom: 4px; }
+.sidebar-loc { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+.sidebar-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+.sf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sf-field label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 5px; }
+.sf-field input, .sf-field select {
+  width: 100%; background: var(--input-bg); border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); padding: 9px 12px; font-size: 14px;
+  color: var(--text-strong); font-family: var(--font); outline: none;
+  transition: border-color var(--t); box-sizing: border-box;
+}
+.sf-field input:focus, .sf-field select:focus { border-color: var(--purple); }
+.price-summary { background: var(--bg2); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 14px; }
+.ps-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text); margin-bottom: 6px; }
+.ps-row.total { font-weight: 700; color: var(--text-strong); font-size: 15px; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; }
+.btn-book-now {
+  width: 100%; padding: 14px; background: linear-gradient(135deg, #FF6B35, #FF3CAC);
+  color: #fff; border: none; border-radius: var(--radius-sm); font-size: 16px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); text-decoration: none; display: block; text-align: center;
+  transition: opacity var(--t); letter-spacing: .2px;
+}
+.btn-book-now:hover { opacity: .9; }
+.sidebar-trust { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.trust-item { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div class="toast" id="tw-toast"></div>
+
+<div class="detail-wrap" style="padding-top:100px;">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <a href="hotels.html">Hotels</a>
+    <span>›</span>
+    <span>Dubai</span>
+    <span>›</span>
+    <span style="color:var(--text-strong)">Atlantis The Palm</span>
+  </div>
+
+  <!-- Photo Grid -->
+  <div class="photo-grid">
+    <div class="photo-main">
+      <img src="https://images.unsplash.com/photo-1568084680786-a84f91d1153c?auto=format&fit=crop&w=1200&q=80" alt="Atlantis The Palm main">
+    </div>
+    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" alt="Hotel pool">
+    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=600&q=80" alt="Hotel room">
+    <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=600&q=80" alt="Hotel dining">
+    <div class="photo-more-btn">
+      <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=600&q=80" alt="More photos">
+      <span>+18 Photos</span>
+    </div>
+  </div>
+
+  <div class="content-sidebar">
+    <div class="content-main">
+
+      <!-- Hotel Header -->
+      <div class="hotel-header">
+        <div class="hotel-chains">Atlantis Hotels &amp; Resorts · Palm Jumeirah</div>
+        <h1 class="hotel-name-h1">Atlantis The Palm, Dubai</h1>
+        <div class="hotel-meta">
+          <div class="stars-row"><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span></div>
+          <span class="badge-big">4.8</span>
+          <div>
+            <div class="rating-label">Exceptional</div>
+            <div class="reviews-sub">3,641 verified reviews</div>
+          </div>
+          <div class="hotel-location-line">📍 Palm Jumeirah, Dubai, UAE &nbsp;·&nbsp; 1.2 km from The Palm Monorail</div>
+        </div>
+      </div>
+
+      <!-- Rating Bars -->
+      <div class="rating-bars">
+        <h3>Guest Ratings</h3>
+        <div class="rating-bar-item"><span class="rb-label">Cleanliness</span><div class="rb-track"><div class="rb-fill" style="width:96%"></div></div><span class="rb-val">4.8</span></div>
+        <div class="rating-bar-item"><span class="rb-label">Location</span><div class="rb-track"><div class="rb-fill" style="width:100%"></div></div><span class="rb-val">5.0</span></div>
+        <div class="rating-bar-item"><span class="rb-label">Service</span><div class="rb-track"><div class="rb-fill" style="width:94%"></div></div><span class="rb-val">4.7</span></div>
+        <div class="rating-bar-item"><span class="rb-label">Facilities</span><div class="rb-track"><div class="rb-fill" style="width:98%"></div></div><span class="rb-val">4.9</span></div>
+        <div class="rating-bar-item"><span class="rb-label">Value</span><div class="rb-track"><div class="rb-fill" style="width:86%"></div></div><span class="rb-val">4.3</span></div>
+      </div>
+
+      <!-- Amenities -->
+      <div class="amenities-section">
+        <h3>Amenities &amp; Facilities</h3>
+        <div class="amenities-grid">
+          <div class="amenity-item"><span class="amenity-icon">🏊</span> Aquaventure Waterpark</div>
+          <div class="amenity-item"><span class="amenity-icon">🧖</span> ShuiQi Spa</div>
+          <div class="amenity-item"><span class="amenity-icon">🏋</span> Fitness Centre</div>
+          <div class="amenity-item"><span class="amenity-icon">📶</span> Free High-Speed WiFi</div>
+          <div class="amenity-item"><span class="amenity-icon">🍽</span> 17+ Restaurants</div>
+          <div class="amenity-item"><span class="amenity-icon">🍳</span> Breakfast Included</div>
+          <div class="amenity-item"><span class="amenity-icon">🏖</span> Private Beach</div>
+          <div class="amenity-item"><span class="amenity-icon">🐬</span> Dolphin Bay</div>
+          <div class="amenity-item"><span class="amenity-icon">🚗</span> Free Valet Parking</div>
+          <div class="amenity-item"><span class="amenity-icon">✈</span> Airport Shuttle</div>
+          <div class="amenity-item"><span class="amenity-icon">🎰</span> Casino</div>
+          <div class="amenity-item"><span class="amenity-icon">👶</span> Kids Club</div>
+        </div>
+      </div>
+
+      <!-- Room Options -->
+      <div class="rooms-section">
+        <h3>Available Rooms</h3>
+
+        <div class="room-card reveal">
+          <div class="room-img">
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=400&q=80" alt="Deluxe King Room">
+          </div>
+          <div class="room-info">
+            <div>
+              <div class="room-name">Deluxe King Room — Ocean View</div>
+              <div class="room-feats">
+                <span class="room-feat">👑 King Bed</span>
+                <span class="room-feat">🌊 Ocean View</span>
+                <span class="room-feat">📶 Free WiFi</span>
+                <span class="room-feat">🍳 Breakfast</span>
+                <span class="room-feat">🛁 Jacuzzi</span>
+              </div>
+            </div>
+            <div class="room-bottom">
+              <div>
+                <div class="room-price"><sup>₹</sup>28,500</div>
+                <div class="room-per">per night · 2 guests</div>
+              </div>
+              <a href="checkout.html" class="btn-select-room">Select Room</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="room-card reveal">
+          <div class="room-img">
+            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=400&q=80" alt="Premier Suite">
+          </div>
+          <div class="room-info">
+            <div>
+              <div class="room-name">Premier Suite — Palm View</div>
+              <div class="room-feats">
+                <span class="room-feat">👑 King Bed</span>
+                <span class="room-feat">🌴 Palm View</span>
+                <span class="room-feat">🛁 Deep-soak Tub</span>
+                <span class="room-feat">🍽 Minibar</span>
+                <span class="room-feat">🎭 Butler Service</span>
+              </div>
+            </div>
+            <div class="room-bottom">
+              <div>
+                <div class="room-price"><sup>₹</sup>52,000</div>
+                <div class="room-per">per night · 2 guests</div>
+              </div>
+              <a href="checkout.html" class="btn-select-room">Select Room</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="room-card reveal">
+          <div class="room-img">
+            <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=400&q=80" alt="Royal Bridge Suite">
+          </div>
+          <div class="room-info">
+            <div>
+              <div class="room-name">Signature Bridge Suite</div>
+              <div class="room-feats">
+                <span class="room-feat">🏰 2 Bedrooms</span>
+                <span class="room-feat">🌊 180° Gulf View</span>
+                <span class="room-feat">🎭 Personal Butler</span>
+                <span class="room-feat">🚗 Limo Transfers</span>
+                <span class="room-feat">🍽 Private Dining</span>
+              </div>
+            </div>
+            <div class="room-bottom">
+              <div>
+                <div class="room-price"><sup>₹</sup>1,20,000</div>
+                <div class="room-per">per night · up to 4 guests</div>
+              </div>
+              <a href="checkout.html" class="btn-select-room">Select Room</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="reviews-section">
+        <h3>What Guests Say</h3>
+
+        <div class="review-card reveal">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">R</div>
+              <div>
+                <div class="reviewer-name">Rahul Mehra</div>
+                <div class="reviewer-date">March 2026 · Delhi, India</div>
+              </div>
+            </div>
+            <div class="review-rating">★★★★★</div>
+          </div>
+          <div class="review-text">Absolutely breathtaking experience. The Aquaventure waterpark alone is worth every penny. The staff was incredibly attentive — they remembered our names from day 2. The room had a stunning panoramic view of the Gulf. Will definitely return!</div>
+          <span class="review-badge">Verified Stay · Deluxe King Room</span>
+        </div>
+
+        <div class="review-card reveal">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">P</div>
+              <div>
+                <div class="reviewer-name">Priya Sharma</div>
+                <div class="reviewer-date">February 2026 · Mumbai, India</div>
+              </div>
+            </div>
+            <div class="review-rating">★★★★★</div>
+          </div>
+          <div class="review-text">Perfect honeymoon destination. The Dolphin Bay experience was magical. The ShuiQi Spa treatments are world-class. Nobu restaurant was an absolute highlight — some of the best food we've ever had. The sheer scale of this property is jaw-dropping.</div>
+          <span class="review-badge">Verified Stay · Premier Suite</span>
+        </div>
+
+        <div class="review-card reveal">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">A</div>
+              <div>
+                <div class="reviewer-name">Amit Patel</div>
+                <div class="reviewer-date">January 2026 · Ahmedabad, India</div>
+              </div>
+            </div>
+            <div class="review-rating">★★★★☆</div>
+          </div>
+          <div class="review-text">Excellent property and world-class amenities. The private beach is pristine. Slight wait times at the waterpark on weekends, but overall an unforgettable experience. The views from our room at sunset were spectacular. Great value for a 5-star stay in Dubai.</div>
+          <span class="review-badge">Verified Stay · Deluxe King Room</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Sidebar -->
+    <div class="booking-sidebar">
+      <div class="sidebar-hotel">Atlantis The Palm</div>
+      <div class="sidebar-loc">📍 Palm Jumeirah, Dubai · 5★</div>
+
+      <div class="sidebar-form">
+        <div class="sf-row">
+          <div class="sf-field">
+            <label>Check-in</label>
+            <input type="date" value="2026-04-10">
+          </div>
+          <div class="sf-field">
+            <label>Check-out</label>
+            <input type="date" value="2026-04-15">
+          </div>
+        </div>
+        <div class="sf-row">
+          <div class="sf-field">
+            <label>Rooms</label>
+            <select>
+              <option>1 Room</option>
+              <option>2 Rooms</option>
+            </select>
+          </div>
+          <div class="sf-field">
+            <label>Guests</label>
+            <select>
+              <option>2 Adults</option>
+              <option>2A + 1C</option>
+              <option>4 Adults</option>
+            </select>
+          </div>
+        </div>
+        <div class="sf-field">
+          <label>Room Type</label>
+          <select id="room-type-sel" onchange="updatePrice()">
+            <option value="28500">Deluxe King Room — ₹28,500/night</option>
+            <option value="52000">Premier Suite — ₹52,000/night</option>
+            <option value="120000">Signature Bridge Suite — ₹1,20,000/night</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="price-summary">
+        <div class="ps-row"><span>₹28,500 × 5 nights</span><span>₹1,42,500</span></div>
+        <div class="ps-row"><span>Taxes &amp; Fees (18%)</span><span>₹25,650</span></div>
+        <div class="ps-row"><span>Resort Credit</span><span style="color:var(--green)">−₹5,000</span></div>
+        <div class="ps-row total"><span>Total</span><span>₹1,63,150</span></div>
+      </div>
+
+      <a href="checkout.html" class="btn-book-now">Book Now — ₹1,63,150</a>
+
+      <div class="sidebar-trust">
+        <div class="trust-item">✅ Free cancellation</div>
+        <div class="trust-item">🔒 Secure booking</div>
+        <div class="trust-item">💳 Pay now or later</div>
+        <div class="trust-item">⚡ Instant confirmation</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+function updatePrice() {
+  const sel = document.getElementById('room-type-sel');
+  const nightly = parseInt(sel.value);
+  const nights = 5;
+  const base = nightly * nights;
+  const tax = Math.round(base * 0.18);
+  const credit = 5000;
+  const total = base + tax - credit;
+  document.querySelector('.price-summary').innerHTML = `
+    <div class="ps-row"><span>₹${nightly.toLocaleString('en-IN')} × ${nights} nights</span><span>₹${base.toLocaleString('en-IN')}</span></div>
+    <div class="ps-row"><span>Taxes & Fees (18%)</span><span>₹${tax.toLocaleString('en-IN')}</span></div>
+    <div class="ps-row"><span>Resort Credit</span><span style="color:var(--green)">−₹5,000</span></div>
+    <div class="ps-row total"><span>Total</span><span>₹${total.toLocaleString('en-IN')}</span></div>
+  `;
+  document.querySelector('.btn-book-now').textContent = `Book Now — ₹${total.toLocaleString('en-IN')}`;
+}
+</script>
+</body>
+</html>

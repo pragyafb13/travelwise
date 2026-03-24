@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── About Page ── */
+.about-hero {
+  min-height: 80vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  position: relative;
+}
+.about-hero-left {
+  display: flex;
+  align-items: center;
+  padding: 6rem 4rem 6rem 5rem;
+  background: linear-gradient(135deg, #03091A 0%, #120830 100%);
+  position: relative;
+  z-index: 2;
+}
+.about-hero-left::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 0% 50%, rgba(108,43,217,.3) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 100% 20%, rgba(0,201,255,.15) 0%, transparent 60%);
+}
+.about-hero-left-inner { position: relative; z-index: 2; }
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: rgba(108,43,217,.15);
+  border: 1px solid rgba(108,43,217,.3);
+  color: #a78bfa;
+  padding: .4rem 1rem;
+  border-radius: 50px;
+  font-size: .82rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.about-hero-left h1 {
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.about-hero-left h1 span { background: linear-gradient(135deg, var(--teal), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.about-hero-left p { color: rgba(255,255,255,.7); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 480px; }
+.about-hero-right { position: relative; overflow: hidden; }
+.about-hero-right img { width: 100%; height: 100%; object-fit: cover; }
+.about-hero-right::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #03091A 0%, transparent 30%); z-index: 1; }
+.hero-cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; border: none; border-radius: 50px;
+  padding: .85rem 2rem; font-weight: 700; font-size: .95rem;
+  cursor: pointer; transition: var(--t); text-decoration: none;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(108,43,217,.4); }
+.btn-outline {
+  background: transparent;
+  color: rgba(255,255,255,.8); border: 1px solid rgba(255,255,255,.25); border-radius: 50px;
+  padding: .85rem 2rem; font-weight: 600; font-size: .95rem;
+  cursor: pointer; transition: var(--t); text-decoration: none;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.btn-outline:hover { border-color: rgba(255,255,255,.6); color: #fff; }
+
+.section-label {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+
+/* Mission */
+.mission-section { max-width: 1000px; margin: 0 auto; padding: 6rem 2rem; text-align: center; }
+.pull-quote {
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--text-strong);
+  line-height: 1.35;
+  position: relative;
+  padding: 2rem 3rem;
+}
+.pull-quote::before {
+  content: '"';
+  position: absolute;
+  top: -.5rem;
+  left: 0;
+  font-size: 8rem;
+  font-family: var(--display);
+  color: var(--purple);
+  opacity: .2;
+  line-height: 1;
+}
+.mission-body { color: var(--muted); font-size: 1.1rem; line-height: 1.8; max-width: 720px; margin: 0 auto; }
+
+/* Stats */
+.stats-bg { background: linear-gradient(135deg, #03091A 0%, #0d1f4e 50%, #1a0a3e 100%); padding: 5rem 2rem; }
+.stats-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--teal), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.stat-label { color: rgba(255,255,255,.6); font-size: .9rem; font-weight: 500; }
+
+/* Team */
+.team-section { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.75rem; margin-top: 3rem; }
+.team-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  transition: var(--t);
+}
+.team-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.12); border-color: var(--purple); }
+.team-avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 1.6rem; font-weight: 800;
+  color: #fff; margin: 0 auto 1.25rem;
+}
+.team-card h4 { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .25rem; }
+.team-role { color: var(--purple); font-size: .85rem; font-weight: 600; margin-bottom: .75rem; }
+.team-bio { color: var(--muted); font-size: .88rem; line-height: 1.6; }
+.team-links { display: flex; justify-content: center; gap: .75rem; margin-top: 1rem; }
+.team-link { width: 32px; height: 32px; border-radius: 50%; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: .85rem; cursor: pointer; transition: var(--t); text-decoration: none; }
+.team-link:hover { background: var(--purple); border-color: var(--purple); }
+
+/* Timeline */
+.timeline-section { background: var(--bg2); padding: 5rem 2rem; }
+.timeline-inner { max-width: 800px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-header h2 { font-family: var(--display); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--text-strong); margin-bottom: .75rem; }
+.section-header p { color: var(--muted); font-size: 1.05rem; }
+.timeline { position: relative; padding-left: 2.5rem; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--purple), var(--teal), var(--coral)); border-radius: 99px; }
+.tl-item { position: relative; margin-bottom: 2.5rem; }
+.tl-dot { position: absolute; left: -2.5rem; top: .2rem; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--bg2); box-shadow: 0 0 0 3px; transition: var(--t); transform: translateX(-7px); }
+.tl-year { font-family: var(--display); font-size: .85rem; font-weight: 700; color: var(--muted); margin-bottom: .3rem; }
+.tl-item h4 { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .4rem; }
+.tl-item p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+/* Values */
+.values-section { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
+.values-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.value-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  transition: var(--t);
+  position: relative;
+  overflow: hidden;
+}
+.value-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.value-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,.1); }
+.value-card:nth-child(1)::before { background: linear-gradient(90deg, var(--purple), var(--teal)); }
+.value-card:nth-child(2)::before { background: linear-gradient(90deg, var(--teal), var(--green)); }
+.value-card:nth-child(3)::before { background: linear-gradient(90deg, var(--green), var(--gold)); }
+.value-card:nth-child(4)::before { background: linear-gradient(90deg, var(--gold), var(--coral)); }
+.value-card:nth-child(5)::before { background: linear-gradient(90deg, var(--coral), var(--purple)); }
+.value-card:nth-child(6)::before { background: linear-gradient(90deg, var(--purple), var(--coral)); }
+.value-icon { font-size: 2rem; margin-bottom: 1rem; }
+.value-card h4 { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .5rem; }
+.value-card p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+/* Awards */
+.awards-section { background: var(--bg2); padding: 4rem 2rem; }
+.awards-inner { max-width: 1000px; margin: 0 auto; }
+.awards-row { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; }
+.award-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 2rem;
+  text-align: center;
+  width: 240px;
+  transition: var(--t);
+}
+.award-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.1); }
+.award-icon { font-size: 2.5rem; margin-bottom: .75rem; }
+.award-card h5 { font-family: var(--display); font-size: .95rem; font-weight: 700; color: var(--text-strong); margin-bottom: .25rem; }
+.award-card p { color: var(--muted); font-size: .82rem; }
+
+/* Press logos */
+.press-section { padding: 4rem 2rem; }
+.press-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.press-logos { display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
+.press-logo {
+  padding: .75rem 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: .9rem;
+  color: var(--muted);
+  transition: var(--t);
+  white-space: nowrap;
+}
+.press-logo:hover { border-color: var(--purple); color: var(--text-strong); transform: scale(1.04); }
+
+@media (max-width: 900px) {
+  .about-hero { grid-template-columns: 1fr; }
+  .about-hero-left { padding: 4rem 2rem; }
+  .about-hero-right { height: 300px; }
+  .about-hero-right::before { background: linear-gradient(180deg, #03091A 0%, transparent 30%); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="about-hero-left">
+    <div class="about-hero-left-inner">
+      <div class="hero-eyebrow">🌍 Our Story</div>
+      <h1>We believe<br>travel <span>changes</span><br>lives</h1>
+      <p>TravelWise was built by travellers, for travellers. We exist to make extraordinary journeys accessible to every Indian — not just the privileged few.</p>
+      <div class="hero-cta-row">
+        <a href="careers.html" class="btn-primary">Join Our Team →</a>
+        <a href="press.html" class="btn-outline">Press & Media</a>
+      </div>
+    </div>
+  </div>
+  <div class="about-hero-right">
+    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80" alt="Travel">
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission-section reveal">
+  <div class="section-label">Our Mission</div>
+  <div class="pull-quote">
+    Travel should be the birthright of every person who dreams of the world beyond their horizon.
+  </div>
+  <p class="mission-body">
+    We started TravelWise in 2019 with a simple belief: booking a trip should be as joyful as taking one. We've spent five years building technology that removes the friction — the endless tabs, the confusing pricing, the anxiety of "did I get the best deal?" — so you can focus entirely on the adventure ahead. Today, over 2 million travellers trust TravelWise to take them where they want to go. And we're just getting started.
+  </p>
+</section>
+
+<!-- STATS -->
+<section class="stats-bg">
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-item">
+      <div class="stat-num" data-target="2000000" data-suffix="M+">0</div>
+      <div class="stat-label">Travellers Served</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="50" data-suffix="+">0</div>
+      <div class="stat-label">Countries Covered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="10000" data-suffix="K+">0</div>
+      <div class="stat-label">Hotel Partners</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="48" data-suffix="★">0</div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section reveal">
+  <div style="text-align:center;margin-bottom:1rem">
+    <div class="section-label">Our People</div>
+  </div>
+  <div class="section-header">
+    <h2>Meet the Team Behind the Journey</h2>
+    <p>A diverse group of travellers, technologists, and storytellers united by one passion.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#6C2BD9,#00C9FF)">AK</div>
+      <h4>Aryan Kapoor</h4>
+      <div class="team-role">Co-Founder & CEO</div>
+      <p class="team-bio">Former product lead at MakeMyTrip. Visited 48 countries, speaks 4 languages, and still claims the best chai is at New Delhi Railway Station.</p>
+      <div class="team-links">
+        <a class="team-link" href="#" title="LinkedIn">💼</a>
+        <a class="team-link" href="#" title="Twitter">🐦</a>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#FF6B35,#F59E0B)">SM</div>
+      <h4>Sneha Malhotra</h4>
+      <div class="team-role">Co-Founder & CTO</div>
+      <p class="team-bio">IIT Bombay CS graduate. Built TravelWise's core booking engine from scratch. Collects passport stamps like others collect vinyl records.</p>
+      <div class="team-links">
+        <a class="team-link" href="#" title="LinkedIn">💼</a>
+        <a class="team-link" href="#" title="GitHub">💻</a>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#10B981,#00C9FF)">RV</div>
+      <h4>Rahul Verma</h4>
+      <div class="team-role">Chief Product Officer</div>
+      <p class="team-bio">10+ years in consumer tech. Obsessed with reducing friction in booking flows and equally obsessed with finding off-beat Himalayan treks.</p>
+      <div class="team-links">
+        <a class="team-link" href="#" title="LinkedIn">💼</a>
+        <a class="team-link" href="#" title="Twitter">🐦</a>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#F59E0B,#FF6B35)">PN</div>
+      <h4>Priya Nair</h4>
+      <div class="team-role">VP of Partnerships</div>
+      <p class="team-bio">Built our hotel and airline network from 50 to 10,000 partners. Former IndiGo strategy exec. Her favourite destination changes every three months.</p>
+      <div class="team-links">
+        <a class="team-link" href="#" title="LinkedIn">💼</a>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#6C2BD9,#FF6B35)">KS</div>
+      <h4>Kiran Shah</h4>
+      <div class="team-role">Head of Design</div>
+      <p class="team-bio">Previously led design at Razorpay. Kiran believes every pixel should earn its place, and that the best UI is the one you don't notice at all.</p>
+      <div class="team-links">
+        <a class="team-link" href="#" title="LinkedIn">💼</a>
+        <a class="team-link" href="#" title="Dribbble">🎨</a>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#00C9FF,#10B981)">MT</div>
+      <h4>Meera Trivedi</h4>
+      <div class="team-role">Head of Customer Experience</div>
+      <p class="team-bio">5-star hospitality background from the Oberoi Group. Meera's team resolves 94% of customer queries in under 2 minutes. She makes it look effortless.</p>
+      <div class="team-links">
+        <a class="team-link" href="#" title="LinkedIn">💼</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<div class="timeline-section">
+<div class="timeline-inner reveal">
+  <div class="section-header">
+    <div class="section-label">Our Journey</div>
+    <h2>Five Years of Building the Future of Travel</h2>
+    <p>From a two-person team to a 250-person company that helps millions travel smarter.</p>
+  </div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--purple);box-shadow-color:var(--purple)"></div>
+      <div class="tl-year">2019</div>
+      <h4>TravelWise is Founded</h4>
+      <p>Aryan and Sneha quit their jobs and start building TravelWise in a Bengaluru co-working space. First ₹25 lakh raised from angel investors in September.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--teal)"></div>
+      <div class="tl-year">2020</div>
+      <h4>The COVID Pivot</h4>
+      <p>The pandemic halts travel globally. TravelWise pivots quickly to offer no-cancellation-fee policies and free rescheduling. This transparency earns 50,000 loyal users who remember us when travel opens up.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--coral)"></div>
+      <div class="tl-year">2021</div>
+      <h4>₹50 Crore Series A</h4>
+      <p>Raised ₹50Cr in Series A funding led by Lightspeed India. Launched holiday packages, train booking, and the TravelWise mobile app. Team grows to 80 people.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--green)"></div>
+      <div class="tl-year">2022</div>
+      <h4>1 Million Users</h4>
+      <p>Hit the 1M active user milestone in March 2022. Launched AI-powered trip planning, earning the Economic Times 'Startup of the Year' recognition. Series B follows at ₹200Cr.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--gold)"></div>
+      <div class="tl-year">2023</div>
+      <h4>International Expansion</h4>
+      <p>Opened offices in Singapore and Dubai. Launched international flight booking covering 50+ countries. Crossed ₹500Cr GMV. Named one of India's 50 best workplaces.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:linear-gradient(135deg,var(--purple),var(--teal))"></div>
+      <div class="tl-year">2026</div>
+      <h4>2 Million Strong & Growing</h4>
+      <p>2M+ travellers, 10,000+ hotel partners, 50+ destination countries. Launched TravelWise Pro for frequent business travellers. Preparing for IPO in late 2026.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- VALUES -->
+<div style="background:var(--bg)">
+<div class="values-section reveal">
+  <div style="text-align:center">
+    <div class="section-label">What We Stand For</div>
+    <h2 style="font-family:var(--display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-strong);margin-bottom:.75rem">Our Core Values</h2>
+    <p style="color:var(--muted);max-width:560px;margin:0 auto;margin-bottom:3rem">The principles that guide every decision we make — from product features to customer support.</p>
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">🤝</div>
+      <h4>Trust First</h4>
+      <p>We never hide fees, never manipulate prices, and never exploit urgency to push bookings. Every interaction is built on transparency and honesty — even when it costs us a sale.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">⚡</div>
+      <h4>Innovation Always</h4>
+      <p>We ship fast, learn faster, and refuse to accept "that's just how it's done." Our engineering culture rewards creative problem-solving over safe incremental improvements.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🌿</div>
+      <h4>Sustainable by Design</h4>
+      <p>We partner only with eco-certified properties, offset all platform emissions, and actively promote slow, conscious travel. Responsible tourism isn't a marketing message — it's a commitment.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🌏</div>
+      <h4>Community-Powered</h4>
+      <p>Our best features come from our users. We have a 10,000-member beta community that shapes the product roadmap. Travellers aren't just customers — they're co-creators.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🏆</div>
+      <h4>Excellence in Execution</h4>
+      <p>A 2-minute query resolution time. A 99.97% platform uptime. A ₹500 guarantee if we're not the best price. We set ambitious standards and hold ourselves accountable to them daily.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🧭</div>
+      <h4>Adventure in Spirit</h4>
+      <p>We hire curious people who take risks, embrace the unexpected, and believe the best journeys are the ones that change how you see the world. This curiosity permeates everything we build.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- AWARDS -->
+<div class="awards-section">
+<div class="awards-inner reveal" style="text-align:center">
+  <div class="section-label">Recognition</div>
+  <h2 style="font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--text-strong);margin-bottom:.5rem">Awards & Recognition</h2>
+  <p style="color:var(--muted);margin-bottom:2rem">Proud to be recognised by India's leading business and technology publications.</p>
+  <div class="awards-row">
+    <div class="award-card">
+      <div class="award-icon">🥇</div>
+      <h5>Startup of the Year 2022</h5>
+      <p>Economic Times Tech Awards</p>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">🏆</div>
+      <h5>Best Travel App 2023</h5>
+      <p>Google Play Best of 2023</p>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">⭐</div>
+      <h5>Top 50 Workplaces 2024</h5>
+      <p>Great Place to Work® India</p>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">🎯</div>
+      <h5>Most Innovative 2025</h5>
+      <p>YourStory TechSparks</p>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">💡</div>
+      <h5>Best UX Design 2025</h5>
+      <p>Product Design India Awards</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PRESS LOGOS -->
+<section class="press-section reveal">
+  <div class="press-inner">
+    <p style="color:var(--muted);font-size:.9rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:.5rem">AS FEATURED IN</p>
+    <div class="press-logos">
+      <div class="press-logo">Economic Times</div>
+      <div class="press-logo">YourStory</div>
+      <div class="press-logo">TechCrunch</div>
+      <div class="press-logo">Inc42</div>
+      <div class="press-logo">Business Standard</div>
+      <div class="press-logo">The Ken</div>
+      <div class="press-logo">Forbes India</div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+// Reveal
+const revealEls = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.06});
+revealEls.forEach(el => ro.observe(el));
+
+// Stats count-up
+const statsMap = [
+  { el: document.querySelectorAll('[data-target]')[0], target: 2, suffix: 'M+', decimals: 0 },
+  { el: document.querySelectorAll('[data-target]')[1], target: 50, suffix: '+', decimals: 0 },
+  { el: document.querySelectorAll('[data-target]')[2], target: 10, suffix: 'K+', decimals: 0 },
+  { el: document.querySelectorAll('[data-target]')[3], target: 4.8, suffix: '★', decimals: 1 }
+];
+
+let counted = false;
+const statsSection = document.getElementById('statsGrid');
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !counted) {
+      counted = true;
+      statsMap.forEach(({ el, target, suffix, decimals }) => {
+        if (!el) return;
+        let start = 0;
+        const duration = 1800;
+        const step = 16;
+        const increment = target / (duration / step);
+        const timer = setInterval(() => {
+          start += increment;
+          if (start >= target) { start = target; clearInterval(timer); }
+          el.textContent = (decimals ? start.toFixed(decimals) : Math.floor(start)) + suffix;
+        }, step);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+if (statsSection) statsObserver.observe(statsSection);
+</script>
+</body>
+</html>

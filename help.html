@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help Center | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.help-hero {
+  padding: 100px 24px 70px; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #6C2BD9 0%, #00C9FF 100%);
+  text-align: center;
+}
+.help-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,201,255,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.help-hero-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+.help-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
+  color: #fff; margin-bottom: 20px; letter-spacing: 0.3px;
+}
+.help-hero h1 {
+  font-family: var(--display); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800;
+  color: #fff; margin-bottom: 12px; line-height: 1.2;
+}
+.help-hero p { font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 32px; }
+.help-search-bar {
+  display: flex; max-width: 560px; margin: 0 auto;
+  background: rgba(255,255,255,0.96); border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25); overflow: hidden;
+}
+.help-search-bar input {
+  flex: 1; padding: 16px 20px; border: none; outline: none;
+  font-size: 15px; font-family: var(--font); background: transparent; color: #1A1033;
+}
+.help-search-bar button {
+  padding: 14px 26px; background: linear-gradient(135deg, #6C2BD9, #00C9FF);
+  color: #fff; border: none; font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); transition: opacity 0.2s;
+}
+.help-search-bar button:hover { opacity: 0.9; }
+.help-stats { display: flex; gap: 32px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+.help-stat { color: rgba(255,255,255,0.9); }
+.help-stat strong { display: block; font-family: var(--display); font-size: 1.6rem; font-weight: 700; }
+.help-stat span { font-size: 13px; opacity: 0.75; }
+
+/* ── Section wrapper ── */
+.help-wrap { max-width: 1100px; margin: 0 auto; padding: 64px 24px; }
+.section-title {
+  font-family: var(--display); font-size: 1.6rem; font-weight: 700;
+  color: var(--text-strong); margin-bottom: 8px;
+}
+.section-sub { color: var(--muted); font-size: 15px; margin-bottom: 36px; }
+
+/* ── Topic cards ── */
+.topics-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px; margin-bottom: 64px;
+}
+.topic-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px 20px 24px;
+  text-align: center; cursor: pointer;
+  transition: all 0.25s var(--ease);
+}
+.topic-card:hover {
+  border-color: var(--purple); transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(108,43,217,0.15);
+  background: var(--card-hover);
+}
+.topic-icon {
+  width: 52px; height: 52px; border-radius: var(--radius);
+  margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.topic-icon.purple { background: linear-gradient(135deg, rgba(108,43,217,0.2), rgba(108,43,217,0.05)); }
+.topic-icon.teal   { background: linear-gradient(135deg, rgba(0,201,255,0.2),   rgba(0,201,255,0.05)); }
+.topic-icon.coral  { background: linear-gradient(135deg, rgba(255,107,53,0.2),  rgba(255,107,53,0.05)); }
+.topic-icon.green  { background: linear-gradient(135deg, rgba(16,185,129,0.2),  rgba(16,185,129,0.05)); }
+.topic-icon.gold   { background: linear-gradient(135deg, rgba(245,158,11,0.2),  rgba(245,158,11,0.05)); }
+.topic-icon.pink   { background: linear-gradient(135deg, rgba(236,72,153,0.2),  rgba(236,72,153,0.05)); }
+.topic-card h3 { font-size: 14px; font-weight: 600; color: var(--text-strong); margin-bottom: 4px; }
+.topic-card p { font-size: 12px; color: var(--muted); }
+
+/* ── No results message ── */
+.no-results {
+  text-align: center; padding: 48px 24px; display: none;
+  color: var(--muted); font-size: 15px;
+}
+.no-results.show { display: block; }
+
+/* ── FAQ Sections ── */
+.faq-section { margin-bottom: 56px; }
+.faq-section-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.faq-section-icon {
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  flex-shrink: 0;
+}
+.faq-section-header h2 {
+  font-family: var(--display); font-size: 1.25rem; font-weight: 700;
+  color: var(--text-strong);
+}
+.faq-count {
+  margin-left: auto; background: var(--bg3); padding: 4px 12px;
+  border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--muted);
+}
+
+.faq-item {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  margin-bottom: 10px; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.faq-item.open { border-color: var(--purple); }
+.faq-item[style*="display: none"] { display: none !important; }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px; cursor: pointer; gap: 12px;
+  background: var(--card); transition: background 0.2s;
+}
+.faq-q:hover { background: var(--card-hover); }
+.faq-q span {
+  font-size: 15px; font-weight: 500; color: var(--text-strong); flex: 1; line-height: 1.5;
+}
+.faq-chevron {
+  width: 28px; height: 28px; border-radius: 8px; background: var(--bg3);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: all 0.3s var(--ease); font-size: 12px; color: var(--muted);
+}
+.faq-item.open .faq-chevron { background: var(--purple); color: #fff; transform: rotate(180deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s var(--ease), padding 0.3s;
+}
+.faq-a-inner {
+  padding: 0 20px 18px; font-size: 14px; color: var(--muted); line-height: 1.75;
+}
+.faq-a-inner ul { padding-left: 20px; margin-top: 8px; }
+.faq-a-inner ul li { margin-bottom: 4px; }
+.faq-a-inner a { color: var(--purple); }
+.faq-a-inner strong { color: var(--text); }
+.faq-item.open .faq-a { max-height: 600px; }
+
+/* ── Still need help ── */
+.still-help {
+  background: linear-gradient(135deg, var(--bg2), var(--bg3));
+  border: 1px solid var(--border); border-radius: var(--radius-xl);
+  padding: 56px 40px; text-align: center; margin-bottom: 64px;
+}
+.still-help h2 { font-family: var(--display); font-size: 1.8rem; font-weight: 700; color: var(--text-strong); margin-bottom: 10px; }
+.still-help p { color: var(--muted); font-size: 15px; margin-bottom: 36px; }
+.help-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.help-cta-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px 36px;
+  min-width: 180px; cursor: pointer; text-align: center;
+  transition: all 0.25s var(--ease);
+}
+.help-cta-card:hover {
+  border-color: var(--purple); transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(108,43,217,0.18);
+}
+.help-cta-card .cta-icon { font-size: 28px; margin-bottom: 10px; }
+.help-cta-card h3 { font-size: 15px; font-weight: 700; color: var(--text-strong); margin-bottom: 4px; }
+.help-cta-card p { font-size: 13px; color: var(--muted); }
+.help-cta-card .cta-badge {
+  display: inline-block; margin-top: 10px; background: var(--green);
+  color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px;
+  border-radius: 100px;
+}
+
+/* ── Popular Articles ── */
+.popular-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px; margin-bottom: 64px;
+}
+.popular-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+  transition: all 0.2s; cursor: pointer;
+}
+.popular-card:hover { border-color: var(--border2); background: var(--card-hover); }
+.popular-card-tag {
+  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 3px 10px; border-radius: 100px; margin-bottom: 10px; text-transform: uppercase;
+}
+.tag-flights  { background: rgba(108,43,217,0.12); color: var(--purple); }
+.tag-hotels   { background: rgba(0,201,255,0.12); color: var(--teal); }
+.tag-payments { background: rgba(16,185,129,0.12); color: var(--green); }
+.tag-refunds  { background: rgba(255,107,53,0.12); color: var(--coral); }
+.popular-card h4 { font-size: 14px; font-weight: 600; color: var(--text-strong); line-height: 1.5; margin-bottom: 6px; }
+.popular-card p { font-size: 13px; color: var(--muted); }
+.popular-card-arrow { margin-top: 12px; font-size: 13px; color: var(--purple); font-weight: 600; }
+
+@media (max-width: 768px) {
+  .help-stats { gap: 20px; }
+  .topics-grid { grid-template-columns: repeat(3, 1fr); }
+  .still-help { padding: 40px 20px; }
+  .help-ctas { flex-direction: column; align-items: center; }
+  .help-cta-card { width: 100%; max-width: 320px; }
+}
+@media (max-width: 480px) {
+  .topics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- HERO -->
+<section class="help-hero">
+  <div class="help-hero-inner">
+    <div class="help-eyebrow">🛟 Support</div>
+    <h1>How can we help you?</h1>
+    <p>Search our knowledge base or browse popular topics below.</p>
+    <div class="help-search-bar">
+      <input type="text" id="faq-search" placeholder="Search for answers... e.g. cancellation policy" autocomplete="off">
+      <button onclick="doSearch()">Search</button>
+    </div>
+    <div class="help-stats">
+      <div class="help-stat"><strong>500+</strong><span>Help articles</span></div>
+      <div class="help-stat"><strong>24/7</strong><span>Live support</span></div>
+      <div class="help-stat"><strong>2 min</strong><span>Avg response time</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="help-wrap">
+
+  <!-- TOPIC CARDS -->
+  <div class="reveal">
+    <div class="section-title">Popular Topics</div>
+    <div class="section-sub">Jump straight to the help you need</div>
+    <div class="topics-grid">
+      <div class="topic-card" onclick="scrollToSection('faq-flights')">
+        <div class="topic-icon purple">✈️</div>
+        <h3>Booking</h3>
+        <p>Search & book flights</p>
+      </div>
+      <div class="topic-card" onclick="scrollToSection('faq-flights')">
+        <div class="topic-icon coral">❌</div>
+        <h3>Cancellation</h3>
+        <p>Cancel & rebook trips</p>
+      </div>
+      <div class="topic-card" onclick="scrollToSection('faq-payments')">
+        <div class="topic-icon green">💳</div>
+        <h3>Payment</h3>
+        <p>Methods, EMI & issues</p>
+      </div>
+      <div class="topic-card" onclick="scrollToSection('faq-hotels')">
+        <div class="topic-icon teal">🏨</div>
+        <h3>Check-in</h3>
+        <p>Hotel & flight check-in</p>
+      </div>
+      <div class="topic-card" onclick="scrollToSection('faq-flights')">
+        <div class="topic-icon gold">🧳</div>
+        <h3>Baggage</h3>
+        <p>Allowances & fees</p>
+      </div>
+      <div class="topic-card" onclick="scrollToSection('faq-refunds')">
+        <div class="topic-icon pink">💰</div>
+        <h3>Refunds</h3>
+        <p>Status & timelines</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPULAR ARTICLES -->
+  <div class="reveal">
+    <div class="section-title">Most Viewed Articles</div>
+    <div class="section-sub">Quick answers to common questions</div>
+    <div class="popular-grid">
+      <div class="popular-card">
+        <div class="popular-card-tag tag-flights">Flights</div>
+        <h4>How do I cancel my flight and get a refund?</h4>
+        <p>Step-by-step guide to initiating a cancellation and tracking your refund.</p>
+        <div class="popular-card-arrow">Read more →</div>
+      </div>
+      <div class="popular-card">
+        <div class="popular-card-tag tag-hotels">Hotels</div>
+        <h4>What is the standard check-in time at hotels?</h4>
+        <p>Learn about check-in policies and how to request early or late check-in.</p>
+        <div class="popular-card-arrow">Read more →</div>
+      </div>
+      <div class="popular-card">
+        <div class="popular-card-tag tag-payments">Payments</div>
+        <h4>Why did my payment fail? What should I do?</h4>
+        <p>Common causes of payment failures and how to resolve them quickly.</p>
+        <div class="popular-card-arrow">Read more →</div>
+      </div>
+      <div class="popular-card">
+        <div class="popular-card-tag tag-refunds">Refunds</div>
+        <h4>How long does a refund take to process?</h4>
+        <p>Understand refund timelines depending on your payment method and airline.</p>
+        <div class="popular-card-arrow">Read more →</div>
+      </div>
+      <div class="popular-card">
+        <div class="popular-card-tag tag-flights">Flights</div>
+        <h4>How do I do web check-in for my flight?</h4>
+        <p>Online check-in steps, timing windows, and how to get your boarding pass.</p>
+        <div class="popular-card-arrow">Read more →</div>
+      </div>
+      <div class="popular-card">
+        <div class="popular-card-tag tag-payments">Payments</div>
+        <h4>Can I pay in EMI? Which banks are supported?</h4>
+        <p>Eligible banks, minimum booking amount, and how to opt for EMI at checkout.</p>
+        <div class="popular-card-arrow">Read more →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NO RESULTS -->
+  <div class="no-results" id="no-results-msg">
+    <div style="font-size:3rem; margin-bottom:16px;">🔍</div>
+    <strong style="font-size:1.1rem; color:var(--text-strong);">No results found</strong>
+    <p style="margin-top:8px;">Try different keywords or <a href="#still-help" style="color:var(--purple);">contact our support team</a>.</p>
+  </div>
+
+  <!-- ── FAQ: FLIGHTS ── -->
+  <div class="faq-section reveal" id="faq-flights">
+    <div class="faq-section-header">
+      <div class="faq-section-icon">✈️</div>
+      <h2>Flights</h2>
+      <span class="faq-count">5 questions</span>
+    </div>
+
+    <div class="faq-item" data-keywords="book flight booking search seats confirmation">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How do I book a flight on TravelWise?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Booking a flight is simple. Enter your departure city, destination, travel dates, and number of passengers on the home page or the Flights page. Browse the results, compare prices, select your preferred flight, and proceed to checkout. You can pay using credit/debit cards, UPI, net banking, or EMI. Once payment is confirmed, your e-ticket will be sent to your registered email address within minutes.
+        <ul>
+          <li>Log in for faster checkout and loyalty points</li>
+          <li>Use filters to sort by price, duration, or airline</li>
+          <li>Add baggage or meals during checkout</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="cancel cancellation flight refund charges">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How do I cancel my flight booking?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Go to <strong>My Trips</strong>, find your booking, and click <strong>Cancel Booking</strong>. Cancellation charges depend on the airline's policy and how far in advance you cancel. Generally:
+        <ul>
+          <li><strong>More than 7 days before departure:</strong> 90% refund</li>
+          <li><strong>3–7 days before departure:</strong> 50% refund</li>
+          <li><strong>Less than 3 days before departure:</strong> 10% refund</li>
+        </ul>
+        Refunds are processed within 3–7 business days to your original payment method. For fare-locked tickets, full refund is available within 24 hours of booking.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="change date reschedule flight modification">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Can I change my flight date after booking?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Yes, most airlines allow date changes subject to seat availability and applicable change fees. To reschedule:
+        <ul>
+          <li>Go to <strong>My Trips</strong> and click <strong>Modify Booking</strong></li>
+          <li>Select a new date and confirm availability</li>
+          <li>Pay any fare difference and change fees if applicable</li>
+        </ul>
+        Date changes are not permitted within 12 hours of departure on most airlines. Some discounted fares are non-changeable — check your ticket's fare rules.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="web check-in online boarding pass seat selection">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How do I complete web check-in for my flight?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Web check-in is available from 48 hours to 1 hour before your flight's departure, depending on the airline. To check in:
+        <ul>
+          <li>Open your booking confirmation email or go to <strong>My Trips</strong></li>
+          <li>Click <strong>Check-in Online</strong> — you'll be redirected to the airline's portal</li>
+          <li>Verify passenger details, select seats, and download your boarding pass</li>
+        </ul>
+        Web check-in is mandatory for international flights on most carriers. Make sure your passport details match your booking.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="baggage allowance luggage cabin check-in bag weight kg">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What is the baggage allowance for my flight?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Baggage allowances vary by airline, route, and fare class. General guidelines:
+        <ul>
+          <li><strong>Cabin baggage:</strong> 7–10 kg (1 piece, max 55×35×25 cm)</li>
+          <li><strong>Check-in baggage (Economy):</strong> 15–25 kg depending on airline</li>
+          <li><strong>Check-in baggage (Business):</strong> 30–40 kg typically</li>
+        </ul>
+        Your exact allowance is printed on your e-ticket. You can purchase additional baggage allowance through <strong>My Trips</strong> before departure at rates lower than airport counters.
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ── FAQ: HOTELS ── -->
+  <div class="faq-section reveal" id="faq-hotels">
+    <div class="faq-section-header">
+      <div class="faq-section-icon" style="background:linear-gradient(135deg,var(--teal),var(--green))">🏨</div>
+      <h2>Hotels</h2>
+      <span class="faq-count">4 questions</span>
+    </div>
+
+    <div class="faq-item" data-keywords="check-in time hotel arrival early late">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What is the standard check-in time at hotels?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Standard hotel check-in time is <strong>2:00 PM</strong> and check-out is <strong>12:00 PM (noon)</strong>, though this varies by property. Early check-in (before 2 PM) and late check-out (after 12 PM) may be available on request, subject to room availability. Some hotels charge an additional fee. You can request early check-in through the hotel directly or via the <strong>My Trips</strong> section on TravelWise.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="hotel cancellation policy cancel refund booking">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What is the hotel cancellation policy?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Hotel cancellation policies depend on the rate type booked:
+        <ul>
+          <li><strong>Free Cancellation rates:</strong> Full refund if cancelled more than 48 hours before check-in</li>
+          <li><strong>Partially refundable:</strong> 50% refund if cancelled 24–48 hours before check-in</li>
+          <li><strong>Non-refundable rates:</strong> No refund on cancellation</li>
+        </ul>
+        Always check the rate description before booking. The cancellation deadline is always shown in your booking confirmation.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="room upgrade upgrade hotel suite better room">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Can I request a room upgrade?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Room upgrades are subject to availability and the hotel's discretion. To request an upgrade:
+        <ul>
+          <li>Contact the hotel directly 24–48 hours before arrival</li>
+          <li>Use the <strong>Special Requests</strong> field during checkout for preferences</li>
+          <li>TravelWise Elite members often receive complimentary upgrades at partner hotels</li>
+        </ul>
+        Upgrades are not guaranteed and may involve an additional charge at the front desk.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="extra bed cot child accommodation baby hotel room">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How do I arrange for an extra bed?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Extra beds or baby cots can be requested during the booking process using the <strong>Special Requests</strong> section. Availability and charges vary by hotel — most properties provide cots for infants at no charge, while extra beds for adults are typically charged at ₹500–₹2,000 per night. Confirm directly with the hotel after booking to ensure your request is noted.
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ── FAQ: PAYMENTS ── -->
+  <div class="faq-section reveal" id="faq-payments">
+    <div class="faq-section-header">
+      <div class="faq-section-icon" style="background:linear-gradient(135deg,var(--green),#059669)">💳</div>
+      <h2>Payments</h2>
+      <span class="faq-count">4 questions</span>
+    </div>
+
+    <div class="faq-item" data-keywords="payment methods accepted cards UPI net banking wallet">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What payment methods are accepted on TravelWise?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        TravelWise accepts a wide range of payment options:
+        <ul>
+          <li><strong>Cards:</strong> Visa, Mastercard, American Express, RuPay (credit & debit)</li>
+          <li><strong>UPI:</strong> Google Pay, PhonePe, Paytm, BHIM, any UPI-enabled app</li>
+          <li><strong>Net Banking:</strong> All major Indian banks</li>
+          <li><strong>Wallets:</strong> Paytm, Amazon Pay, MobiKwik</li>
+          <li><strong>EMI:</strong> Credit card EMI from 15+ banks (interest-free options available)</li>
+          <li><strong>Buy Now Pay Later:</strong> LazyPay, Simpl</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="EMI installment credit card bank offer no cost">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How can I pay in EMI? Which banks are supported?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        EMI is available on bookings above ₹5,000. To pay in EMI, select <strong>EMI</strong> as your payment method at checkout, choose your bank and tenure (3, 6, 9, or 12 months). Supported banks include:
+        <ul>
+          <li>HDFC, ICICI, SBI, Axis, Kotak, Yes Bank, IndusInd</li>
+          <li>No-cost EMI is available on select offers with certain banks</li>
+        </ul>
+        EMI is available on credit cards only. Check the offer details page for current no-cost EMI promotions.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="payment failed error declined transaction unsuccessful">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My payment failed. What should I do?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        If your payment failed, here's what to do:
+        <ul>
+          <li>Check if money was deducted — if yes, wait 20–30 minutes for auto-reversal</li>
+          <li>Verify your card details, CVV, and billing address</li>
+          <li>Ensure your bank hasn't blocked the transaction (call your bank)</li>
+          <li>Try a different payment method or browser</li>
+          <li>Clear cache and cookies, then retry</li>
+        </ul>
+        If the amount was deducted but booking not confirmed, the money will be auto-refunded within <strong>5–7 business days</strong>. Contact our support team with your transaction ID for faster resolution.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="invoice receipt GST billing tax">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How do I get an invoice or GST receipt for my booking?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Invoices are available from the <strong>My Trips</strong> section. Select your booking and click <strong>Download Invoice</strong>. For GST invoices with company GSTIN:
+        <ul>
+          <li>Enter your GSTIN during checkout in the billing section</li>
+          <li>Or update it in <strong>My Account → Billing Details</strong> within 7 days of booking</li>
+        </ul>
+        GST invoices for flights include IGST. Hotel invoices are issued by the property directly and are available in the booking confirmation email.
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ── FAQ: REFUNDS ── -->
+  <div class="faq-section reveal" id="faq-refunds">
+    <div class="faq-section-header">
+      <div class="faq-section-icon" style="background:linear-gradient(135deg,var(--coral),#FF3CAC)">💸</div>
+      <h2>Refunds</h2>
+      <span class="faq-count">4 questions</span>
+    </div>
+
+    <div class="faq-item" data-keywords="refund timeline how long days credited back">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How long does a refund take to process?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Refund timelines depend on your payment method:
+        <ul>
+          <li><strong>Credit/Debit Card:</strong> 5–7 business days</li>
+          <li><strong>UPI:</strong> 2–5 business days</li>
+          <li><strong>Net Banking:</strong> 5–7 business days</li>
+          <li><strong>Wallets:</strong> 1–3 business days</li>
+          <li><strong>TravelWise Wallet:</strong> Instant</li>
+        </ul>
+        Processing begins after the airline/hotel confirms the cancellation. You'll receive an email and SMS when the refund is initiated.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="how to request refund cancel booking initiate">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How do I request a refund?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Refunds are automatically initiated when you cancel a booking. To cancel and get a refund:
+        <ul>
+          <li>Go to <strong>My Trips</strong> and find your booking</li>
+          <li>Click <strong>Cancel Booking</strong> and review the refund amount</li>
+          <li>Confirm the cancellation — refund is automatically triggered</li>
+        </ul>
+        For airline-cancelled flights or hotel no-shows, you can raise a refund request directly via the <a href="refunds.html">Refunds page</a> with your booking reference.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="partial refund partial amount deducted cancellation fee">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Why did I receive a partial refund?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Partial refunds occur when cancellation charges apply. Common deductions include:
+        <ul>
+          <li>Airline cancellation fees (as per fare rules)</li>
+          <li>TravelWise convenience fee (non-refundable on most bookings)</li>
+          <li>Time-based deductions (less refund the closer to travel date)</li>
+          <li>GST on the cancelled portion</li>
+        </ul>
+        The exact refund breakdown is shown at the time of cancellation on the app/website before you confirm.
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-keywords="refund status track check where is my money">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>How do I track the status of my refund?</span>
+        <div class="faq-chevron">▼</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        You can track your refund status on the <a href="refunds.html">Refunds page</a> using your booking reference number and registered email. Status updates include:
+        <ul>
+          <li><strong>Requested:</strong> Cancellation confirmed, refund initiated with airline/hotel</li>
+          <li><strong>Processing:</strong> Refund approved, being processed by payment gateway</li>
+          <li><strong>Credited:</strong> Refund sent to your original payment method</li>
+        </ul>
+        You'll also receive email notifications at each stage.
+      </div></div>
+    </div>
+  </div>
+
+  <!-- STILL NEED HELP -->
+  <div class="still-help reveal" id="still-help">
+    <h2>Still need help?</h2>
+    <p>Our support team is available 24/7 to assist you with any queries.</p>
+    <div class="help-ctas">
+      <div class="help-cta-card">
+        <div class="cta-icon">💬</div>
+        <h3>Live Chat</h3>
+        <p>Chat with an agent now</p>
+        <div class="cta-badge">Online Now</div>
+      </div>
+      <div class="help-cta-card">
+        <div class="cta-icon">📧</div>
+        <h3>Email Support</h3>
+        <p>support@travelwise.com</p>
+        <div class="cta-badge" style="background:var(--teal)">24hr Response</div>
+      </div>
+      <div class="help-cta-card">
+        <div class="cta-icon">📞</div>
+        <h3>Phone Support</h3>
+        <p>1800-123-4567 (Toll-free)</p>
+        <div class="cta-badge" style="background:var(--gold)">24/7</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /help-wrap -->
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+/* ── FAQ toggle ── */
+function toggleFaq(el) {
+  var item = el.closest('.faq-item');
+  var isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(function(i){ i.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── Scroll to section ── */
+function scrollToSection(id) {
+  var el = document.getElementById(id);
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+}
+
+/* ── Search ── */
+var searchInput = document.getElementById('faq-search');
+searchInput.addEventListener('input', doSearch);
+
+function doSearch() {
+  var q = searchInput.value.toLowerCase().trim();
+  var items = document.querySelectorAll('.faq-item');
+  var visibleCount = 0;
+
+  items.forEach(function(item) {
+    var question = item.querySelector('.faq-q span').textContent.toLowerCase();
+    var answer = item.querySelector('.faq-a-inner').textContent.toLowerCase();
+    var keywords = (item.getAttribute('data-keywords') || '').toLowerCase();
+    var match = !q || question.includes(q) || answer.includes(q) || keywords.includes(q);
+    item.style.display = match ? '' : 'none';
+    if (match) visibleCount++;
+  });
+
+  // Show/hide sections that have no visible items
+  document.querySelectorAll('.faq-section').forEach(function(section) {
+    var visible = section.querySelectorAll('.faq-item:not([style*="display: none"])').length;
+    section.style.display = (q && visible === 0) ? 'none' : '';
+  });
+
+  // No results
+  document.getElementById('no-results-msg').classList.toggle('show', q.length > 0 && visibleCount === 0);
+
+  // Auto-open matching items when searching
+  if (q) {
+    items.forEach(function(item) {
+      if (item.style.display !== 'none') item.classList.add('open');
+    });
+  } else {
+    items.forEach(function(item) { item.classList.remove('open'); });
+  }
+}
+
+/* ── Reveal on scroll ── */
+var revealEls = document.querySelectorAll('.reveal');
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if(e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); }});
+}, { threshold: 0.08 });
+revealEls.forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

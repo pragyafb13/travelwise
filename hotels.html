@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Search Results — Goa | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.hotels-hero {
+  background: linear-gradient(135deg, #1a1040 0%, #6C2BD9 50%, #00C9FF 100%);
+  padding: 100px 24px 44px; position: relative; overflow: hidden;
+}
+.hotels-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=25') center/cover;
+  opacity: 0.1;
+}
+.hotels-hero-inner { position: relative; z-index: 2; max-width: 960px; margin: 0 auto; }
+.hotels-hero h1 { font-family: var(--display); font-size: clamp(1.6rem,3vw,2.3rem); color: #fff; margin-bottom: 24px; font-weight: 700; }
+
+.search-box {
+  background: var(--card); backdrop-filter: blur(20px);
+  border: 1px solid var(--border2); border-radius: var(--radius-lg);
+  padding: 20px 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+}
+.s-field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 130px; }
+.s-field label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+.s-field input, .s-field select {
+  background: var(--input-bg); border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); padding: 10px 14px; color: var(--text-strong);
+  font-size: 14px; font-family: var(--font); font-weight: 600; outline: none;
+  transition: border-color var(--t);
+}
+.s-field input:focus, .s-field select:focus { border-color: var(--purple); }
+.btn-search-hotels {
+  padding: 10px 28px; background: linear-gradient(135deg,#FF6B35,#FF3CAC);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 15px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  align-self: flex-end; transition: opacity var(--t);
+}
+.btn-search-hotels:hover { opacity: .9; }
+
+/* ── Layout ── */
+.results-layout {
+  max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px;
+  display: grid; grid-template-columns: 280px 1fr; gap: 28px;
+}
+@media(max-width:900px){ .results-layout { grid-template-columns: 1fr; } }
+
+/* ── Sidebar ── */
+.sidebar {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px; height: fit-content;
+  position: sticky; top: 90px;
+}
+.sidebar h3 { font-family: var(--display); font-size: 15px; font-weight: 700; margin-bottom: 18px; color: var(--text-strong); }
+.filter-group { margin-bottom: 22px; border-bottom: 1px solid var(--border); padding-bottom: 18px; }
+.filter-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.filter-group h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-bottom: 12px; }
+.filter-opt { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer; }
+.filter-opt input { accent-color: var(--purple); width: 16px; height: 16px; cursor: pointer; }
+.filter-opt label { font-size: 14px; color: var(--text); cursor: pointer; flex: 1; }
+.filter-opt span { font-size: 12px; color: var(--muted); }
+.star-filter { display: flex; gap: 6px; }
+.star-btn {
+  padding: 6px 12px; border: 1px solid var(--border2); border-radius: 100px;
+  font-size: 13px; cursor: pointer; transition: all var(--t); background: transparent; color: var(--text);
+}
+.star-btn:hover, .star-btn.active { background: linear-gradient(135deg,var(--purple),var(--teal)); color: #fff; border-color: transparent; }
+.price-range input[type=range] { accent-color: var(--purple); width: 100%; }
+.price-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.clear-btn {
+  width: 100%; padding: 8px; border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  background: transparent; color: var(--muted); font-size: 13px; font-family: var(--font); cursor: pointer;
+  transition: all var(--t);
+}
+.clear-btn:hover { border-color: var(--coral); color: var(--coral); }
+
+/* ── Sort Bar ── */
+.sort-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.sort-bar span { font-size: 13px; color: var(--muted); font-weight: 600; }
+.sort-chip {
+  padding: 7px 16px; border: 1px solid var(--border2); border-radius: 100px;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all var(--t);
+  color: var(--text); background: transparent;
+}
+.sort-chip.active { background: linear-gradient(135deg,var(--purple),var(--teal)); color: #fff; border-color: transparent; }
+.sort-chip:hover { border-color: var(--purple); color: var(--purple); }
+.results-meta { font-size: 13px; color: var(--muted); margin-left: auto; }
+
+/* ── Hotel Card ── */
+.hotel-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 18px;
+  display: grid; grid-template-columns: 280px 1fr; transition: all var(--t);
+}
+.hotel-card:hover { border-color: var(--border2); box-shadow: 0 12px 40px rgba(108,43,217,.12); transform: translateY(-3px); }
+@media(max-width:700px){ .hotel-card { grid-template-columns: 1fr; } }
+.hotel-img {
+  position: relative; overflow: hidden; min-height: 220px;
+  background-size: cover; background-position: center; background-color: var(--bg2);
+}
+.hotel-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s var(--ease); }
+.hotel-card:hover .hotel-img img { transform: scale(1.05); }
+.hotel-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: linear-gradient(135deg,var(--purple),var(--teal));
+  color: #fff; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 700;
+}
+.hotel-content { padding: 20px 24px; display: flex; flex-direction: column; justify-content: space-between; }
+.hotel-top { }
+.hotel-name { font-family: var(--display); font-size: 19px; font-weight: 700; color: var(--text-strong); margin-bottom: 4px; }
+.hotel-location { font-size: 13px; color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.hotel-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.rating-badge {
+  background: var(--green); color: #fff; padding: 4px 10px; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 700;
+}
+.rating-text { font-size: 13px; color: var(--text); }
+.reviews-count { font-size: 12px; color: var(--muted); }
+.amenity-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.amen-badge {
+  padding: 4px 10px; border: 1px solid var(--border2); border-radius: 100px;
+  font-size: 11px; font-weight: 600; color: var(--muted);
+}
+.hotel-bottom { display: flex; align-items: flex-end; justify-content: space-between; }
+.hotel-price-block { }
+.price-note { font-size: 11px; color: var(--muted); }
+.hotel-price { font-family: var(--display); font-size: 26px; font-weight: 800; color: var(--text-strong); }
+.hotel-price sup { font-size: 14px; vertical-align: super; }
+.per-night { font-size: 11px; color: var(--muted); display: block; }
+.hotel-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.btn-detail {
+  padding: 8px 18px; background: transparent; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); font-size: 13px; font-weight: 600;
+  color: var(--text); cursor: pointer; font-family: var(--font); text-decoration: none;
+  transition: all var(--t);
+}
+.btn-detail:hover { border-color: var(--purple); color: var(--purple); }
+.btn-book-hotel {
+  padding: 10px 22px; background: linear-gradient(135deg,#FF6B35,#FF3CAC);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  transition: opacity var(--t); text-decoration: none; display: inline-block;
+}
+.btn-book-hotel:hover { opacity: .9; }
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div class="toast" id="tw-toast"></div>
+
+<!-- Hero -->
+<div class="hotels-hero">
+  <div class="hotels-hero-inner">
+    <h1>🏨 Hotels in Goa — 5 Apr – 12 Apr 2026</h1>
+    <div class="search-box">
+      <div class="s-field">
+        <label>Destination</label>
+        <input type="text" value="Goa, India">
+      </div>
+      <div class="s-field" style="max-width:150px">
+        <label>Check-in</label>
+        <input type="date" value="2026-04-05">
+      </div>
+      <div class="s-field" style="max-width:150px">
+        <label>Check-out</label>
+        <input type="date" value="2026-04-12">
+      </div>
+      <div class="s-field" style="max-width:120px">
+        <label>Rooms</label>
+        <select><option>1 Room</option><option>2 Rooms</option><option>3 Rooms</option></select>
+      </div>
+      <div class="s-field" style="max-width:130px">
+        <label>Guests</label>
+        <select><option>2 Adults</option><option>2A + 1C</option><option>4 Adults</option></select>
+      </div>
+      <button class="btn-search-hotels" onclick="twToast('Searching hotels...')">Search</button>
+    </div>
+  </div>
+</div>
+
+<div class="results-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar reveal">
+    <h3>🎛 Filters</h3>
+
+    <div class="filter-group">
+      <h4>Star Rating</h4>
+      <div class="star-filter">
+        <button class="star-btn" onclick="this.classList.toggle('active')">3★</button>
+        <button class="star-btn active" onclick="this.classList.toggle('active')">4★</button>
+        <button class="star-btn active" onclick="this.classList.toggle('active')">5★</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>Price Per Night</h4>
+      <div class="price-range">
+        <input type="range" min="1000" max="30000" value="20000" oninput="document.getElementById('h-price').textContent='₹'+this.value">
+        <div class="price-labels"><span>₹1,000</span><span id="h-price">₹20,000</span></div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>Amenities</h4>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Swimming Pool</label></label>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Free WiFi</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Spa & Wellness</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Airport Shuttle</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Breakfast Included</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Beachfront</label></label>
+    </div>
+
+    <div class="filter-group">
+      <h4>Area</h4>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Calangute</label> <span>(2)</span></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Baga</label> <span>(1)</span></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Panjim</label> <span>(1)</span></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Colva Beach</label> <span>(1)</span></label>
+    </div>
+
+    <div class="filter-group">
+      <h4>Property Type</h4>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Hotel</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Resort</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Villa</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Boutique</label></label>
+    </div>
+
+    <button class="clear-btn" onclick="twToast('Filters cleared')">✕ Clear All Filters</button>
+  </aside>
+
+  <!-- Results -->
+  <div>
+    <div class="sort-bar">
+      <span>Sort by:</span>
+      <button class="sort-chip active" onclick="setSortActive(this)">Recommended</button>
+      <button class="sort-chip" onclick="setSortActive(this)">Price Low–High</button>
+      <button class="sort-chip" onclick="setSortActive(this)">Top Rated</button>
+      <button class="sort-chip" onclick="setSortActive(this)">Newest</button>
+      <span class="results-meta">5 hotels found</span>
+    </div>
+
+    <!-- Card 1 -->
+    <div class="hotel-card reveal">
+      <div class="hotel-img">
+        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" alt="Taj Holiday Village">
+        <div class="hotel-badge">🏆 Top Rated</div>
+      </div>
+      <div class="hotel-content">
+        <div class="hotel-top">
+          <div class="hotel-name">Taj Holiday Village Resort & Spa</div>
+          <div class="hotel-location">📍 Calangute Beach, North Goa &nbsp;·&nbsp; 5★</div>
+          <div class="hotel-rating">
+            <span class="rating-badge">4.8</span>
+            <span class="rating-text">Exceptional</span>
+            <span class="reviews-count">(2,847 reviews)</span>
+          </div>
+          <div class="amenity-badges">
+            <span class="amen-badge">🏊 Pool</span>
+            <span class="amen-badge">🧖 Spa</span>
+            <span class="amen-badge">📶 Free WiFi</span>
+            <span class="amen-badge">🍳 Breakfast</span>
+            <span class="amen-badge">🏖 Beachfront</span>
+            <span class="amen-badge">🚗 Parking</span>
+          </div>
+        </div>
+        <div class="hotel-bottom">
+          <div class="hotel-price-block">
+            <div class="price-note">Starting from</div>
+            <div class="hotel-price"><sup>₹</sup>12,500</div>
+            <span class="per-night">per night · Incl. taxes</span>
+          </div>
+          <div class="hotel-actions">
+            <a href="hotel-detail.html" class="btn-detail">View Details</a>
+            <a href="hotel-detail.html" class="btn-book-hotel">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="hotel-card reveal">
+      <div class="hotel-img">
+        <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=600&q=80" alt="Marriott Goa">
+        <div class="hotel-badge">✨ Best Value</div>
+      </div>
+      <div class="hotel-content">
+        <div class="hotel-top">
+          <div class="hotel-name">Marriott Goa Resort & Spa</div>
+          <div class="hotel-location">📍 Miramar Beach, Panjim &nbsp;·&nbsp; 5★</div>
+          <div class="hotel-rating">
+            <span class="rating-badge">4.6</span>
+            <span class="rating-text">Excellent</span>
+            <span class="reviews-count">(1,993 reviews)</span>
+          </div>
+          <div class="amenity-badges">
+            <span class="amen-badge">🏊 Pool</span>
+            <span class="amen-badge">🏋 Gym</span>
+            <span class="amen-badge">📶 Free WiFi</span>
+            <span class="amen-badge">🍽 Restaurant</span>
+            <span class="amen-badge">🎰 Casino Nearby</span>
+          </div>
+        </div>
+        <div class="hotel-bottom">
+          <div class="hotel-price-block">
+            <div class="price-note">Starting from</div>
+            <div class="hotel-price"><sup>₹</sup>9,800</div>
+            <span class="per-night">per night · Incl. taxes</span>
+          </div>
+          <div class="hotel-actions">
+            <a href="hotel-detail.html" class="btn-detail">View Details</a>
+            <a href="hotel-detail.html" class="btn-book-hotel">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="hotel-card reveal">
+      <div class="hotel-img">
+        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80" alt="Hyatt Regency">
+      </div>
+      <div class="hotel-content">
+        <div class="hotel-top">
+          <div class="hotel-name">Hyatt Regency Goa</div>
+          <div class="hotel-location">📍 Arrosim Beach, South Goa &nbsp;·&nbsp; 5★</div>
+          <div class="hotel-rating">
+            <span class="rating-badge">4.5</span>
+            <span class="rating-text">Excellent</span>
+            <span class="reviews-count">(1,652 reviews)</span>
+          </div>
+          <div class="amenity-badges">
+            <span class="amen-badge">🏊 3 Pools</span>
+            <span class="amen-badge">🧖 Spa</span>
+            <span class="amen-badge">📶 Free WiFi</span>
+            <span class="amen-badge">🍳 Breakfast</span>
+            <span class="amen-badge">🏖 Private Beach</span>
+          </div>
+        </div>
+        <div class="hotel-bottom">
+          <div class="hotel-price-block">
+            <div class="price-note">Starting from</div>
+            <div class="hotel-price"><sup>₹</sup>11,200</div>
+            <span class="per-night">per night · Incl. taxes</span>
+          </div>
+          <div class="hotel-actions">
+            <a href="hotel-detail.html" class="btn-detail">View Details</a>
+            <a href="hotel-detail.html" class="btn-book-hotel">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="hotel-card reveal">
+      <div class="hotel-img">
+        <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=600&q=80" alt="Park Hyatt Goa">
+        <div class="hotel-badge">🌟 Luxury Pick</div>
+      </div>
+      <div class="hotel-content">
+        <div class="hotel-top">
+          <div class="hotel-name">Park Hyatt Goa Resort & Spa</div>
+          <div class="hotel-location">📍 Arossim Beach, Cansaulim &nbsp;·&nbsp; 5★</div>
+          <div class="hotel-rating">
+            <span class="rating-badge">4.7</span>
+            <span class="rating-text">Exceptional</span>
+            <span class="reviews-count">(2,120 reviews)</span>
+          </div>
+          <div class="amenity-badges">
+            <span class="amen-badge">🏊 Lagoon Pool</span>
+            <span class="amen-badge">🧖 Award Spa</span>
+            <span class="amen-badge">📶 Free WiFi</span>
+            <span class="amen-badge">🍳 Full Board</span>
+            <span class="amen-badge">🎾 Tennis</span>
+          </div>
+        </div>
+        <div class="hotel-bottom">
+          <div class="hotel-price-block">
+            <div class="price-note">Starting from</div>
+            <div class="hotel-price"><sup>₹</sup>18,500</div>
+            <span class="per-night">per night · Incl. taxes</span>
+          </div>
+          <div class="hotel-actions">
+            <a href="hotel-detail.html" class="btn-detail">View Details</a>
+            <a href="hotel-detail.html" class="btn-book-hotel">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="hotel-card reveal">
+      <div class="hotel-img">
+        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=600&q=80" alt="Novotel Goa">
+      </div>
+      <div class="hotel-content">
+        <div class="hotel-top">
+          <div class="hotel-name">Novotel Goa Dona Sylvia Resort</div>
+          <div class="hotel-location">📍 Cavelossim Beach, South Goa &nbsp;·&nbsp; 4★</div>
+          <div class="hotel-rating">
+            <span class="rating-badge">4.2</span>
+            <span class="rating-text">Very Good</span>
+            <span class="reviews-count">(1,087 reviews)</span>
+          </div>
+          <div class="amenity-badges">
+            <span class="amen-badge">🏊 Pool</span>
+            <span class="amen-badge">🏋 Gym</span>
+            <span class="amen-badge">📶 Free WiFi</span>
+            <span class="amen-badge">🍽 Multi-Cuisine</span>
+            <span class="amen-badge">🚌 Shuttle</span>
+          </div>
+        </div>
+        <div class="hotel-bottom">
+          <div class="hotel-price-block">
+            <div class="price-note">Starting from</div>
+            <div class="hotel-price"><sup>₹</sup>6,400</div>
+            <span class="per-night">per night · Incl. taxes</span>
+          </div>
+          <div class="hotel-actions">
+            <a href="hotel-detail.html" class="btn-detail">View Details</a>
+            <a href="hotel-detail.html" class="btn-book-hotel">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+function setSortActive(btn) {
+  document.querySelectorAll('.sort-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

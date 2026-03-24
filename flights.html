@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight Search Results — Delhi to Goa | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Search Hero ── */
+.flights-hero {
+  background: linear-gradient(135deg, #6C2BD9 0%, #00C9FF 100%);
+  padding: 100px 24px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.flights-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1600&q=30') center/cover;
+  opacity: 0.08;
+}
+.flights-hero-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+.flights-hero h1 { font-family: var(--display); font-size: clamp(1.5rem,3vw,2.2rem); color: #fff; margin-bottom: 24px; font-weight: 700; }
+.search-box {
+  background: var(--card); backdrop-filter: blur(20px);
+  border: 1px solid var(--border2); border-radius: var(--radius-lg);
+  padding: 20px 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+}
+.search-field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 140px; }
+.search-field label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+.search-field input, .search-field select {
+  background: var(--input-bg); border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); padding: 10px 14px;
+  color: var(--text-strong); font-size: 15px; font-family: var(--font);
+  font-weight: 600; outline: none; transition: border-color var(--t);
+}
+.search-field input:focus, .search-field select:focus { border-color: var(--purple); }
+.search-swap {
+  width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg,var(--purple),var(--teal));
+  border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: #fff; align-self: flex-end; flex-shrink: 0; transition: transform .3s var(--ease-bounce);
+}
+.search-swap:hover { transform: rotate(180deg); }
+.btn-search {
+  padding: 10px 28px; background: linear-gradient(135deg,#FF6B35,#FF3CAC);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 15px; font-weight: 700; cursor: pointer; white-space: nowrap;
+  align-self: flex-end; font-family: var(--font); transition: opacity var(--t);
+}
+.btn-search:hover { opacity: .9; }
+
+/* ── Layout ── */
+.results-layout {
+  max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px;
+  display: grid; grid-template-columns: 280px 1fr; gap: 28px;
+}
+@media(max-width:900px){ .results-layout { grid-template-columns: 1fr; } }
+
+/* ── Sidebar ── */
+.sidebar {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px; height: fit-content;
+  position: sticky; top: 90px;
+}
+.sidebar h3 { font-family: var(--display); font-size: 15px; font-weight: 700; margin-bottom: 18px; color: var(--text-strong); }
+.filter-group { margin-bottom: 22px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+.filter-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.filter-group h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-bottom: 12px; }
+.filter-opt { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer; }
+.filter-opt input[type=checkbox] { accent-color: var(--purple); width: 16px; height: 16px; cursor: pointer; }
+.filter-opt label { font-size: 14px; color: var(--text); cursor: pointer; flex: 1; }
+.filter-opt span { font-size: 12px; color: var(--muted); }
+.price-range { display: flex; flex-direction: column; gap: 8px; }
+.price-range input[type=range] { accent-color: var(--purple); width: 100%; }
+.price-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.time-chip {
+  padding: 8px 6px; border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  font-size: 11px; font-weight: 600; text-align: center; cursor: pointer;
+  transition: all var(--t); color: var(--muted);
+}
+.time-chip:hover, .time-chip.active {
+  border-color: var(--purple); background: rgba(108,43,217,.12); color: var(--purple);
+}
+.clear-filters {
+  width: 100%; padding: 8px; border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  background: transparent; color: var(--muted); font-size: 13px; font-family: var(--font);
+  cursor: pointer; transition: all var(--t);
+}
+.clear-filters:hover { border-color: var(--coral); color: var(--coral); }
+
+/* ── Sort bar ── */
+.sort-bar {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 18px; flex-wrap: wrap;
+}
+.sort-bar span { font-size: 13px; color: var(--muted); font-weight: 600; }
+.sort-chip {
+  padding: 7px 16px; border: 1px solid var(--border2); border-radius: 100px;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all var(--t); color: var(--text);
+  background: transparent;
+}
+.sort-chip:hover { border-color: var(--purple); color: var(--purple); }
+.sort-chip.active {
+  background: linear-gradient(135deg,var(--purple),var(--teal)); color: #fff; border-color: transparent;
+}
+.results-meta { font-size: 13px; color: var(--muted); margin-left: auto; }
+
+/* ── Flight Card ── */
+.flight-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 22px 24px;
+  margin-bottom: 14px; transition: all var(--t);
+  display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+}
+.flight-card:hover { border-color: var(--border2); box-shadow: 0 8px 32px rgba(108,43,217,.1); transform: translateY(-2px); }
+.flight-main { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+.airline-info { display: flex; align-items: center; gap: 12px; min-width: 140px; }
+.airline-logo {
+  width: 46px; height: 46px; border-radius: 12px; background: var(--bg2);
+  display: flex; align-items: center; justify-content: center; font-size: 24px;
+  border: 1px solid var(--border);
+}
+.airline-name { font-weight: 700; font-size: 14px; color: var(--text-strong); }
+.airline-code { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.route-info { display: flex; align-items: center; gap: 14px; }
+.time-point { text-align: center; }
+.time-point .time { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--text-strong); }
+.time-point .city { font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 600; }
+.route-line { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.route-line .duration { font-size: 11px; color: var(--muted); font-weight: 600; }
+.route-line .line { width: 80px; height: 1px; background: var(--border2); position: relative; }
+.route-line .line::before { content: '✈'; position: absolute; right: -6px; top: -9px; font-size: 14px; color: var(--purple); }
+.route-line .stops { font-size: 11px; color: var(--muted); }
+.flight-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600;
+}
+.tag-green { background: rgba(16,185,129,.15); color: var(--green); }
+.tag-blue { background: rgba(0,201,255,.1); color: var(--teal); }
+.tag-orange { background: rgba(255,107,53,.12); color: var(--coral); }
+.tag-purple { background: rgba(108,43,217,.12); color: var(--purple); }
+.flight-price-block { text-align: right; }
+.flight-price { font-family: var(--display); font-size: 26px; font-weight: 800; color: var(--text-strong); }
+.flight-price sup { font-size: 14px; vertical-align: super; }
+.flight-price-note { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+.btn-book {
+  padding: 10px 22px; background: linear-gradient(135deg,#FF6B35,#FF3CAC);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  transition: opacity var(--t); white-space: nowrap; text-decoration: none; display: inline-block;
+}
+.btn-book:hover { opacity: .9; }
+.flight-expand { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 14px; display: none; }
+.flight-expand.open { display: block; }
+.expand-btn {
+  background: none; border: none; color: var(--purple); font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: var(--font); padding: 0; margin-top: 8px;
+}
+
+/* ── Price Calendar ── */
+.price-cal-section { margin-top: 32px; }
+.price-cal-section h3 { font-family: var(--display); font-size: 18px; font-weight: 700; color: var(--text-strong); margin-bottom: 16px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.cal-day {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 4px; text-align: center; cursor: pointer; transition: all var(--t);
+}
+.cal-day:hover { border-color: var(--purple); }
+.cal-day.selected { background: linear-gradient(135deg,var(--purple),var(--teal)); border-color: transparent; }
+.cal-day.selected .cal-price, .cal-day.selected .cal-date { color: #fff; }
+.cal-day.cheapest { border-color: var(--green); }
+.cal-date { font-size: 11px; color: var(--muted); }
+.cal-price { font-size: 13px; font-weight: 700; color: var(--text-strong); margin-top: 2px; }
+.cal-day.cheapest .cal-price { color: var(--green); }
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div class="toast" id="tw-toast"></div>
+
+<!-- Search Hero -->
+<div class="flights-hero">
+  <div class="flights-hero-inner">
+    <h1>✈ Delhi → Goa — Sat, 5 Apr 2026</h1>
+    <div class="search-box">
+      <div class="search-field">
+        <label>From</label>
+        <input type="text" value="New Delhi (DEL)">
+      </div>
+      <button class="search-swap" onclick="twToast('Swap applied!')">⇄</button>
+      <div class="search-field">
+        <label>To</label>
+        <input type="text" value="Goa (GOI)">
+      </div>
+      <div class="search-field" style="max-width:150px">
+        <label>Departure</label>
+        <input type="date" value="2026-04-05">
+      </div>
+      <div class="search-field" style="max-width:150px">
+        <label>Return</label>
+        <input type="date" value="2026-04-12">
+      </div>
+      <div class="search-field" style="max-width:120px">
+        <label>Travellers</label>
+        <select>
+          <option>1 Adult</option>
+          <option>2 Adults</option>
+          <option>2A + 1C</option>
+        </select>
+      </div>
+      <div class="search-field" style="max-width:110px">
+        <label>Class</label>
+        <select>
+          <option>Economy</option>
+          <option>Business</option>
+          <option>First</option>
+        </select>
+      </div>
+      <button class="btn-search" onclick="twToast('Searching flights...')">Search</button>
+    </div>
+  </div>
+</div>
+
+<!-- Results Layout -->
+<div class="results-layout">
+
+  <!-- Sidebar Filters -->
+  <aside class="sidebar reveal">
+    <h3>🎛 Filters</h3>
+
+    <div class="filter-group">
+      <h4>Stops</h4>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Non-stop</label> <span>(4)</span></label>
+      <label class="filter-opt"><input type="checkbox"> <label>1 Stop</label> <span>(2)</span></label>
+      <label class="filter-opt"><input type="checkbox"> <label>2+ Stops</label> <span>(0)</span></label>
+    </div>
+
+    <div class="filter-group">
+      <h4>Airlines</h4>
+      <label class="filter-opt"><input type="checkbox" checked> <label>IndiGo</label> <span>(2)</span></label>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Air India</label> <span>(1)</span></label>
+      <label class="filter-opt"><input type="checkbox"> <label>SpiceJet</label> <span>(1)</span></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Vistara</label> <span>(1)</span></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Akasa Air</label> <span>(1)</span></label>
+    </div>
+
+    <div class="filter-group">
+      <h4>Price Range</h4>
+      <div class="price-range">
+        <input type="range" min="2000" max="15000" value="12000" id="price-slider" oninput="document.getElementById('price-val').textContent='₹'+this.value">
+        <div class="price-labels">
+          <span>₹2,000</span>
+          <span id="price-val">₹12,000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>Departure Time</h4>
+      <div class="time-grid">
+        <div class="time-chip active" onclick="this.classList.toggle('active')">🌅 Early<br><small>00–06</small></div>
+        <div class="time-chip" onclick="this.classList.toggle('active')">🌞 Morning<br><small>06–12</small></div>
+        <div class="time-chip" onclick="this.classList.toggle('active')">🌇 Afternoon<br><small>12–18</small></div>
+        <div class="time-chip" onclick="this.classList.toggle('active')">🌃 Night<br><small>18–24</small></div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>Fare Type</h4>
+      <label class="filter-opt"><input type="checkbox" checked> <label>Refundable</label></label>
+      <label class="filter-opt"><input type="checkbox"> <label>Non-refundable</label></label>
+    </div>
+
+    <button class="clear-filters" onclick="twToast('Filters cleared')">✕ Clear All Filters</button>
+  </aside>
+
+  <!-- Main Results -->
+  <div>
+    <!-- Sort Bar -->
+    <div class="sort-bar">
+      <span>Sort by:</span>
+      <button class="sort-chip active" onclick="setSortActive(this)">Cheapest</button>
+      <button class="sort-chip" onclick="setSortActive(this)">Fastest</button>
+      <button class="sort-chip" onclick="setSortActive(this)">Best Value</button>
+      <button class="sort-chip" onclick="setSortActive(this)">Departure ↑</button>
+      <span class="results-meta">6 flights found</span>
+    </div>
+
+    <!-- Flight Cards -->
+    <div class="flight-card reveal">
+      <div>
+        <div class="flight-main">
+          <div class="airline-info">
+            <div class="airline-logo">✈</div>
+            <div>
+              <div class="airline-name">IndiGo</div>
+              <div class="airline-code">6E-2011</div>
+            </div>
+          </div>
+          <div class="route-info">
+            <div class="time-point">
+              <div class="time">05:55</div>
+              <div class="city">DEL</div>
+            </div>
+            <div class="route-line">
+              <div class="duration">2h 15m</div>
+              <div class="line"></div>
+              <div class="stops">Non-stop</div>
+            </div>
+            <div class="time-point">
+              <div class="time">08:10</div>
+              <div class="city">GOI</div>
+            </div>
+          </div>
+          <div class="flight-tags">
+            <span class="tag tag-green">Non-stop</span>
+            <span class="tag tag-blue">Free Snack</span>
+            <span class="tag tag-purple">Refundable</span>
+          </div>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">▼ View Flight Details</button>
+        <div class="flight-expand">
+          <p style="font-size:13px;color:var(--muted);">✔ 15kg check-in included &nbsp;·&nbsp; 7kg cabin bag &nbsp;·&nbsp; USB charging at seat &nbsp;·&nbsp; Meal available for purchase</p>
+        </div>
+      </div>
+      <div class="flight-price-block">
+        <div class="flight-price"><sup>₹</sup>4,299</div>
+        <div class="flight-price-note">per person · Economy</div>
+        <a href="checkout.html" class="btn-book">Book Now</a>
+      </div>
+    </div>
+
+    <div class="flight-card reveal">
+      <div>
+        <div class="flight-main">
+          <div class="airline-info">
+            <div class="airline-logo">🛫</div>
+            <div>
+              <div class="airline-name">Air India</div>
+              <div class="airline-code">AI-465</div>
+            </div>
+          </div>
+          <div class="route-info">
+            <div class="time-point">
+              <div class="time">07:20</div>
+              <div class="city">DEL</div>
+            </div>
+            <div class="route-line">
+              <div class="duration">2h 20m</div>
+              <div class="line"></div>
+              <div class="stops">Non-stop</div>
+            </div>
+            <div class="time-point">
+              <div class="time">09:40</div>
+              <div class="city">GOI</div>
+            </div>
+          </div>
+          <div class="flight-tags">
+            <span class="tag tag-green">Non-stop</span>
+            <span class="tag tag-blue">Meal Included</span>
+            <span class="tag tag-purple">Fully Refundable</span>
+          </div>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">▼ View Flight Details</button>
+        <div class="flight-expand">
+          <p style="font-size:13px;color:var(--muted);">✔ 23kg check-in included &nbsp;·&nbsp; 8kg cabin bag &nbsp;·&nbsp; Hot meal served &nbsp;·&nbsp; Entertainment system</p>
+        </div>
+      </div>
+      <div class="flight-price-block">
+        <div class="flight-price"><sup>₹</sup>5,850</div>
+        <div class="flight-price-note">per person · Economy</div>
+        <a href="checkout.html" class="btn-book">Book Now</a>
+      </div>
+    </div>
+
+    <div class="flight-card reveal">
+      <div>
+        <div class="flight-main">
+          <div class="airline-info">
+            <div class="airline-logo">🌶</div>
+            <div>
+              <div class="airline-name">SpiceJet</div>
+              <div class="airline-code">SG-116</div>
+            </div>
+          </div>
+          <div class="route-info">
+            <div class="time-point">
+              <div class="time">10:05</div>
+              <div class="city">DEL</div>
+            </div>
+            <div class="route-line">
+              <div class="duration">2h 25m</div>
+              <div class="line"></div>
+              <div class="stops">Non-stop</div>
+            </div>
+            <div class="time-point">
+              <div class="time">12:30</div>
+              <div class="city">GOI</div>
+            </div>
+          </div>
+          <div class="flight-tags">
+            <span class="tag tag-green">Non-stop</span>
+            <span class="tag tag-orange">Lowest Price</span>
+          </div>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">▼ View Flight Details</button>
+        <div class="flight-expand">
+          <p style="font-size:13px;color:var(--muted);">✔ 15kg check-in &nbsp;·&nbsp; 7kg cabin bag &nbsp;·&nbsp; SpiceMax seats available at extra cost</p>
+        </div>
+      </div>
+      <div class="flight-price-block">
+        <div class="flight-price"><sup>₹</sup>3,799</div>
+        <div class="flight-price-note">per person · Economy</div>
+        <a href="checkout.html" class="btn-book">Book Now</a>
+      </div>
+    </div>
+
+    <div class="flight-card reveal">
+      <div>
+        <div class="flight-main">
+          <div class="airline-info">
+            <div class="airline-logo">💜</div>
+            <div>
+              <div class="airline-name">Vistara</div>
+              <div class="airline-code">UK-838</div>
+            </div>
+          </div>
+          <div class="route-info">
+            <div class="time-point">
+              <div class="time">13:45</div>
+              <div class="city">DEL</div>
+            </div>
+            <div class="route-line">
+              <div class="duration">2h 15m</div>
+              <div class="line"></div>
+              <div class="stops">Non-stop</div>
+            </div>
+            <div class="time-point">
+              <div class="time">16:00</div>
+              <div class="city">GOI</div>
+            </div>
+          </div>
+          <div class="flight-tags">
+            <span class="tag tag-green">Non-stop</span>
+            <span class="tag tag-blue">Premium Economy</span>
+            <span class="tag tag-purple">Fully Refundable</span>
+          </div>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">▼ View Flight Details</button>
+        <div class="flight-expand">
+          <p style="font-size:13px;color:var(--muted);">✔ 20kg check-in &nbsp;·&nbsp; 8kg cabin bag &nbsp;·&nbsp; Hot meal &nbsp;·&nbsp; Priority boarding &nbsp;·&nbsp; Extra legroom seat</p>
+        </div>
+      </div>
+      <div class="flight-price-block">
+        <div class="flight-price"><sup>₹</sup>7,450</div>
+        <div class="flight-price-note">per person · Premium Economy</div>
+        <a href="checkout.html" class="btn-book">Book Now</a>
+      </div>
+    </div>
+
+    <div class="flight-card reveal">
+      <div>
+        <div class="flight-main">
+          <div class="airline-info">
+            <div class="airline-logo">🔵</div>
+            <div>
+              <div class="airline-name">Go First</div>
+              <div class="airline-code">G8-344</div>
+            </div>
+          </div>
+          <div class="route-info">
+            <div class="time-point">
+              <div class="time">16:30</div>
+              <div class="city">DEL</div>
+            </div>
+            <div class="route-line">
+              <div class="duration">4h 05m</div>
+              <div class="line"></div>
+              <div class="stops">1 Stop · BOM</div>
+            </div>
+            <div class="time-point">
+              <div class="time">20:35</div>
+              <div class="city">GOI</div>
+            </div>
+          </div>
+          <div class="flight-tags">
+            <span class="tag tag-orange">1 Stop</span>
+            <span class="tag tag-blue">Free Snack</span>
+          </div>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">▼ View Flight Details</button>
+        <div class="flight-expand">
+          <p style="font-size:13px;color:var(--muted);">✔ Layover: 1h 10m at Mumbai (BOM) &nbsp;·&nbsp; 15kg check-in &nbsp;·&nbsp; 7kg cabin bag</p>
+        </div>
+      </div>
+      <div class="flight-price-block">
+        <div class="flight-price"><sup>₹</sup>3,299</div>
+        <div class="flight-price-note">per person · Economy</div>
+        <a href="checkout.html" class="btn-book">Book Now</a>
+      </div>
+    </div>
+
+    <div class="flight-card reveal">
+      <div>
+        <div class="flight-main">
+          <div class="airline-info">
+            <div class="airline-logo">🌟</div>
+            <div>
+              <div class="airline-name">Akasa Air</div>
+              <div class="airline-code">QP-1302</div>
+            </div>
+          </div>
+          <div class="route-info">
+            <div class="time-point">
+              <div class="time">19:15</div>
+              <div class="city">DEL</div>
+            </div>
+            <div class="route-line">
+              <div class="duration">2h 20m</div>
+              <div class="line"></div>
+              <div class="stops">Non-stop</div>
+            </div>
+            <div class="time-point">
+              <div class="time">21:35</div>
+              <div class="city">GOI</div>
+            </div>
+          </div>
+          <div class="flight-tags">
+            <span class="tag tag-green">Non-stop</span>
+            <span class="tag tag-orange">New Airline</span>
+            <span class="tag tag-blue">Free Cancellation</span>
+          </div>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">▼ View Flight Details</button>
+        <div class="flight-expand">
+          <p style="font-size:13px;color:var(--muted);">✔ 15kg check-in &nbsp;·&nbsp; 7kg cabin bag &nbsp;·&nbsp; Free cancellation within 24h &nbsp;·&nbsp; USB charging</p>
+        </div>
+      </div>
+      <div class="flight-price-block">
+        <div class="flight-price"><sup>₹</sup>4,099</div>
+        <div class="flight-price-note">per person · Economy</div>
+        <a href="checkout.html" class="btn-book">Book Now</a>
+      </div>
+    </div>
+
+    <!-- Price Calendar -->
+    <div class="price-cal-section reveal">
+      <h3>📅 Price Calendar — Cheapest Days to Fly</h3>
+      <div class="cal-grid">
+        <div class="cal-day"><div class="cal-date">Mar 30</div><div class="cal-price">₹3,100</div></div>
+        <div class="cal-day cheapest"><div class="cal-date">Mar 31</div><div class="cal-price">₹2,899</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 1</div><div class="cal-price">₹3,450</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 2</div><div class="cal-price">₹3,800</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 3</div><div class="cal-price">₹4,100</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 4</div><div class="cal-price">₹3,950</div></div>
+        <div class="cal-day selected"><div class="cal-date">Apr 5</div><div class="cal-price">₹4,299</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 6</div><div class="cal-price">₹4,600</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 7</div><div class="cal-price">₹5,200</div></div>
+        <div class="cal-day cheapest"><div class="cal-date">Apr 8</div><div class="cal-price">₹3,050</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 9</div><div class="cal-price">₹3,700</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 10</div><div class="cal-price">₹3,850</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 11</div><div class="cal-price">₹4,400</div></div>
+        <div class="cal-day"><div class="cal-date">Apr 12</div><div class="cal-price">₹4,799</div></div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:10px;">🟢 Cheapest days highlighted in green</p>
+    </div>
+  </div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+function setSortActive(btn) {
+  document.querySelectorAll('.sort-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+}
+function toggleExpand(btn) {
+  var exp = btn.nextElementSibling;
+  exp.classList.toggle('open');
+  btn.textContent = exp.classList.contains('open') ? '▲ Hide Details' : '▼ View Flight Details';
+}
+document.querySelectorAll('.cal-day').forEach(d => {
+  d.addEventListener('click', function() {
+    document.querySelectorAll('.cal-day').forEach(x => x.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+});
+</script>
+</body>
+</html>

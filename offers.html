@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deals & Promo Codes — TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.offers-hero {
+  padding: 110px 24px 70px; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #6C2BD9 0%, #FF3CAC 50%, #FF6B35 100%);
+  text-align: center;
+}
+.offers-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1600&q=20') center/cover;
+  opacity: 0.08;
+}
+.offers-hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
+  color: #fff; margin-bottom: 20px;
+}
+.offers-hero h1 { font-family: var(--display); font-size: clamp(2rem,5vw,3.2rem); font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.2; }
+.offers-hero p { font-size: 16px; color: rgba(255,255,255,.8); margin-bottom: 28px; }
+.hero-search { display: flex; max-width: 480px; margin: 0 auto; gap: 0; }
+.hero-search input {
+  flex: 1; padding: 13px 18px; border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  border: none; outline: none; font-size: 14px; font-family: var(--font);
+  background: rgba(255,255,255,.95);
+}
+.hero-search button {
+  padding: 13px 22px; background: rgba(0,0,0,.35); color: #fff; border: none;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); transition: background var(--t);
+}
+.hero-search button:hover { background: rgba(0,0,0,.5); }
+
+/* ── Featured Deal Banner ── */
+.featured-wrap { max-width: 1180px; margin: -36px auto 0; padding: 0 24px; position: relative; z-index: 4; }
+.featured-banner {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: var(--radius-xl); overflow: hidden;
+  display: grid; grid-template-columns: 1fr 400px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+}
+@media(max-width:800px){ .featured-banner { grid-template-columns: 1fr; } }
+.featured-banner-img { position: relative; overflow: hidden; min-height: 200px; }
+.featured-banner-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.featured-banner-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to right, transparent, var(--card));
+}
+.featured-banner-content { padding: 32px 28px; display: flex; flex-direction: column; justify-content: center; }
+.featured-label { font-size: 11px; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 10px; }
+.featured-title { font-family: var(--display); font-size: 22px; font-weight: 800; color: var(--text-strong); margin-bottom: 8px; line-height: 1.3; }
+.featured-desc { font-size: 14px; color: var(--muted); margin-bottom: 18px; }
+.featured-code-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.featured-code {
+  font-family: var(--display); font-size: 20px; font-weight: 800; color: var(--purple);
+  background: rgba(108,43,217,.08); border: 2px dashed var(--purple);
+  padding: 8px 18px; border-radius: var(--radius-sm); letter-spacing: 2px;
+}
+.btn-copy-featured {
+  padding: 8px 18px; background: linear-gradient(135deg,var(--purple),var(--teal));
+  color: #fff; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); transition: opacity var(--t);
+}
+.btn-copy-featured:hover { opacity: .88; }
+.featured-expires { font-size: 12px; color: var(--muted); }
+
+/* ── Filter Tabs ── */
+.offers-tabs-bar { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 24px; margin-top: 40px; }
+.offers-tabs { max-width: 1180px; margin: 0 auto; display: flex; gap: 4px; overflow-x: auto; }
+.tab-btn {
+  padding: 14px 22px; font-size: 14px; font-weight: 600; font-family: var(--font);
+  background: none; border: none; border-bottom: 3px solid transparent;
+  color: var(--muted); cursor: pointer; white-space: nowrap; transition: all var(--t);
+}
+.tab-btn:hover { color: var(--text-strong); }
+.tab-btn.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+/* ── Offers Grid ── */
+.offers-grid-wrap { max-width: 1180px; margin: 0 auto; padding: 36px 24px 80px; }
+.offers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+
+/* ── Offer Card ── */
+.offer-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); overflow: hidden; transition: all var(--t);
+}
+.offer-card:hover { border-color: var(--border2); box-shadow: 0 12px 40px rgba(108,43,217,.12); transform: translateY(-3px); }
+.offer-card-banner {
+  height: 130px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 14px;
+}
+.offer-card-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.offer-card-banner::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.4); z-index: 1; }
+.offer-discount {
+  position: absolute; top: 14px; right: 14px; z-index: 2;
+  background: linear-gradient(135deg,#FF6B35,#FF3CAC); color: #fff;
+  padding: 5px 12px; border-radius: 100px; font-size: 14px; font-weight: 800;
+}
+.offer-type-tag { position: relative; z-index: 2; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; color: #fff; }
+.offer-body { padding: 18px 20px 20px; }
+.offer-title { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--text-strong); margin-bottom: 6px; }
+.offer-desc { font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.6; }
+.offer-code-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.offer-code {
+  flex: 1; font-family: var(--display); font-size: 16px; font-weight: 800; color: var(--purple);
+  background: rgba(108,43,217,.07); border: 2px dashed rgba(108,43,217,.35);
+  padding: 9px 14px; border-radius: var(--radius-sm); letter-spacing: 1.5px;
+  text-align: center; cursor: pointer; transition: all var(--t);
+}
+.offer-code:hover { background: rgba(108,43,217,.12); }
+.btn-copy {
+  padding: 9px 16px; background: linear-gradient(135deg,var(--purple),var(--teal));
+  color: #fff; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); transition: opacity var(--t); white-space: nowrap;
+}
+.btn-copy:hover { opacity: .88; }
+.offer-footer { display: flex; justify-content: space-between; align-items: center; }
+.offer-expires { font-size: 11px; color: var(--muted); }
+.offer-use-count { font-size: 11px; color: var(--muted); }
+.offer-progress { height: 4px; background: var(--border); border-radius: 100px; margin-top: 8px; overflow: hidden; }
+.offer-progress-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg,var(--purple),var(--teal)); }
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div class="toast" id="tw-toast"></div>
+
+<!-- Hero -->
+<div class="offers-hero">
+  <div class="offers-hero-inner">
+    <div class="hero-eyebrow">🏷 Exclusive Deals</div>
+    <h1>Save Big on Every Journey</h1>
+    <p>Promo codes, flash sales and member-exclusive deals — all in one place.</p>
+    <div class="hero-search">
+      <input type="text" placeholder="Search offers or enter promo code...">
+      <button onclick="twToast('Searching offers...')">Search</button>
+    </div>
+  </div>
+</div>
+
+<!-- Featured Deal Banner -->
+<div class="featured-wrap">
+  <div class="featured-banner reveal">
+    <div class="featured-banner-img">
+      <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80" alt="Summer Flight Deal">
+    </div>
+    <div class="featured-banner-content">
+      <div class="featured-label">⭐ Featured Deal of the Week</div>
+      <div class="featured-title">Summer Flight Sale — Flat ₹2,500 Off on International Flights!</div>
+      <div class="featured-desc">Book any international flight before March 31 and enjoy flat ₹2,500 off. Valid on flights to Dubai, Bangkok, Singapore &amp; more.</div>
+      <div class="featured-code-row">
+        <div class="featured-code">SUMMER25</div>
+        <button class="btn-copy-featured" onclick="copyCode('SUMMER25')">📋 Copy</button>
+      </div>
+      <div class="featured-expires">⏰ Expires: 31 March 2026 · Used by 12,847 travelers</div>
+    </div>
+  </div>
+</div>
+
+<!-- Filter Tabs -->
+<div class="offers-tabs-bar">
+  <div class="offers-tabs">
+    <button class="tab-btn active" data-cat="all" onclick="filterOffers('all',this)">🌍 All Deals</button>
+    <button class="tab-btn" data-cat="flights" onclick="filterOffers('flights',this)">✈ Flights</button>
+    <button class="tab-btn" data-cat="hotels" onclick="filterOffers('hotels',this)">🏨 Hotels</button>
+    <button class="tab-btn" data-cat="holidays" onclick="filterOffers('holidays',this)">🌴 Holidays</button>
+    <button class="tab-btn" data-cat="payment" onclick="filterOffers('payment',this)">💳 Payment</button>
+  </div>
+</div>
+
+<!-- Offers Grid -->
+<div class="offers-grid-wrap">
+  <div class="offers-grid" id="offers-grid">
+
+    <!-- SUMMER25 -->
+    <div class="offer-card reveal" data-cat="flights">
+      <div class="offer-card-banner" style="background: linear-gradient(135deg,#6C2BD9,#00C9FF)">
+        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80" alt="">
+        <span class="offer-discount">25% OFF</span>
+        <span class="offer-type-tag" style="background:rgba(108,43,217,.7)">✈ Flights</span>
+      </div>
+      <div class="offer-body">
+        <div class="offer-title">Summer Flight Bonanza</div>
+        <div class="offer-desc">Flat ₹2,500 off on all international flights. Valid on departures from any Indian metro city.</div>
+        <div class="offer-code-row">
+          <div class="offer-code" onclick="copyCode('SUMMER25')">SUMMER25</div>
+          <button class="btn-copy" onclick="copyCode('SUMMER25')">📋 Copy</button>
+        </div>
+        <div class="offer-footer">
+          <span class="offer-expires">⏰ Expires Mar 31</span>
+          <span class="offer-use-count">👥 12,847 used</span>
+        </div>
+        <div class="offer-progress"><div class="offer-progress-fill" style="width:78%"></div></div>
+      </div>
+    </div>
+
+    <!-- FIRSTFLY -->
+    <div class="offer-card reveal" data-cat="flights">
+      <div class="offer-card-banner" style="background:linear-gradient(135deg,#FF6B35,#FF3CAC)">
+        <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=600&q=80" alt="">
+        <span class="offer-discount">₹1,500 OFF</span>
+        <span class="offer-type-tag" style="background:rgba(255,107,53,.7)">✈ New User</span>
+      </div>
+      <div class="offer-body">
+        <div class="offer-title">First Flight Discount</div>
+        <div class="offer-desc">New to TravelWise? Get ₹1,500 off on your very first flight booking. One-time use only.</div>
+        <div class="offer-code-row">
+          <div class="offer-code" onclick="copyCode('FIRSTFLY')">FIRSTFLY</div>
+          <button class="btn-copy" onclick="copyCode('FIRSTFLY')">📋 Copy</button>
+        </div>
+        <div class="offer-footer">
+          <span class="offer-expires">⏰ No Expiry</span>
+          <span class="offer-use-count">👥 New users only</span>
+        </div>
+        <div class="offer-progress"><div class="offer-progress-fill" style="width:45%"></div></div>
+      </div>
+    </div>
+
+    <!-- HOTELOFF -->
+    <div class="offer-card reveal" data-cat="hotels">
+      <div class="offer-card-banner" style="background:linear-gradient(135deg,#00C9FF,#10B981)">
+        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" alt="">
+        <span class="offer-discount">20% OFF</span>
+        <span class="offer-type-tag" style="background:rgba(0,201,255,.7)">🏨 Hotels</span>
+      </div>
+      <div class="offer-body">
+        <div class="offer-title">Hotel Weekend Special</div>
+        <div class="offer-desc">Get 20% off on 5★ hotel bookings for weekend stays. Min. 2 nights. Valid at 500+ hotels.</div>
+        <div class="offer-code-row">
+          <div class="offer-code" onclick="copyCode('HOTELOFF')">HOTELOFF</div>
+          <button class="btn-copy" onclick="copyCode('HOTELOFF')">📋 Copy</button>
+        </div>
+        <div class="offer-footer">
+          <span class="offer-expires">⏰ Expires Apr 30</span>
+          <span class="offer-use-count">👥 5,312 used</span>
+        </div>
+        <div class="offer-progress"><div class="offer-progress-fill" style="width:52%"></div></div>
+      </div>
+    </div>
+
+    <!-- EASYPAY -->
+    <div class="offer-card reveal" data-cat="payment">
+      <div class="offer-card-banner" style="background:linear-gradient(135deg,#F59E0B,#EF4444)">
+        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=600&q=80" alt="">
+        <span class="offer-discount">5% OFF</span>
+        <span class="offer-type-tag" style="background:rgba(245,158,11,.7)">💳 Payment</span>
+      </div>
+      <div class="offer-body">
+        <div class="offer-title">Instant Payment Discount</div>
+        <div class="offer-desc">Pay via UPI or HDFC credit card and get an instant 5% cashback, up to ₹800. No min. booking value.</div>
+        <div class="offer-code-row">
+          <div class="offer-code" onclick="copyCode('EASYPAY')">EASYPAY</div>
+          <button class="btn-copy" onclick="copyCode('EASYPAY')">📋 Copy</button>
+        </div>
+        <div class="offer-footer">
+          <span class="offer-expires">⏰ Expires May 31</span>
+          <span class="offer-use-count">👥 31,290 used</span>
+        </div>
+        <div class="offer-progress"><div class="offer-progress-fill" style="width:89%"></div></div>
+      </div>
+    </div>
+
+    <!-- LOYALTY2X -->
+    <div class="offer-card reveal" data-cat="flights hotels">
+      <div class="offer-card-banner" style="background:linear-gradient(135deg,#6C2BD9,#EC4899)">
+        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=600&q=80" alt="">
+        <span class="offer-discount">2X Points</span>
+        <span class="offer-type-tag" style="background:rgba(108,43,217,.7)">🌟 Members</span>
+      </div>
+      <div class="offer-body">
+        <div class="offer-title">Loyalty Points Booster</div>
+        <div class="offer-desc">TravelWise Silver &amp; Gold members: earn 2X loyalty points on all bookings this month. No cap!</div>
+        <div class="offer-code-row">
+          <div class="offer-code" onclick="copyCode('LOYALTY2X')">LOYALTY2X</div>
+          <button class="btn-copy" onclick="copyCode('LOYALTY2X')">📋 Copy</button>
+        </div>
+        <div class="offer-footer">
+          <span class="offer-expires">⏰ Expires Mar 31</span>
+          <span class="offer-use-count">👥 Members only</span>
+        </div>
+        <div class="offer-progress"><div class="offer-progress-fill" style="width:35%"></div></div>
+      </div>
+    </div>
+
+    <!-- WEEKEND50 -->
+    <div class="offer-card reveal" data-cat="holidays">
+      <div class="offer-card-banner" style="background:linear-gradient(135deg,#10B981,#00C9FF)">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80" alt="">
+        <span class="offer-discount">₹5,000 OFF</span>
+        <span class="offer-type-tag" style="background:rgba(16,185,129,.7)">🌴 Holidays</span>
+      </div>
+      <div class="offer-body">
+        <div class="offer-title">Weekend Getaway Flash Sale</div>
+        <div class="offer-desc">Book any weekend holiday package and get ₹5,000 off instantly. Valid on Thailand, Bali &amp; Goa packages.</div>
+        <div class="offer-code-row">
+          <div class="offer-code" onclick="copyCode('WEEKEND50')">WEEKEND50</div>
+          <button class="btn-copy" onclick="copyCode('WEEKEND50')">📋 Copy</button>
+        </div>
+        <div class="offer-footer">
+          <span class="offer-expires">⏰ Expires Apr 15</span>
+          <span class="offer-use-count">👥 2,987 used</span>
+        </div>
+        <div class="offer-progress"><div class="offer-progress-fill" style="width:62%"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+function copyCode(code) {
+  navigator.clipboard.writeText(code).then(function(){
+    twToast('📋 Code <strong>' + code + '</strong> copied! Apply it at checkout.');
+  }).catch(function(){
+    twToast('📋 Code <strong>' + code + '</strong> — copy it manually!');
+  });
+}
+function filterOffers(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.offer-card').forEach(function(card) {
+    if (cat === 'all' || (card.dataset.cat || '').includes(cat)) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
