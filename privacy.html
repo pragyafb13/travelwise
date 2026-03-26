@@ -11,403 +11,329 @@
 <style>
 /* ── Hero ── */
 .legal-hero {
-  padding: 90px 24px 64px; text-align: center; position: relative; overflow: hidden;
-  background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
-  border-bottom: 1px solid var(--border);
+  padding: 100px 24px 72px; position: relative; overflow: hidden; text-align: center;
+  background: linear-gradient(135deg, #0B0A1A 0%, #1A0E3E 50%, #051020 100%);
 }
 .legal-hero::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 100%, rgba(108,43,217,0.12) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse at 30% 60%, rgba(108,43,217,0.28) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 25%, rgba(0,201,255,0.2) 0%, transparent 50%);
 }
 .legal-hero-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
-.legal-eyebrow {
+.legal-hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(108,43,217,0.1); border: 1px solid rgba(108,43,217,0.2);
-  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
-  color: var(--purple); margin-bottom: 20px;
+  background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18);
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.85); margin-bottom: 22px;
 }
 .legal-hero h1 {
-  font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800;
-  color: var(--text-strong); margin-bottom: 14px; line-height: 1.2;
+  font-family: var(--display); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800;
+  color: #fff; margin-bottom: 14px; line-height: 1.15;
 }
-.legal-hero p { font-size: 15px; color: var(--muted); margin-bottom: 16px; }
-.legal-meta { font-size: 13px; color: var(--muted); }
-.legal-meta span { background: var(--card); border: 1px solid var(--border); padding: 5px 14px; border-radius: 100px; margin: 0 4px; }
+.legal-hero p { font-size: 15px; color: rgba(255,255,255,0.65); }
 
 /* ── Layout ── */
 .legal-layout {
-  max-width: 1140px; margin: 0 auto; padding: 64px 24px;
+  max-width: 1120px; margin: 0 auto; padding: 60px 24px 80px;
   display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start;
 }
 @media (max-width: 900px) { .legal-layout { grid-template-columns: 1fr; } }
 
-/* ── TOC Sidebar ── */
-.toc-sidebar {
-  position: sticky; top: 90px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 24px 0; overflow: hidden;
+/* ── Sticky Sidebar ── */
+.legal-sidebar {
+  position: sticky; top: 100px;
 }
-.toc-header {
-  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-  color: var(--muted); padding: 0 20px 14px; border-bottom: 1px solid var(--border); margin-bottom: 8px;
+.sidebar-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 24px 20px; overflow: hidden;
 }
-.toc-item {
-  display: block; padding: 9px 20px; font-size: 13px; color: var(--muted);
-  cursor: pointer; transition: all 0.18s; border-left: 3px solid transparent;
-  line-height: 1.45;
+.sidebar-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
 }
-.toc-item:hover { color: var(--text-strong); background: var(--card-hover); border-left-color: var(--border2); }
-.toc-item.active { color: var(--purple); background: rgba(108,43,217,0.07); border-left-color: var(--purple); font-weight: 600; }
+.toc-link {
+  display: block; padding: 9px 12px; border-radius: var(--radius-sm);
+  font-size: 13px; color: var(--muted); transition: all 0.2s; cursor: pointer;
+  border-left: 2px solid transparent; margin-bottom: 2px; text-decoration: none;
+}
+.toc-link:hover { color: var(--text-strong); background: var(--bg2); border-left-color: var(--border2); }
+.toc-link.active {
+  color: var(--purple); background: rgba(108,43,217,0.08);
+  border-left-color: var(--purple); font-weight: 600;
+}
 
 /* ── Content ── */
-.legal-content { max-width: 720px; }
-.legal-section { margin-bottom: 56px; scroll-margin-top: 100px; }
+.legal-content { min-width: 0; }
+
+.legal-section {
+  margin-bottom: 52px; padding-bottom: 52px;
+  border-bottom: 1px solid var(--border);
+  padding-left: 20px;
+  border-left: 3px solid;
+  border-image: linear-gradient(180deg, var(--purple), var(--teal)) 1;
+}
+.legal-section:last-child { border-bottom: none; margin-bottom: 0; }
+
+.legal-section-num {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  background: linear-gradient(90deg, var(--purple), var(--teal));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px; display: block;
+}
 .legal-section h2 {
   font-family: var(--display); font-size: 1.35rem; font-weight: 700;
-  color: var(--text-strong); margin-bottom: 18px; padding-bottom: 12px;
-  border-bottom: 2px solid var(--border);
-  display: flex; align-items: center; gap: 10px;
-}
-.section-icon {
-  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--purple), var(--teal));
-  display: flex; align-items: center; justify-content: center; font-size: 15px;
+  color: var(--text-strong); margin-bottom: 16px; line-height: 1.3;
 }
 .legal-section p {
   font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 14px;
 }
-.legal-section ul, .legal-section ol {
-  padding-left: 24px; margin-bottom: 14px;
+.legal-section p:last-child { margin-bottom: 0; }
+.legal-section ul {
+  padding-left: 0; list-style: none; margin: 14px 0;
 }
-.legal-section li { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 6px; }
-.legal-section h3 {
-  font-size: 1rem; font-weight: 700; color: var(--text-strong); margin: 20px 0 10px;
+.legal-section ul li {
+  font-size: 15px; color: var(--text); line-height: 1.75; padding: 7px 0 7px 22px;
+  position: relative; border-bottom: 1px solid var(--border);
 }
+.legal-section ul li:last-child { border-bottom: none; }
+.legal-section ul li::before {
+  content: ''; position: absolute; left: 0; top: 15px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+}
+.legal-section a { color: var(--purple); text-decoration: underline; text-underline-offset: 3px; }
+.legal-section a:hover { color: var(--teal); }
 
-/* ── Highlight boxes ── */
+.info-box {
+  background: rgba(108,43,217,0.07); border: 1px solid rgba(108,43,217,0.2);
+  border-radius: var(--radius); padding: 16px 18px; margin: 16px 0;
+  font-size: 14px; color: var(--text); line-height: 1.7;
+}
+.info-box strong { color: var(--purple); }
+
 .highlight-box {
-  border-radius: var(--radius); padding: 18px 22px; margin: 20px 0;
-  display: flex; gap: 14px; align-items: flex-start;
+  background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.2);
+  border-radius: var(--radius); padding: 16px 18px; margin: 16px 0;
+  font-size: 14px; color: var(--text); line-height: 1.7;
 }
-.highlight-box.purple { background: rgba(108,43,217,0.07); border: 1px solid rgba(108,43,217,0.2); }
-.highlight-box.green  { background: rgba(16,185,129,0.07);  border: 1px solid rgba(16,185,129,0.2); }
-.highlight-box.gold   { background: rgba(245,158,11,0.07);  border: 1px solid rgba(245,158,11,0.2); }
-.highlight-box.teal   { background: rgba(0,201,255,0.07);   border: 1px solid rgba(0,201,255,0.2); }
-.hb-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-.hb-text { font-size: 14px; color: var(--text); line-height: 1.7; }
-.hb-text strong { color: var(--text-strong); }
+.highlight-box strong { color: var(--green); }
 
-/* ── Data types table ── */
-.data-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
-.data-table th {
-  text-align: left; padding: 10px 14px; background: var(--bg2);
-  border: 1px solid var(--border); font-weight: 700; color: var(--text-strong); font-size: 13px;
+@media (max-width: 900px) {
+  .legal-sidebar { position: static; }
+  .legal-section { padding-left: 16px; }
 }
-.data-table td { padding: 10px 14px; border: 1px solid var(--border); color: var(--text); vertical-align: top; }
-.data-table tr:hover td { background: var(--card-hover); }
-
-/* ── Progress indicator ── */
-.reading-progress {
-  position: fixed; top: 0; left: 0; height: 3px; z-index: 999;
-  background: linear-gradient(90deg, var(--purple), var(--teal));
-  transition: width 0.1s linear; width: 0%;
-}
-
-@media (max-width: 900px) { .toc-sidebar { position: static; } }
 </style>
 </head>
 <body>
-<div class="reading-progress" id="reading-progress"></div>
 <div id="nav-root"></div>
 <div id="tw-toast" class="toast"></div>
 
 <!-- HERO -->
 <section class="legal-hero">
   <div class="legal-hero-inner">
-    <div class="legal-eyebrow">🔒 Privacy Policy</div>
-    <h1>Your Privacy Matters</h1>
-    <p>We're committed to being transparent about how we collect, use, and protect your personal information.</p>
-    <div class="legal-meta">
-      <span>Last Updated: March 2026</span>
-      <span>Effective: March 1, 2026</span>
-    </div>
+    <div class="legal-hero-badge">🔒 Privacy Policy</div>
+    <h1>Privacy Policy</h1>
+    <p>Last updated: March 1, 2026 &nbsp;·&nbsp; Effective immediately</p>
   </div>
 </section>
 
 <div class="legal-layout">
-  <!-- SIDEBAR TOC -->
-  <aside class="toc-sidebar reveal">
-    <div class="toc-header">Contents</div>
-    <a class="toc-item active" href="#info-collect" onclick="scrollTo('info-collect')">1. Information We Collect</a>
-    <a class="toc-item" href="#how-we-use" onclick="scrollTo('how-we-use')">2. How We Use Your Info</a>
-    <a class="toc-item" href="#sharing" onclick="scrollTo('sharing')">3. Sharing Your Info</a>
-    <a class="toc-item" href="#security" onclick="scrollTo('security')">4. Data Security</a>
-    <a class="toc-item" href="#your-rights" onclick="scrollTo('your-rights')">5. Your Rights</a>
-    <a class="toc-item" href="#cookies" onclick="scrollTo('cookies')">6. Cookies</a>
-    <a class="toc-item" href="#third-party" onclick="scrollTo('third-party')">7. Third-Party Services</a>
-    <a class="toc-item" href="#children" onclick="scrollTo('children')">8. Children's Privacy</a>
-    <a class="toc-item" href="#changes" onclick="scrollTo('changes')">9. Changes to Policy</a>
-    <a class="toc-item" href="#contact" onclick="scrollTo('contact')">10. Contact Us</a>
+
+  <!-- SIDEBAR -->
+  <aside class="legal-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Table of Contents</div>
+      <a href="#collect" class="toc-link" onclick="smoothNav(event,'collect')">1. Information We Collect</a>
+      <a href="#use" class="toc-link" onclick="smoothNav(event,'use')">2. How We Use Your Information</a>
+      <a href="#sharing" class="toc-link" onclick="smoothNav(event,'sharing')">3. Information Sharing</a>
+      <a href="#security" class="toc-link" onclick="smoothNav(event,'security')">4. Data Security</a>
+      <a href="#rights" class="toc-link" onclick="smoothNav(event,'rights')">5. Your Rights</a>
+      <a href="#cookies" class="toc-link" onclick="smoothNav(event,'cookies')">6. Cookies</a>
+      <a href="#children" class="toc-link" onclick="smoothNav(event,'children')">7. Children's Privacy</a>
+      <a href="#contact" class="toc-link" onclick="smoothNav(event,'contact')">8. Contact Us</a>
+      <a href="#updates" class="toc-link" onclick="smoothNav(event,'updates')">9. Policy Updates</a>
+    </div>
   </aside>
 
   <!-- CONTENT -->
-  <div class="legal-content">
+  <main class="legal-content">
 
-    <div class="highlight-box green reveal">
-      <div class="hb-icon">🛡️</div>
-      <div class="hb-text"><strong>Our Promise:</strong> We never sell your personal data to third parties. Your information is used solely to provide and improve our services, and you can request its deletion at any time.</div>
+    <div class="info-box" style="margin-bottom:36px;">
+      <strong>Your privacy matters to us.</strong> TravelWise is committed to being transparent about how we collect, use, and protect your personal information. This policy applies to all services offered through travelwise.in and our mobile apps.
     </div>
 
-    <!-- 1. INFORMATION WE COLLECT -->
-    <div class="legal-section reveal" id="info-collect">
-      <h2><span class="section-icon">📋</span>1. Information We Collect</h2>
-      <p>When you use TravelWise, we collect information that is necessary to provide you with our travel booking services. This information falls into three main categories:</p>
-
-      <h3>1.1 Personal Data You Provide</h3>
-      <p>When you create an account, make a booking, or contact our support team, you may provide:</p>
+    <section id="collect" class="legal-section reveal">
+      <span class="legal-section-num">Section 01</span>
+      <h2>Information We Collect</h2>
+      <p>We collect information you provide directly when you use TravelWise, as well as data generated automatically when you interact with our platform.</p>
+      <p><strong style="color:var(--text-strong)">Personal Information</strong> — When you create an account, make a booking, or contact support, we may collect:</p>
       <ul>
-        <li>Full name, date of birth, and gender</li>
-        <li>Email address and phone number</li>
-        <li>Passport or government ID number (for international bookings)</li>
-        <li>Billing and shipping address</li>
-        <li>Payment information (processed securely — we do not store full card numbers)</li>
-        <li>Travel preferences, meal preferences, and seat selections</li>
-        <li>Loyalty programme numbers for airlines and hotels</li>
+        <li>Full name, email address, and phone number</li>
+        <li>Date of birth and nationality (required for flight bookings)</li>
+        <li>Passport or government-issued ID number (for international bookings)</li>
+        <li>Billing address and payment method details (processed securely via payment gateways — card numbers are never stored by TravelWise)</li>
+        <li>Emergency contact information (optional but recommended)</li>
       </ul>
-
-      <h3>1.2 Usage Data (Automatically Collected)</h3>
-      <p>When you visit our website or use our app, we automatically collect:</p>
+      <p><strong style="color:var(--text-strong)">Travel Preferences</strong> — To personalize your experience, we collect and remember:</p>
       <ul>
-        <li>IP address and approximate location (city/country level)</li>
-        <li>Browser type, device type, and operating system</li>
-        <li>Pages viewed, search queries, and navigation patterns</li>
-        <li>Referral source (how you arrived at our site)</li>
-        <li>Session duration and interaction data</li>
+        <li>Preferred seat types, meal preferences, and cabin class</li>
+        <li>Destination wishlist and saved searches</li>
+        <li>Loyalty program numbers (frequent flyer, hotel rewards)</li>
+        <li>Communication and notification preferences</li>
       </ul>
-
-      <h3>1.3 Cookies and Tracking Technologies</h3>
-      <p>We use cookies, web beacons, and similar technologies to enhance your experience. See our <a href="cookies.html" style="color:var(--purple)">Cookie Policy</a> for full details.</p>
-
-      <table class="data-table">
-        <thead><tr><th>Data Type</th><th>Required?</th><th>Purpose</th></tr></thead>
-        <tbody>
-          <tr><td>Name & Email</td><td>Yes</td><td>Account creation, booking confirmation</td></tr>
-          <tr><td>Phone Number</td><td>Yes</td><td>Booking alerts, OTP verification</td></tr>
-          <tr><td>Passport Details</td><td>For international flights</td><td>Required by airlines and immigration</td></tr>
-          <tr><td>Payment Info</td><td>For transactions</td><td>Processed via PCI-DSS compliant gateways</td></tr>
-          <tr><td>Usage Analytics</td><td>No (can opt out)</td><td>Product improvement</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 2. HOW WE USE YOUR INFORMATION -->
-    <div class="legal-section reveal" id="how-we-use">
-      <h2><span class="section-icon">⚙️</span>2. How We Use Your Information</h2>
-      <p>We use the information we collect for the following purposes:</p>
-
-      <h3>2.1 Providing Our Services</h3>
+      <p><strong style="color:var(--text-strong)">Device &amp; Usage Data</strong> — Automatically collected when you use our platform:</p>
       <ul>
-        <li>Processing flight, hotel, train, and holiday package bookings</li>
-        <li>Sending booking confirmations, e-tickets, and travel documents</li>
-        <li>Handling cancellations, changes, and refund requests</li>
-        <li>Providing customer support and resolving disputes</li>
-        <li>Processing payments and preventing fraud</li>
+        <li>IP address, browser type, and operating system</li>
+        <li>Pages visited, search queries, and time spent on pages</li>
+        <li>Referring URLs and click-path data</li>
+        <li>Mobile device identifiers (when using our app)</li>
+        <li>Location data (only with your explicit permission)</li>
       </ul>
+    </section>
 
-      <h3>2.2 Communications</h3>
+    <section id="use" class="legal-section reveal">
+      <span class="legal-section-num">Section 02</span>
+      <h2>How We Use Your Information</h2>
+      <p>We use the information we collect for the following purposes, always in line with applicable data protection laws:</p>
       <ul>
-        <li>Sending service-related notifications (flight delays, gate changes)</li>
-        <li>Marketing communications — only with your explicit consent</li>
-        <li>Price alerts and deals based on your search history (can be disabled)</li>
-        <li>Transactional emails related to your bookings</li>
+        <li><strong>Booking Processing</strong> — To confirm flights, hotels, and holiday packages, and to issue tickets and vouchers on your behalf</li>
+        <li><strong>Personalization</strong> — To recommend destinations, show relevant deals, and tailor the TravelWise interface to your preferences</li>
+        <li><strong>Communications</strong> — To send booking confirmations, check-in reminders, safety alerts, and service updates via email, SMS, or push notifications</li>
+        <li><strong>Customer Support</strong> — To investigate issues, process refunds, and respond to your queries effectively</li>
+        <li><strong>Security &amp; Fraud Prevention</strong> — To detect and prevent fraudulent bookings, unauthorized account access, and abuse of our platform</li>
+        <li><strong>Analytics &amp; Improvement</strong> — To understand how users interact with TravelWise and improve our products and services</li>
+        <li><strong>Legal Compliance</strong> — To comply with applicable laws, regulations, and government orders</li>
       </ul>
+    </section>
 
-      <div class="highlight-box purple">
-        <div class="hb-icon">📧</div>
-        <div class="hb-text"><strong>Marketing Opt-out:</strong> You can unsubscribe from marketing emails at any time using the "Unsubscribe" link in any email, or by visiting Account Settings → Notifications.</div>
+    <section id="sharing" class="legal-section reveal">
+      <span class="legal-section-num">Section 03</span>
+      <h2>Information Sharing</h2>
+      <p>We share your information only when necessary to deliver our services, and always with appropriate data protection safeguards in place.</p>
+      <ul>
+        <li><strong>Airlines &amp; Hotels</strong> — We share your booking details (name, travel dates, preferences) with airlines, hotels, and service providers as required to fulfill your reservation</li>
+        <li><strong>Payment Processors</strong> — Payment information is shared with PCI-DSS certified processors (Razorpay, Stripe) to complete transactions securely</li>
+        <li><strong>Analytics Partners</strong> — We use aggregated, anonymized data with analytics providers (Google Analytics, Mixpanel) to understand platform usage patterns</li>
+        <li><strong>Legal Requirements</strong> — We may disclose information in response to a valid legal request, court order, or to protect the rights and safety of TravelWise and its users</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>We never sell your personal data.</strong> TravelWise does not and will never sell, rent, or trade your personal information to third parties for their independent marketing or advertising purposes.
       </div>
+    </section>
 
-      <h3>2.3 Analytics & Improvement</h3>
-      <p>We analyse aggregated, anonymised usage data to improve our platform, personalise search results, and develop new features. This analysis does not identify you personally.</p>
-    </div>
+    <section id="security" class="legal-section reveal">
+      <span class="legal-section-num">Section 04</span>
+      <h2>Data Security</h2>
+      <p>TravelWise implements industry-leading security measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction.</p>
+      <ul>
+        <li><strong>SSL Encryption</strong> — All data transmitted between your browser and our servers is encrypted using TLS 1.3 (256-bit encryption)</li>
+        <li><strong>PCI-DSS Compliance</strong> — Our payment infrastructure maintains PCI-DSS Level 1 compliance — the highest standard in the industry</li>
+        <li><strong>Regular Security Audits</strong> — We conduct quarterly penetration testing and annual third-party security audits of our systems</li>
+        <li><strong>Access Controls</strong> — Employee access to personal data is strictly limited on a need-to-know basis with multi-factor authentication required</li>
+        <li><strong>Data Minimization</strong> — We only collect and retain data that is necessary for the purposes described in this policy</li>
+      </ul>
+      <p>While we take all reasonable precautions, no internet transmission is 100% secure. If you suspect unauthorized access to your account, contact us immediately at <a href="mailto:security@travelwise.in">security@travelwise.in</a>.</p>
+    </section>
 
-    <!-- 3. SHARING YOUR INFORMATION -->
-    <div class="legal-section reveal" id="sharing">
-      <h2><span class="section-icon">🤝</span>3. Sharing Your Information</h2>
+    <section id="rights" class="legal-section reveal">
+      <span class="legal-section-num">Section 05</span>
+      <h2>Your Rights</h2>
+      <p>You have the following rights regarding your personal data held by TravelWise. To exercise any of these rights, email us at <a href="mailto:privacy@travelwise.in">privacy@travelwise.in</a> and we will respond within 30 days.</p>
+      <ul>
+        <li><strong>Access</strong> — Request a copy of the personal data we hold about you in a portable, machine-readable format</li>
+        <li><strong>Correction</strong> — Request correction of inaccurate or incomplete personal information</li>
+        <li><strong>Deletion</strong> — Request deletion of your personal data (subject to legal retention obligations)</li>
+        <li><strong>Data Portability</strong> — Receive your data in a structured, commonly used format to transfer to another service</li>
+        <li><strong>Opt-out of Marketing</strong> — Unsubscribe from promotional emails at any time via the link in any email, or through your Account Settings</li>
+        <li><strong>Restrict Processing</strong> — Request that we limit how we use your data while a dispute is being resolved</li>
+        <li><strong>Object to Processing</strong> — Object to processing of your data for direct marketing or profiling purposes</li>
+      </ul>
+    </section>
 
-      <div class="highlight-box green">
-        <div class="hb-icon">🔒</div>
-        <div class="hb-text"><strong>We never sell your personal data.</strong> We only share your information with parties that are necessary to complete your booking or required by law.</div>
+    <section id="cookies" class="legal-section reveal">
+      <span class="legal-section-num">Section 06</span>
+      <h2>Cookies</h2>
+      <p>TravelWise uses cookies and similar tracking technologies to provide a personalized and seamless experience on our platform. Cookies are small text files stored on your device.</p>
+      <p>We use essential cookies (necessary for the site to function), analytics cookies (to understand usage), marketing cookies (to show relevant offers), and preference cookies (to remember your settings).</p>
+      <p>You can manage your cookie preferences at any time. For full details on what cookies we use and how to control them, please see our <a href="cookies.html">Cookie Policy</a>.</p>
+    </section>
+
+    <section id="children" class="legal-section reveal">
+      <span class="legal-section-num">Section 07</span>
+      <h2>Children's Privacy</h2>
+      <p>TravelWise is not intended for use by individuals under the age of 13. We do not knowingly collect personal information from children under 13.</p>
+      <p>If you are a parent or guardian and believe that your child has provided personal information to us, please contact us immediately at <a href="mailto:privacy@travelwise.in">privacy@travelwise.in</a> and we will take steps to delete that information promptly.</p>
+      <p>Users between 13 and 18 years of age must have parental consent to use TravelWise and complete bookings.</p>
+    </section>
+
+    <section id="contact" class="legal-section reveal">
+      <span class="legal-section-num">Section 08</span>
+      <h2>Contact Us</h2>
+      <p>If you have any questions, concerns, or requests regarding this Privacy Policy or how TravelWise handles your personal data, please reach out to our dedicated Privacy Team:</p>
+      <ul>
+        <li><strong>Email</strong> — <a href="mailto:privacy@travelwise.in">privacy@travelwise.in</a></li>
+        <li><strong>Response Time</strong> — We aim to respond to all privacy inquiries within 72 hours</li>
+        <li><strong>Postal Address</strong> — TravelWise Privacy Officer, 5th Floor, Embassy Tech Village, Outer Ring Road, Bengaluru, Karnataka 560103, India</li>
+        <li><strong>Grievance Officer</strong> — In accordance with the IT Act 2000, our Grievance Officer can be reached at grievance@travelwise.in</li>
+      </ul>
+      <div class="info-box">
+        For data deletion requests and access requests, please email us from the address registered with your TravelWise account to help us verify your identity.
       </div>
+    </section>
 
-      <h3>3.1 Travel Partners</h3>
-      <p>To complete your bookings, we share relevant personal data with:</p>
+    <section id="updates" class="legal-section reveal">
+      <span class="legal-section-num">Section 09</span>
+      <h2>Updates to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or for other operational reasons.</p>
+      <p>When we make material changes, we will notify you through one or more of the following methods:</p>
       <ul>
-        <li>Airlines, hotels, train operators, and holiday package providers</li>
-        <li>Car rental companies and transfer services</li>
-        <li>Travel insurance providers (if you opt for insurance)</li>
+        <li>Email notification to the address on your account (for significant changes)</li>
+        <li>A prominent notice on the TravelWise homepage or app</li>
+        <li>An in-app notification when you next sign in</li>
+        <li>An updated "Last updated" date at the top of this page</li>
       </ul>
-      <p>These partners are bound by their own privacy policies and applicable data protection laws. They may only use your data to fulfil your booking.</p>
+      <p>Your continued use of TravelWise after the effective date of any revised Privacy Policy constitutes your acceptance of the updated terms. We encourage you to review this policy periodically.</p>
+    </section>
 
-      <h3>3.2 Service Providers</h3>
-      <p>We work with trusted third-party service providers who process data on our behalf:</p>
-      <ul>
-        <li>Payment processors (Razorpay, Stripe, PayU) — for transaction processing</li>
-        <li>Cloud hosting providers (AWS, Google Cloud) — for infrastructure</li>
-        <li>Analytics providers (Google Analytics) — for usage analysis</li>
-        <li>Customer support tools — for managing support tickets</li>
-      </ul>
-      <p>All service providers operate under strict data processing agreements and are prohibited from using your data for their own purposes.</p>
-
-      <h3>3.3 Legal Requirements</h3>
-      <p>We may disclose your information when required by law, court order, or to protect the rights, property, or safety of TravelWise, our users, or the public. This includes sharing with government bodies, regulators, and law enforcement when legally obligated.</p>
-    </div>
-
-    <!-- 4. DATA SECURITY -->
-    <div class="legal-section reveal" id="security">
-      <h2><span class="section-icon">🔐</span>4. Data Security</h2>
-      <p>We take data security seriously and implement industry-standard measures to protect your information:</p>
-      <ul>
-        <li><strong>Encryption:</strong> All data transmitted between your device and our servers is encrypted using TLS 1.3 (HTTPS)</li>
-        <li><strong>Payment Security:</strong> Payment data is processed through PCI-DSS Level 1 compliant payment gateways. We do not store full card numbers on our servers</li>
-        <li><strong>Access Controls:</strong> Employee access to personal data is role-based, logged, and requires multi-factor authentication</li>
-        <li><strong>Regular Audits:</strong> We conduct regular security audits, penetration testing, and vulnerability assessments</li>
-        <li><strong>Data Minimisation:</strong> We only collect data that is necessary for our services</li>
-      </ul>
-
-      <div class="highlight-box gold">
-        <div class="hb-icon">⚠️</div>
-        <div class="hb-text"><strong>Data Breach Notification:</strong> In the event of a data breach that affects your rights, we will notify you and the relevant data protection authority within 72 hours of becoming aware, as required under applicable law.</div>
-      </div>
-    </div>
-
-    <!-- 5. YOUR RIGHTS -->
-    <div class="legal-section reveal" id="your-rights">
-      <h2><span class="section-icon">⚖️</span>5. Your Rights</h2>
-      <p>Depending on your location, you have various rights regarding your personal data under laws including the GDPR (EU/UK) and India's Digital Personal Data Protection Act 2023 (DPDP):</p>
-
-      <h3>5.1 Right to Access</h3>
-      <p>You can request a copy of all personal data we hold about you. We will respond within 30 days.</p>
-
-      <h3>5.2 Right to Rectification</h3>
-      <p>You can update your personal information at any time through Account Settings. For booking-related data corrections, contact our support team.</p>
-
-      <h3>5.3 Right to Erasure ("Right to be Forgotten")</h3>
-      <p>You can request deletion of your account and personal data. Note that we may retain certain data for legal and accounting purposes for up to 7 years.</p>
-
-      <h3>5.4 Right to Data Portability</h3>
-      <p>You can request your personal data in a structured, machine-readable format (JSON/CSV) for transfer to another service provider.</p>
-
-      <h3>5.5 Right to Object / Opt-out</h3>
-      <p>You can opt out of marketing communications, analytics tracking, and personalised advertising at any time from Account Settings or by contacting us.</p>
-
-      <div class="highlight-box teal">
-        <div class="hb-icon">📬</div>
-        <div class="hb-text"><strong>Exercise Your Rights:</strong> Email privacy@travelwise.com with your request. Include your registered email and a description of your request. We respond within 30 days for non-complex requests.</div>
-      </div>
-    </div>
-
-    <!-- 6. COOKIES -->
-    <div class="legal-section reveal" id="cookies">
-      <h2><span class="section-icon">🍪</span>6. Cookies</h2>
-      <p>We use cookies and similar tracking technologies to enhance your experience. We categorise our cookies as follows:</p>
-      <ul>
-        <li><strong>Essential Cookies:</strong> Necessary for site functionality (login session, cart). Cannot be disabled.</li>
-        <li><strong>Analytics Cookies:</strong> Help us understand how visitors use our site. You can opt out.</li>
-        <li><strong>Marketing Cookies:</strong> Used for personalised advertising. You can opt out.</li>
-        <li><strong>Preference Cookies:</strong> Remember your settings (theme, language). You can opt out.</li>
-      </ul>
-      <p>For full details and cookie management options, see our <a href="cookies.html" style="color:var(--purple)">Cookie Policy</a>.</p>
-    </div>
-
-    <!-- 7. THIRD-PARTY SERVICES -->
-    <div class="legal-section reveal" id="third-party">
-      <h2><span class="section-icon">🔗</span>7. Third-Party Services</h2>
-      <p>Our platform integrates with various third-party services. These services have their own privacy policies and data practices:</p>
-      <ul>
-        <li><strong>Google Analytics:</strong> Usage analytics and behaviour tracking</li>
-        <li><strong>Google Maps:</strong> Hotel location display and directions</li>
-        <li><strong>Meta Pixel:</strong> Advertising conversion tracking</li>
-        <li><strong>Razorpay / Stripe:</strong> Payment processing</li>
-        <li><strong>Intercom:</strong> Customer support chat</li>
-        <li><strong>Firebase:</strong> Push notifications and app analytics</li>
-      </ul>
-      <p>We are not responsible for the privacy practices of third-party services. We encourage you to review their privacy policies separately.</p>
-    </div>
-
-    <!-- 8. CHILDREN'S PRIVACY -->
-    <div class="legal-section reveal" id="children">
-      <h2><span class="section-icon">👶</span>8. Children's Privacy</h2>
-      <p>TravelWise is not directed at children under the age of 18. We do not knowingly collect personal data from minors without verifiable parental consent. Bookings for minor passengers require the account to be held by a parent or legal guardian aged 18 or above.</p>
-      <p>If you believe we have inadvertently collected data from a minor, please contact us immediately at privacy@travelwise.com and we will delete the data promptly.</p>
-    </div>
-
-    <!-- 9. CHANGES -->
-    <div class="legal-section reveal" id="changes">
-      <h2><span class="section-icon">📝</span>9. Changes to This Policy</h2>
-      <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. When we make material changes:</p>
-      <ul>
-        <li>We will update the "Last Updated" date at the top of this page</li>
-        <li>For significant changes, we will notify you by email or a prominent notice on our website</li>
-        <li>Continued use of our services after the effective date constitutes acceptance of the revised policy</li>
-      </ul>
-      <p>We encourage you to review this policy periodically. Previous versions are available upon request.</p>
-    </div>
-
-    <!-- 10. CONTACT -->
-    <div class="legal-section reveal" id="contact">
-      <h2><span class="section-icon">📞</span>10. Contact Us</h2>
-      <p>If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact our Data Protection Officer:</p>
-      <ul>
-        <li><strong>Email:</strong> privacy@travelwise.com</li>
-        <li><strong>Post:</strong> Data Protection Officer, TravelWise Technologies Pvt. Ltd., Level 12, One World Centre, Mumbai — 400 013, India</li>
-        <li><strong>Phone:</strong> 1800-123-4567 (toll-free, Mon–Fri 9 AM–6 PM IST)</li>
-        <li><strong>Response Time:</strong> We aim to respond to all privacy-related enquiries within 10 business days</li>
-      </ul>
-      <p>For escalated complaints, you may also contact the relevant data protection authority in your jurisdiction — in India, this is the Data Protection Board of India.</p>
-    </div>
-
-  </div><!-- /legal-content -->
-</div><!-- /legal-layout -->
+  </main>
+</div>
 
 <div id="footer-root"></div>
 <script src="nav.js"></script>
 <script>
-/* Reading progress bar */
-window.addEventListener('scroll', function() {
-  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  var progress = (window.scrollY / docHeight) * 100;
-  document.getElementById('reading-progress').style.width = Math.min(progress, 100) + '%';
-});
-
-/* Active TOC item */
-var sections = document.querySelectorAll('.legal-section');
-var tocItems = document.querySelectorAll('.toc-item');
-var io = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      var id = entry.target.id;
-      tocItems.forEach(function(item) {
-        item.classList.toggle('active', item.getAttribute('href') === '#' + id);
-      });
-    }
-  });
-}, { rootMargin: '-20% 0px -70% 0px' });
-sections.forEach(function(s) { io.observe(s); });
-
-/* Smooth scroll from ToC */
-function scrollTo(id) {
+function smoothNav(e, id) {
+  e.preventDefault();
   var el = document.getElementById(id);
-  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  event.preventDefault();
+  if (el) { window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' }); }
 }
 
+/* Active section highlight on scroll */
+(function(){
+  var sections = document.querySelectorAll('.legal-section[id]');
+  var links = document.querySelectorAll('.toc-link');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        var id = e.target.id;
+        links.forEach(function(l){ l.classList.remove('active'); });
+        var active = document.querySelector('.toc-link[href="#' + id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -65% 0px' });
+  sections.forEach(function(s){ io.observe(s); });
+})();
+
 /* Reveal */
-var revealEls = document.querySelectorAll('.reveal');
-var revIO = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if(e.isIntersecting){ e.target.classList.add('revealed'); revIO.unobserve(e.target); }});
-}, { threshold: 0.06 });
-revealEls.forEach(function(el){ revIO.observe(el); });
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.05 });
+  els.forEach(function(el){ io.observe(el); });
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sitemap | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.sitemap-hero {
+  padding: 80px 24px 60px; position: relative; overflow: hidden; text-align: center;
+  background: linear-gradient(135deg, #080B18 0%, #0E1530 40%, #050A15 100%);
+}
+.sitemap-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 60%, rgba(108,43,217,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 30%, rgba(0,201,255,0.16) 0%, transparent 50%);
+}
+.sitemap-hero-inner { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
+.sitemap-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16);
+  padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.8); margin-bottom: 18px;
+}
+.sitemap-hero h1 {
+  font-family: var(--display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 800;
+  color: #fff; margin-bottom: 12px; line-height: 1.15;
+}
+.sitemap-hero h1 span {
+  background: linear-gradient(90deg, #00C9FF, #6C2BD9);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.sitemap-hero p { font-size: 15px; color: rgba(255,255,255,0.6); }
+
+/* ── Wrapper ── */
+.sitemap-wrap { max-width: 1160px; margin: 0 auto; padding: 60px 24px 80px; }
+
+/* ── Search Bar ── */
+.sitemap-search-bar {
+  display: flex; align-items: center; gap: 12px; max-width: 480px; margin: 0 auto 52px;
+  background: var(--card); border: 1px solid var(--border2); border-radius: var(--radius-lg);
+  padding: 12px 18px; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.sitemap-search-bar:focus-within {
+  border-color: var(--purple); box-shadow: 0 0 0 3px rgba(108,43,217,0.15);
+}
+.sitemap-search-icon { font-size: 18px; opacity: 0.6; flex-shrink: 0; }
+.sitemap-search-bar input {
+  flex: 1; border: none; background: transparent; font-size: 14px; color: var(--text);
+  font-family: var(--font); outline: none;
+}
+.sitemap-search-bar input::placeholder { color: var(--muted); }
+
+/* ── Grid ── */
+.sitemap-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+@media (max-width: 1000px) { .sitemap-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .sitemap-grid { grid-template-columns: 1fr; } }
+
+/* ── Column Card ── */
+.sitemap-col {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.sitemap-col:hover { box-shadow: 0 12px 36px rgba(0,0,0,0.14); transform: translateY(-3px); }
+
+.col-header {
+  padding: 20px 22px 16px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--bg2), transparent);
+}
+.col-header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.col-icon {
+  width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.col-icon.flights { background: linear-gradient(135deg, rgba(0,201,255,0.2), rgba(0,201,255,0.08)); }
+.col-icon.account { background: linear-gradient(135deg, rgba(108,43,217,0.2), rgba(108,43,217,0.08)); }
+.col-icon.support { background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.08)); }
+.col-icon.company { background: linear-gradient(135deg, rgba(255,107,53,0.2), rgba(255,107,53,0.08)); }
+
+.col-title {
+  font-family: var(--display); font-size: 16px; font-weight: 700;
+  background: linear-gradient(90deg, var(--purple), var(--teal));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.col-count { font-size: 12px; color: var(--muted); }
+
+/* Gradient top bar */
+.sitemap-col::before {
+  content: ''; display: block; height: 3px;
+  background: linear-gradient(90deg, var(--purple), var(--teal));
+}
+.sitemap-col:nth-child(2)::before { background: linear-gradient(90deg, var(--purple), #EC4899); }
+.sitemap-col:nth-child(3)::before { background: linear-gradient(90deg, var(--teal), var(--green)); }
+.sitemap-col:nth-child(4)::before { background: linear-gradient(90deg, var(--coral), var(--purple)); }
+
+/* Links */
+.col-links { padding: 8px 0; }
+.sitemap-link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 22px; font-size: 14px; color: var(--text); text-decoration: none;
+  transition: all 0.18s var(--ease); border-left: 3px solid transparent;
+  group: true;
+}
+.sitemap-link:hover {
+  background: var(--card-hover); color: var(--text-strong);
+  border-left-color: var(--purple); padding-left: 26px;
+}
+.sitemap-link-text { display: flex; align-items: center; gap: 8px; }
+.sitemap-link-icon { font-size: 15px; opacity: 0.75; flex-shrink: 0; }
+.sitemap-link-arrow {
+  font-size: 12px; color: var(--muted); opacity: 0;
+  transition: opacity 0.18s, transform 0.18s;
+}
+.sitemap-link:hover .sitemap-link-arrow { opacity: 1; transform: translateX(3px); }
+.sitemap-link.disabled { opacity: 0.5; pointer-events: none; }
+.sitemap-link-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 100px;
+  background: rgba(255,107,53,0.15); color: var(--coral);
+  border: 1px solid rgba(255,107,53,0.2);
+}
+
+/* ── Bottom Info Bar ── */
+.sitemap-info {
+  margin-top: 48px; background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  flex-wrap: wrap;
+}
+.sitemap-info-text h3 {
+  font-family: var(--display); font-size: 16px; font-weight: 700;
+  color: var(--text-strong); margin-bottom: 4px;
+}
+.sitemap-info-text p { font-size: 14px; color: var(--muted); }
+.sitemap-info-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-sm-primary {
+  padding: 10px 20px; border: none; border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; font-size: 14px; font-weight: 700; font-family: var(--font);
+  cursor: pointer; text-decoration: none; display: inline-block;
+  transition: all 0.2s; box-shadow: 0 3px 12px rgba(108,43,217,0.3);
+}
+.btn-sm-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(108,43,217,0.4); }
+.btn-sm-ghost {
+  padding: 10px 20px; border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  background: transparent; color: var(--text); font-size: 14px; font-weight: 600;
+  font-family: var(--font); cursor: pointer; text-decoration: none; display: inline-block;
+  transition: all 0.2s;
+}
+.btn-sm-ghost:hover { background: var(--card-hover); color: var(--text-strong); border-color: var(--purple); }
+
+/* ── No results ── */
+.no-results {
+  text-align: center; padding: 48px 24px; color: var(--muted);
+  font-size: 15px; display: none;
+}
+.no-results span { font-size: 36px; display: block; margin-bottom: 12px; }
+
+@media (max-width: 600px) {
+  .sitemap-info { flex-direction: column; align-items: flex-start; }
+  .sitemap-wrap { padding: 40px 20px 60px; }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- HERO -->
+<section class="sitemap-hero">
+  <div class="sitemap-hero-inner">
+    <div class="sitemap-hero-badge">🗺️ Navigation</div>
+    <h1>Find Everything on <span>TravelWise</span></h1>
+    <p>A complete directory of every page and feature on TravelWise — always just one click away.</p>
+  </div>
+</section>
+
+<div class="sitemap-wrap">
+
+  <!-- SEARCH -->
+  <div class="sitemap-search-bar reveal">
+    <span class="sitemap-search-icon">🔍</span>
+    <input type="text" id="sitemap-search" placeholder="Search pages, features, policies..." oninput="filterSitemap(this.value)">
+  </div>
+
+  <div class="no-results" id="no-results">
+    <span>🔎</span>
+    No pages match your search. Try a different keyword.
+  </div>
+
+  <!-- SITEMAP GRID -->
+  <div class="sitemap-grid reveal">
+
+    <!-- Column 1: Book Travel -->
+    <div class="sitemap-col" data-col="book">
+      <div class="col-header">
+        <div class="col-header-top">
+          <div class="col-icon flights">✈️</div>
+          <div>
+            <div class="col-title">Book Travel</div>
+            <div class="col-count">5 pages</div>
+          </div>
+        </div>
+      </div>
+      <nav class="col-links">
+        <a href="flights.html" class="sitemap-link" data-name="flights search book air travel">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">✈️</span> Flights</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="hotels.html" class="sitemap-link" data-name="hotels accommodation stay book">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🏨</span> Hotels</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="holidays.html" class="sitemap-link" data-name="holiday packages vacation tours">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🌴</span> Holiday Packages</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="trains.html" class="sitemap-link" data-name="trains rail irctc book railway">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🚂</span> Trains</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="offers.html" class="sitemap-link" data-name="offers deals discounts coupons promo">
+          <span class="sitemap-link-text">
+            <span class="sitemap-link-icon">🏷️</span> Special Offers
+            <span class="sitemap-link-badge">HOT</span>
+          </span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Column 2: My Account -->
+    <div class="sitemap-col" data-col="account">
+      <div class="col-header">
+        <div class="col-header-top">
+          <div class="col-icon account">👤</div>
+          <div>
+            <div class="col-title">My Account</div>
+            <div class="col-count">5 pages</div>
+          </div>
+        </div>
+      </div>
+      <nav class="col-links">
+        <a href="login.html" class="sitemap-link" data-name="login sign up register account create">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🔑</span> Login / Sign Up</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="my-trips.html" class="sitemap-link" data-name="my trips bookings history itinerary">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🗺️</span> My Trips</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="#" class="sitemap-link disabled" data-name="flight status check live tracker">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">📡</span> Flight Status</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="#" class="sitemap-link disabled" data-name="pnr status check confirmation booking">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🎫</span> PNR Status</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="my-trips.html" class="sitemap-link" data-name="hotel bookings reservations stay history">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🏨</span> Hotel Bookings</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Column 3: Support -->
+    <div class="sitemap-col" data-col="support">
+      <div class="col-header">
+        <div class="col-header-top">
+          <div class="col-icon support">🛟</div>
+          <div>
+            <div class="col-title">Support</div>
+            <div class="col-count">5 pages</div>
+          </div>
+        </div>
+      </div>
+      <nav class="col-links">
+        <a href="help.html" class="sitemap-link" data-name="help center faq questions support">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">❓</span> Help Center</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="contact.html" class="sitemap-link" data-name="contact us reach phone email support">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">📞</span> Contact Us</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="refunds.html" class="sitemap-link" data-name="refunds cancellations cancel policy money back">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">💸</span> Refunds &amp; Cancellations</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="safety.html" class="sitemap-link" data-name="travel safety secure emergency tips guide">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🛡️</span> Travel Safety</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="guide.html" class="sitemap-link" data-name="travel guide destination tips explore">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">📍</span> Travel Guide</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Column 4: Company -->
+    <div class="sitemap-col" data-col="company">
+      <div class="col-header">
+        <div class="col-header-top">
+          <div class="col-icon company">🏢</div>
+          <div>
+            <div class="col-title">Company</div>
+            <div class="col-count">7 pages</div>
+          </div>
+        </div>
+      </div>
+      <nav class="col-links">
+        <a href="about.html" class="sitemap-link" data-name="about us company story team travelwise">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🏢</span> About Us</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="careers.html" class="sitemap-link" data-name="careers jobs work hiring positions">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">💼</span> Careers</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="blog.html" class="sitemap-link" data-name="blog articles travel stories news tips">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">📝</span> Blog</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="press.html" class="sitemap-link" data-name="press media coverage news journalists">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">📰</span> Press &amp; Media</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="privacy.html" class="sitemap-link" data-name="privacy policy data personal information">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🔒</span> Privacy Policy</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="terms.html" class="sitemap-link" data-name="terms of use conditions legal agreement">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">📄</span> Terms of Use</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+        <a href="cookies.html" class="sitemap-link" data-name="cookie policy manage preferences tracking">
+          <span class="sitemap-link-text"><span class="sitemap-link-icon">🍪</span> Cookie Policy</span>
+          <span class="sitemap-link-arrow">→</span>
+        </a>
+      </nav>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM INFO BAR -->
+  <div class="sitemap-info reveal">
+    <div class="sitemap-info-text">
+      <h3>Can't find what you're looking for?</h3>
+      <p>Our support team is available 24/7 to help you find anything on TravelWise.</p>
+    </div>
+    <div class="sitemap-info-actions">
+      <a href="help.html" class="btn-sm-primary">Visit Help Center</a>
+      <a href="contact.html" class="btn-sm-ghost">Contact Support</a>
+    </div>
+  </div>
+
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+/* Sitemap search filter */
+function filterSitemap(query) {
+  var q = query.toLowerCase().trim();
+  var links = document.querySelectorAll('.sitemap-link');
+  var cols = document.querySelectorAll('.sitemap-col');
+  var noResults = document.getElementById('no-results');
+  var grid = document.querySelector('.sitemap-grid');
+  var matchCount = 0;
+
+  links.forEach(function(link) {
+    var name = (link.getAttribute('data-name') || '').toLowerCase();
+    var text = link.textContent.toLowerCase();
+    var visible = !q || name.includes(q) || text.includes(q);
+    link.style.display = visible ? 'flex' : 'none';
+    if (visible) matchCount++;
+  });
+
+  /* Hide/show columns based on whether they have any visible links */
+  cols.forEach(function(col) {
+    var visibleLinks = col.querySelectorAll('.sitemap-link[style="display: flex;"], .sitemap-link:not([style])');
+    var hasVisible = false;
+    col.querySelectorAll('.sitemap-link').forEach(function(l) {
+      if (l.style.display !== 'none') hasVisible = true;
+    });
+    col.style.display = hasVisible ? '' : 'none';
+  });
+
+  noResults.style.display = (q && matchCount === 0) ? 'block' : 'none';
+  grid.style.display = (q && matchCount === 0) ? 'none' : 'grid';
+}
+
+/* Reveal */
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
