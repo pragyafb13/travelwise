@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Policy | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.cookie-hero {
+  padding: 100px 24px 72px; position: relative; overflow: hidden; text-align: center;
+  background: linear-gradient(135deg, #080B1A 0%, #0D1530 50%, #060A12 100%);
+}
+.cookie-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 60%, rgba(0,201,255,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 30%, rgba(108,43,217,0.22) 0%, transparent 50%);
+}
+.cookie-hero-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+.cookie-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18);
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.85); margin-bottom: 22px;
+}
+.cookie-hero h1 {
+  font-family: var(--display); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800;
+  color: #fff; margin-bottom: 14px; line-height: 1.15;
+}
+.cookie-hero p { font-size: 15px; color: rgba(255,255,255,0.6); }
+
+/* ── Wrapper ── */
+.cookie-wrap { max-width: 1000px; margin: 0 auto; padding: 60px 24px 80px; }
+
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  background: linear-gradient(90deg, var(--teal), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 10px; display: block;
+}
+.section-title {
+  font-family: var(--display); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700;
+  color: var(--text-strong); margin-bottom: 10px;
+}
+.section-sub { color: var(--muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6; }
+.section-body { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 14px; }
+
+/* ── Cookie Toggle Cards ── */
+.cookie-toggles { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 56px; }
+.cookie-toggle-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 24px 22px; transition: all 0.25s var(--ease); position: relative;
+}
+.cookie-toggle-card.essential { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.04); }
+.cookie-toggle-card:not(.essential):hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
+.ctc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.ctc-icon-title { display: flex; align-items: center; gap: 12px; }
+.ctc-icon { font-size: 24px; }
+.ctc-title { font-family: var(--display); font-size: 15px; font-weight: 700; color: var(--text-strong); }
+.ctc-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+.ctc-tag {
+  display: inline-block; padding: 3px 10px; border-radius: 100px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.4px;
+}
+.ctc-tag.always { background: rgba(16,185,129,0.12); color: var(--green); border: 1px solid rgba(16,185,129,0.25); }
+.ctc-tag.analytics { background: rgba(0,201,255,0.1); color: var(--teal); border: 1px solid rgba(0,201,255,0.25); }
+.ctc-tag.marketing { background: rgba(255,107,53,0.1); color: var(--coral); border: 1px solid rgba(255,107,53,0.25); }
+.ctc-tag.prefs { background: rgba(108,43,217,0.1); color: var(--purple); border: 1px solid rgba(108,43,217,0.25); }
+
+/* Toggle Switch */
+.toggle-switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+.toggle-track {
+  position: absolute; inset: 0; background: var(--border2); border-radius: 100px;
+  cursor: pointer; transition: background 0.25s var(--ease);
+}
+.toggle-track::after {
+  content: ''; position: absolute; left: 3px; top: 3px;
+  width: 18px; height: 18px; border-radius: 50%; background: #fff;
+  transition: transform 0.25s var(--ease);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.toggle-switch input:checked + .toggle-track { background: linear-gradient(135deg, var(--purple), var(--teal)); }
+.toggle-switch input:checked + .toggle-track::after { transform: translateX(20px); }
+.toggle-switch input:disabled + .toggle-track { opacity: 0.7; cursor: not-allowed; }
+
+/* ── Save Button ── */
+.save-row { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-bottom: 64px; }
+.btn-save-prefs {
+  padding: 12px 28px; border: none; border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; font-size: 15px; font-weight: 700; font-family: var(--font);
+  cursor: pointer; transition: all 0.2s var(--ease);
+  box-shadow: 0 4px 16px rgba(108,43,217,0.35);
+}
+.btn-save-prefs:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,43,217,0.45); }
+.save-note { font-size: 13px; color: var(--muted); }
+
+/* ── Cookie Table ── */
+.cookie-table-section { margin-bottom: 64px; }
+.cookie-table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.cookie-table { width: 100%; border-collapse: collapse; }
+.cookie-table thead th {
+  padding: 14px 16px; text-align: left; font-size: 11px; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.7);
+  background: linear-gradient(135deg, #0D1530 0%, #1A1033 100%);
+  white-space: nowrap;
+}
+.cookie-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.18s; }
+.cookie-table tbody tr:last-child { border-bottom: none; }
+.cookie-table tbody tr:hover { background: var(--card-hover); }
+.cookie-table td { padding: 12px 16px; font-size: 13px; color: var(--text); vertical-align: top; }
+.cookie-table td:first-child { font-family: monospace; font-size: 12px; color: var(--teal); font-weight: 600; }
+.cookie-type-badge {
+  display: inline-block; padding: 2px 9px; border-radius: 6px; font-size: 11px; font-weight: 700;
+  white-space: nowrap;
+}
+.badge-essential { background: rgba(16,185,129,0.12); color: var(--green); }
+.badge-analytics { background: rgba(0,201,255,0.1); color: var(--teal); }
+.badge-marketing { background: rgba(255,107,53,0.1); color: var(--coral); }
+.badge-prefs { background: rgba(108,43,217,0.1); color: var(--purple); }
+
+/* ── Info Sections ── */
+.info-block { margin-bottom: 48px; }
+.info-block p { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 12px; }
+.info-block ul { list-style: none; padding: 0; }
+.info-block ul li {
+  font-size: 15px; color: var(--text); line-height: 1.75; padding: 7px 0 7px 22px;
+  position: relative; border-bottom: 1px solid var(--border);
+}
+.info-block ul li:last-child { border-bottom: none; }
+.info-block ul li::before {
+  content: ''; position: absolute; left: 0; top: 15px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--purple));
+}
+.info-block a { color: var(--purple); text-decoration: underline; text-underline-offset: 3px; }
+.info-block a:hover { color: var(--teal); }
+
+hr.section-hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+@media (max-width: 600px) {
+  .cookie-wrap { padding: 40px 20px 60px; }
+  .cookie-toggles { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- HERO -->
+<section class="cookie-hero">
+  <div class="cookie-hero-inner">
+    <div class="cookie-hero-badge">🍪 Cookie Policy</div>
+    <h1>Cookie Policy</h1>
+    <p>Last updated: March 1, 2026 &nbsp;·&nbsp; Effective immediately</p>
+  </div>
+</section>
+
+<div class="cookie-wrap">
+
+  <!-- WHAT ARE COOKIES -->
+  <section class="info-block reveal">
+    <span class="section-label">The Basics</span>
+    <div class="section-title">What Are Cookies?</div>
+    <p>Cookies are small text files that are placed on your device (computer, smartphone, or tablet) when you visit a website. They are widely used to make websites work efficiently, to remember your preferences, and to provide information to website owners about how users interact with their site.</p>
+    <p>Cookies cannot run programs or deliver viruses to your computer. They are uniquely assigned to your device and can only be read by the web server that placed them. TravelWise uses cookies responsibly and transparently — this page explains exactly what we use and why.</p>
+  </section>
+
+  <hr class="section-hr">
+
+  <!-- COOKIE CATEGORY TOGGLES -->
+  <section class="reveal">
+    <span class="section-label">Your Preferences</span>
+    <div class="section-title">Manage Cookie Categories</div>
+    <div class="section-sub">Choose which types of cookies TravelWise can use. Essential cookies cannot be disabled as they are required for the site to function properly.</div>
+
+    <div class="cookie-toggles">
+
+      <div class="cookie-toggle-card essential">
+        <div class="ctc-header">
+          <div class="ctc-icon-title">
+            <span class="ctc-icon">🔒</span>
+            <span class="ctc-title">Essential Cookies</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-essential" checked disabled>
+            <label class="toggle-track" for="toggle-essential"></label>
+          </div>
+        </div>
+        <p class="ctc-desc">Required for the website to function. These enable core features like login sessions, shopping cart, and secure payment processing. Cannot be disabled.</p>
+        <span class="ctc-tag always">Always Active</span>
+      </div>
+
+      <div class="cookie-toggle-card">
+        <div class="ctc-header">
+          <div class="ctc-icon-title">
+            <span class="ctc-icon">📊</span>
+            <span class="ctc-title">Analytics Cookies</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-analytics" checked>
+            <label class="toggle-track" for="toggle-analytics"></label>
+          </div>
+        </div>
+        <p class="ctc-desc">Help us understand how visitors use TravelWise — which pages are most popular, where users drop off, and how we can improve the experience.</p>
+        <span class="ctc-tag analytics">Optional</span>
+      </div>
+
+      <div class="cookie-toggle-card">
+        <div class="ctc-header">
+          <div class="ctc-icon-title">
+            <span class="ctc-icon">📣</span>
+            <span class="ctc-title">Marketing Cookies</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-marketing">
+            <label class="toggle-track" for="toggle-marketing"></label>
+          </div>
+        </div>
+        <p class="ctc-desc">Used to show you relevant travel deals and advertisements across the web, and to measure the effectiveness of our marketing campaigns.</p>
+        <span class="ctc-tag marketing">Optional</span>
+      </div>
+
+      <div class="cookie-toggle-card">
+        <div class="ctc-header">
+          <div class="ctc-icon-title">
+            <span class="ctc-icon">⚙️</span>
+            <span class="ctc-title">Preference Cookies</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-prefs" checked>
+            <label class="toggle-track" for="toggle-prefs"></label>
+          </div>
+        </div>
+        <p class="ctc-desc">Remember your settings and preferences — like your preferred theme (dark/light), currency, language, and recent searches — for a more personalized experience.</p>
+        <span class="ctc-tag prefs">Optional</span>
+      </div>
+
+    </div>
+
+    <div class="save-row">
+      <span class="save-note">Changes take effect immediately</span>
+      <button class="btn-save-prefs" onclick="saveCookiePrefs()">Save Preferences</button>
+    </div>
+  </section>
+
+  <hr class="section-hr">
+
+  <!-- COOKIE TABLE -->
+  <section class="cookie-table-section reveal">
+    <span class="section-label">Full Cookie List</span>
+    <div class="section-title">Cookies We Use</div>
+    <div class="section-sub">A complete list of cookies placed by TravelWise, what they do, and how long they last.</div>
+
+    <div class="cookie-table-wrap">
+      <table class="cookie-table">
+        <thead>
+          <tr>
+            <th>Cookie Name</th>
+            <th>Type</th>
+            <th>Purpose</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>tw_session</td>
+            <td><span class="cookie-type-badge badge-essential">Essential</span></td>
+            <td>Maintains your login session across pages. Required for authenticated features.</td>
+            <td>Session</td>
+          </tr>
+          <tr>
+            <td>tw_csrf</td>
+            <td><span class="cookie-type-badge badge-essential">Essential</span></td>
+            <td>Cross-site request forgery protection token. Secures form submissions.</td>
+            <td>Session</td>
+          </tr>
+          <tr>
+            <td>tw_cart</td>
+            <td><span class="cookie-type-badge badge-essential">Essential</span></td>
+            <td>Stores your current booking selection and cart state during checkout.</td>
+            <td>2 hours</td>
+          </tr>
+          <tr>
+            <td>tw_pref_theme</td>
+            <td><span class="cookie-type-badge badge-prefs">Preferences</span></td>
+            <td>Remembers your preferred color theme (dark or light mode).</td>
+            <td>1 year</td>
+          </tr>
+          <tr>
+            <td>tw_pref_currency</td>
+            <td><span class="cookie-type-badge badge-prefs">Preferences</span></td>
+            <td>Stores your preferred display currency for pricing.</td>
+            <td>1 year</td>
+          </tr>
+          <tr>
+            <td>tw_last_search</td>
+            <td><span class="cookie-type-badge badge-prefs">Preferences</span></td>
+            <td>Saves your most recent flight or hotel search to pre-fill the search form.</td>
+            <td>30 days</td>
+          </tr>
+          <tr>
+            <td>_ga</td>
+            <td><span class="cookie-type-badge badge-analytics">Analytics</span></td>
+            <td>Google Analytics — distinguishes unique users and sessions for usage analysis.</td>
+            <td>2 years</td>
+          </tr>
+          <tr>
+            <td>_ga_XXXXXXX</td>
+            <td><span class="cookie-type-badge badge-analytics">Analytics</span></td>
+            <td>Google Analytics 4 — maintains session state for engagement and conversion tracking.</td>
+            <td>2 years</td>
+          </tr>
+          <tr>
+            <td>tw_analytics_id</td>
+            <td><span class="cookie-type-badge badge-analytics">Analytics</span></td>
+            <td>Internal TravelWise analytics — tracks page views, search events, and booking funnel steps.</td>
+            <td>90 days</td>
+          </tr>
+          <tr>
+            <td>_fbp</td>
+            <td><span class="cookie-type-badge badge-marketing">Marketing</span></td>
+            <td>Facebook Pixel — tracks conversions from Facebook ads and powers retargeting audiences.</td>
+            <td>90 days</td>
+          </tr>
+          <tr>
+            <td>_gcl_au</td>
+            <td><span class="cookie-type-badge badge-marketing">Marketing</span></td>
+            <td>Google Ads conversion tracking — measures the effectiveness of ad campaigns.</td>
+            <td>90 days</td>
+          </tr>
+          <tr>
+            <td>tw_campaign_ref</td>
+            <td><span class="cookie-type-badge badge-marketing">Marketing</span></td>
+            <td>Stores the marketing campaign source (email, ad, affiliate) that brought you to TravelWise.</td>
+            <td>30 days</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="section-hr">
+
+  <!-- HOW WE USE THEM -->
+  <section class="info-block reveal">
+    <span class="section-label">How We Use Cookies</span>
+    <div class="section-title">Purpose of Cookies on TravelWise</div>
+    <p>We use cookies across the TravelWise platform for the following core purposes:</p>
+    <ul>
+      <li><strong>Authentication &amp; Security</strong> — Keeping you securely logged in and protecting against session hijacking and CSRF attacks</li>
+      <li><strong>Booking Flow</strong> — Maintaining your search results, passenger details, and payment state through the multi-step checkout process</li>
+      <li><strong>Personalization</strong> — Remembering your preferences so TravelWise feels tailored to you on every visit</li>
+      <li><strong>Performance Analytics</strong> — Understanding which features are used most and identifying friction points to improve the platform</li>
+      <li><strong>Marketing Effectiveness</strong> — Measuring which campaigns and channels drive the most valuable traffic, so we can offer better deals</li>
+    </ul>
+  </section>
+
+  <!-- MANAGING COOKIES -->
+  <section class="info-block reveal">
+    <span class="section-label">Your Control</span>
+    <div class="section-title">Managing Cookies</div>
+    <p>Beyond the preference toggles above, you can control cookies directly through your web browser. Most browsers allow you to:</p>
+    <ul>
+      <li>View and delete existing cookies stored on your device</li>
+      <li>Block third-party cookies from being set</li>
+      <li>Set your browser to notify you when a cookie is about to be placed</li>
+      <li>Browse in private/incognito mode, which discards cookies when you close the window</li>
+    </ul>
+    <p>Browser-specific instructions: <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Chrome</a> &nbsp;·&nbsp; <a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener">Firefox</a> &nbsp;·&nbsp; <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471" target="_blank" rel="noopener">Safari</a> &nbsp;·&nbsp; <a href="https://support.microsoft.com/en-us/windows/manage-cookies-in-microsoft-edge" target="_blank" rel="noopener">Edge</a></p>
+    <p>Note: Disabling essential cookies will prevent core TravelWise features (login, checkout) from functioning correctly.</p>
+  </section>
+
+  <!-- THIRD-PARTY COOKIES -->
+  <section class="info-block reveal">
+    <span class="section-label">Third-Party Cookies</span>
+    <div class="section-title">Third-Party Cookies on TravelWise</div>
+    <p>Some cookies on TravelWise are placed by third-party services we use to enhance functionality and measure performance. These third parties have their own privacy and cookie policies:</p>
+    <ul>
+      <li><strong>Google Analytics</strong> — Web traffic analysis. Governed by Google's Privacy Policy.</li>
+      <li><strong>Facebook (Meta) Pixel</strong> — Advertising attribution and retargeting. Governed by Meta's Cookie Policy.</li>
+      <li><strong>Google Ads</strong> — Ad conversion tracking. Governed by Google's Advertising Data Policy.</li>
+      <li><strong>Razorpay / Stripe</strong> — Payment processing. These cookies are essential and required to complete transactions securely.</li>
+    </ul>
+    <p>TravelWise does not control the cookies placed by these third parties. We encourage you to review their privacy policies directly.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="info-block reveal">
+    <span class="section-label">Questions?</span>
+    <div class="section-title">Contact Us About Cookies</div>
+    <p>If you have questions about how TravelWise uses cookies or about this Cookie Policy, please contact our Privacy Team at <a href="mailto:privacy@travelwise.in">privacy@travelwise.in</a>. We will respond to all cookie-related inquiries within 72 hours.</p>
+    <p>For broader privacy questions, please see our <a href="privacy.html">Privacy Policy</a>.</p>
+  </section>
+
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+/* Load saved prefs */
+(function(){
+  var prefs = JSON.parse(localStorage.getItem('tw-cookie-prefs') || '{}');
+  if (prefs.analytics !== undefined) document.getElementById('toggle-analytics').checked = prefs.analytics;
+  if (prefs.marketing !== undefined) document.getElementById('toggle-marketing').checked = prefs.marketing;
+  if (prefs.preferences !== undefined) document.getElementById('toggle-prefs').checked = prefs.preferences;
+})();
+
+function saveCookiePrefs() {
+  var prefs = {
+    analytics: document.getElementById('toggle-analytics').checked,
+    marketing: document.getElementById('toggle-marketing').checked,
+    preferences: document.getElementById('toggle-prefs').checked
+  };
+  localStorage.setItem('tw-cookie-prefs', JSON.stringify(prefs));
+  if (typeof twToast === 'function') {
+    twToast('Cookie preferences saved ✓');
+  }
+}
+
+/* Reveal */
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>

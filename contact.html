@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Contact Hero ── */
+.contact-hero {
+  min-height: 52vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #03091A 0%, #0e0530 50%, #021525 100%);
+}
+.contact-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 65% 70% at 15% 60%, rgba(0,201,255,.22) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 65% at 85% 25%, rgba(108,43,217,.25) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 50% at 50% 100%, rgba(16,185,129,.12) 0%, transparent 50%);
+  animation: contactHeroBg 9s ease-in-out infinite alternate;
+}
+@keyframes contactHeroBg { 0%{transform:scale(1)} 100%{transform:scale(1.04)} }
+.contact-hero-inner { position: relative; z-index: 2; max-width: 660px; padding: 2rem 1.5rem; }
+.contact-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 1rem;
+}
+.contact-hero h1 span {
+  background: linear-gradient(135deg, var(--teal), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.contact-hero p { color: rgba(255,255,255,.72); font-size: 1.05rem; margin-bottom: 1.75rem; }
+
+/* Response badges row */
+.response-row { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; }
+.response-badge {
+  background: rgba(255,255,255,.08); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.14); border-radius: 50px;
+  padding: .4rem 1rem; font-size: .82rem; color: rgba(255,255,255,.82);
+  font-weight: 500; display: flex; align-items: center; gap: .4rem;
+}
+
+/* Section label */
+.section-label {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-weight: 700; font-size: .82rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .5rem;
+}
+
+/* ── Contact Methods Row ── */
+.methods-section { background: var(--bg); padding: 4rem 1.5rem 0; }
+.methods-inner { max-width: 1100px; margin: 0 auto; }
+.methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.method-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 2rem 1.75rem;
+  text-align: center; transition: var(--t);
+}
+.method-card:hover { border-color: var(--purple); transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.1); }
+.method-icon-wrap {
+  width: 64px; height: 64px; border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin: 0 auto 1rem;
+}
+.method-card h3 { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .4rem; }
+.method-card p { color: var(--muted); font-size: .88rem; margin-bottom: .35rem; line-height: 1.55; }
+.method-meta { font-size: .8rem; color: var(--muted); margin-bottom: 1.25rem; }
+.method-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  padding: .65rem 1.5rem; border-radius: 50px; font-size: .88rem; font-weight: 700;
+  cursor: pointer; transition: var(--t); font-family: var(--font); text-decoration: none;
+}
+.method-btn-primary {
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; border: none;
+  box-shadow: 0 4px 16px rgba(108,43,217,.3);
+}
+.method-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,43,217,.4); }
+.method-btn-outline {
+  background: transparent; color: var(--purple);
+  border: 1.5px solid rgba(108,43,217,.3);
+}
+.method-btn-outline:hover { background: rgba(108,43,217,.07); border-color: var(--purple); }
+
+/* ── Contact Form Section ── */
+.form-section { background: var(--bg); padding: 4rem 1.5rem; }
+.form-section-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.35fr 1fr; gap: 3.5rem; align-items: start; }
+.form-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.form-card-header {
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  padding: 1.5rem 2rem;
+}
+.form-card-header h3 { font-family: var(--display); font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: .25rem; }
+.form-card-header p { color: rgba(255,255,255,.75); font-size: .88rem; }
+.form-body { padding: 2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin-bottom: 1.1rem; }
+.form-group { margin-bottom: 1.1rem; }
+.form-label { display: block; font-size: .85rem; font-weight: 600; color: var(--text-strong); margin-bottom: .4rem; }
+.form-label .opt { color: var(--muted); font-weight: 400; margin-left: .3rem; }
+.form-input {
+  width: 100%; padding: .8rem 1rem; border-radius: var(--radius);
+  border: 1.5px solid var(--border); background: var(--bg);
+  color: var(--text-strong); font-family: var(--font); font-size: .9rem;
+  outline: none; transition: var(--t); box-sizing: border-box;
+}
+.form-input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(108,43,217,.1); }
+.form-input.error { border-color: var(--coral); box-shadow: 0 0 0 3px rgba(255,107,53,.1); }
+select.form-input { cursor: pointer; }
+textarea.form-input { resize: vertical; min-height: 130px; }
+.char-row { display: flex; align-items: center; justify-content: space-between; margin-top: .25rem; }
+.char-count { font-size: .75rem; color: var(--muted); }
+.field-error { color: var(--coral); font-size: .78rem; margin-top: .25rem; display: none; }
+.field-error.show { display: block; }
+.consent-row { display: flex; align-items: flex-start; gap: .75rem; padding: 1rem; background: var(--bg2); border-radius: var(--radius); margin-bottom: 1.25rem; }
+.consent-row input[type="checkbox"] { margin-top: .2rem; accent-color: var(--purple); width: 16px; height: 16px; flex-shrink: 0; }
+.consent-row label { font-size: .83rem; color: var(--muted); cursor: pointer; line-height: 1.55; }
+.consent-row label a { color: var(--purple); }
+.submit-btn {
+  width: 100%; padding: 1rem;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; border: none; border-radius: 50px;
+  font-weight: 700; font-size: 1rem; cursor: pointer; transition: var(--t);
+  font-family: var(--font); display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(108,43,217,.4); }
+.submit-btn:active { transform: scale(.98); }
+.submit-btn.loading { opacity: .65; pointer-events: none; }
+
+/* Success state */
+.success-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 3.5rem 2rem;
+  text-align: center; display: none;
+}
+.success-icon { font-size: 3.5rem; margin-bottom: 1.1rem; }
+.success-card h3 { font-family: var(--display); font-size: 1.55rem; font-weight: 700; color: var(--text-strong); margin-bottom: .65rem; }
+.success-card p { color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; font-size: .95rem; }
+.success-ref { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: .7rem 1.5rem; display: inline-block; font-family: monospace; color: var(--purple); font-weight: 700; letter-spacing: .05em; margin-bottom: 1.5rem; }
+.success-back {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 50px; padding: .7rem 1.6rem;
+  color: var(--text); font-family: var(--font); font-weight: 600;
+  cursor: pointer; transition: var(--t); font-size: .9rem;
+}
+.success-back:hover { border-color: var(--purple); color: var(--purple); }
+
+/* ── Sidebar column ── */
+.contact-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* Office card */
+.office-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+}
+.map-placeholder {
+  height: 160px;
+  background: linear-gradient(135deg,rgba(108,43,217,.15) 0%,rgba(0,201,255,.1) 50%,rgba(16,185,129,.08) 100%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; cursor: pointer;
+  text-decoration: none;
+}
+.map-placeholder::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(108,43,217,.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.map-pin-text { position: relative; z-index: 2; font-size: 1rem; font-weight: 700; color: var(--purple); display: flex; align-items: center; gap: .5rem; }
+.office-details { padding: 1.25rem 1.5rem; }
+.office-details h4 { font-family: var(--display); font-size: .98rem; font-weight: 700; color: var(--text-strong); margin-bottom: .4rem; }
+.office-details p { color: var(--muted); font-size: .86rem; line-height: 1.6; }
+
+/* ── FAQ Quick Links ── */
+.faq-section { background: var(--bg2); padding: 4.5rem 1.5rem; }
+.faq-inner { max-width: 1000px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 2.5rem; }
+.section-header h2 { font-family: var(--display); font-size: clamp(1.6rem,3.5vw,2.4rem); font-weight: 700; color: var(--text-strong); margin-bottom: .5rem; }
+.section-header p { color: var(--muted); font-size: 1rem; }
+.faq-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.faq-link-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.1rem 1.4rem;
+  display: flex; align-items: center; gap: .9rem;
+  text-decoration: none; transition: var(--t);
+}
+.faq-link-card:hover { border-color: var(--purple); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+.faq-link-icon { font-size: 1.4rem; flex-shrink: 0; }
+.faq-link-text { flex: 1; }
+.faq-link-text strong { display: block; color: var(--text-strong); font-size: .9rem; font-weight: 600; margin-bottom: .15rem; }
+.faq-link-text span { color: var(--muted); font-size: .78rem; }
+.faq-link-arr { color: var(--purple); font-size: 1rem; flex-shrink: 0; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .form-section-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .methods-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+  .form-body { padding: 1.5rem 1.1rem; }
+  .response-row { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- ── HERO ── -->
+<section class="contact-hero">
+  <div class="contact-hero-inner">
+    <div class="section-label">Get in Touch</div>
+    <h1>We're Here to <span>Help</span></h1>
+    <p>Have a question about your booking, need a refund, or just want to say hello? Our team is ready to assist — fast.</p>
+    <div class="response-row">
+      <div class="response-badge">💬 Chat: &lt;2 min response</div>
+      <div class="response-badge">📧 Email: &lt;4 hrs response</div>
+      <div class="response-badge">📞 Mon–Sat 9 AM – 8 PM IST</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT METHODS ROW ── -->
+<div class="methods-section">
+<div class="methods-inner reveal">
+  <div class="methods-grid">
+
+    <div class="method-card">
+      <div class="method-icon-wrap" style="background:linear-gradient(135deg,rgba(108,43,217,.18),rgba(0,201,255,.1))">💬</div>
+      <h3>Live Chat</h3>
+      <p>Chat with a support agent in real time. Fastest way to get help with any booking query.</p>
+      <div class="method-meta">Average response: under 2 minutes</div>
+      <button class="method-btn method-btn-primary" onclick="twToast('Connecting to support agent...')">Start Chat</button>
+    </div>
+
+    <div class="method-card">
+      <div class="method-icon-wrap" style="background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(0,201,255,.1))">📧</div>
+      <h3>Email Us</h3>
+      <p>Write to us at <strong>support@travelwise.in</strong> and our team will respond thoroughly.</p>
+      <div class="method-meta">Average response: under 4 hours</div>
+      <a href="mailto:support@travelwise.in" class="method-btn method-btn-outline">Send Email</a>
+    </div>
+
+    <div class="method-card">
+      <div class="method-icon-wrap" style="background:linear-gradient(135deg,rgba(245,158,11,.18),rgba(255,107,53,.1))">📞</div>
+      <h3>Call Us</h3>
+      <p>Speak directly with a travel expert on our toll-free support line — no hold music.</p>
+      <div class="method-meta">Mon–Sat, 9 AM – 8 PM IST</div>
+      <a href="tel:18001234567" class="method-btn method-btn-outline">1800-XXXX-XXXX (Toll Free)</a>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ── CONTACT FORM + SIDEBAR ── -->
+<div class="form-section">
+<div class="form-section-inner reveal">
+
+  <!-- FORM COLUMN -->
+  <div>
+    <!-- Form card -->
+    <div id="contactFormCard" class="form-card">
+      <div class="form-card-header">
+        <h3>Send Us a Message</h3>
+        <p>Fill out the form below and we'll get back to you within 4 hours.</p>
+      </div>
+      <div class="form-body">
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Full Name *</label>
+            <input type="text" class="form-input" id="cName" placeholder="Priya Sharma">
+            <div class="field-error" id="err-name">Please enter your full name.</div>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-input" id="cEmail" placeholder="you@email.com">
+            <div class="field-error" id="err-email">Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Phone Number <span class="opt">(optional)</span></label>
+            <input type="tel" class="form-input" id="cPhone" placeholder="+91 98765 43210">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Subject *</label>
+            <select class="form-input" id="cSubject">
+              <option value="">Select a topic…</option>
+              <option value="general">General Inquiry</option>
+              <option value="booking">Booking Issue</option>
+              <option value="refund">Refund Request</option>
+              <option value="technical">Technical Problem</option>
+              <option value="partnership">Partnership</option>
+              <option value="press">Press</option>
+              <option value="other">Other</option>
+            </select>
+            <div class="field-error" id="err-subject">Please select a subject.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Message *</label>
+          <textarea class="form-input" id="cMessage" placeholder="Describe your query in detail. The more context you give, the faster we can help you." oninput="updateCharCount(this)"></textarea>
+          <div class="char-row">
+            <div class="field-error" id="err-message" style="margin-top:0">Message must be at least 100 characters.</div>
+            <div class="char-count"><span id="charCount">0</span> / 2000</div>
+          </div>
+        </div>
+
+        <div class="consent-row">
+          <input type="checkbox" id="cConsent">
+          <label for="cConsent">I agree to TravelWise processing my personal data to respond to this enquiry, in accordance with our <a href="privacy.html">Privacy Policy</a>.</label>
+        </div>
+
+        <button class="submit-btn" id="submitBtn" onclick="submitContactForm()">
+          <span id="submitText">Send Message</span>
+          <span id="submitIcon">✈</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Success state -->
+    <div class="success-card" id="successCard">
+      <div class="success-icon">✅</div>
+      <h3>Message Sent!</h3>
+      <p>Thanks for reaching out. Our support team will review your message and respond to your email within 4 hours (Mon–Sat, 9 AM – 8 PM IST).</p>
+      <div class="success-ref" id="successRef">TW-TICKET-XXXXXX</div>
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:1.5rem">Save this reference number for follow-up queries.</p>
+      <button class="success-back" onclick="resetForm()">← Send Another Message</button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR COLUMN -->
+  <div class="contact-sidebar">
+
+    <!-- Office info card -->
+    <div class="office-card">
+      <a href="#" onclick="twToast('Opening Google Maps...'); return false;" class="map-placeholder">
+        <div class="map-pin-text">📍 View on Google Maps</div>
+      </a>
+      <div class="office-details">
+        <h4>TravelWise Technologies Pvt Ltd</h4>
+        <p>12th Floor, Prestige Towers,<br>MG Road, Bangalore – 560001<br>Karnataka, India</p>
+      </div>
+    </div>
+
+    <!-- Social links card -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem">
+      <h4 style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text-strong);margin-bottom:1rem">Follow &amp; Connect</h4>
+      <div style="display:flex;gap:.7rem;flex-wrap:wrap">
+        <a href="#" onclick="twToast('Opening Instagram...'); return false;" style="display:flex;align-items:center;gap:.35rem;padding:.45rem .9rem;border-radius:50px;background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.2);color:var(--coral);font-size:.83rem;font-weight:600;text-decoration:none">📸 Instagram</a>
+        <a href="#" onclick="twToast('Opening Twitter/X...'); return false;" style="display:flex;align-items:center;gap:.35rem;padding:.45rem .9rem;border-radius:50px;background:rgba(0,201,255,.08);border:1px solid rgba(0,201,255,.2);color:var(--teal);font-size:.83rem;font-weight:600;text-decoration:none">🐦 Twitter / X</a>
+        <a href="#" onclick="twToast('Opening LinkedIn...'); return false;" style="display:flex;align-items:center;gap:.35rem;padding:.45rem .9rem;border-radius:50px;background:rgba(108,43,217,.08);border:1px solid rgba(108,43,217,.2);color:var(--purple);font-size:.83rem;font-weight:600;text-decoration:none">💼 LinkedIn</a>
+        <a href="#" onclick="twToast('Opening YouTube...'); return false;" style="display:flex;align-items:center;gap:.35rem;padding:.45rem .9rem;border-radius:50px;background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.18);color:var(--coral);font-size:.83rem;font-weight:600;text-decoration:none">▶ YouTube</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- ── FAQ QUICK LINKS ── -->
+<div class="faq-section">
+<div class="faq-inner reveal">
+  <div class="section-header">
+    <div class="section-label">Before You Write</div>
+    <h2>Quick Answers</h2>
+    <p>Many issues can be resolved instantly — check these first.</p>
+  </div>
+  <div class="faq-links">
+
+    <a href="help.html#faq-flights" class="faq-link-card">
+      <div class="faq-link-icon">✈️</div>
+      <div class="faq-link-text">
+        <strong>How do I cancel my booking?</strong>
+        <span>Cancellation policy &amp; refund timelines</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+    <a href="help.html#faq-refunds" class="faq-link-card">
+      <div class="faq-link-icon">💰</div>
+      <div class="faq-link-text">
+        <strong>When will I get my refund?</strong>
+        <span>Refund status, timelines by payment method</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+    <a href="help.html#faq-flights" class="faq-link-card">
+      <div class="faq-link-icon">✏️</div>
+      <div class="faq-link-text">
+        <strong>How do I change passenger details?</strong>
+        <span>Name corrections, date changes</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+    <a href="help.html#faq-payments" class="faq-link-card">
+      <div class="faq-link-icon">💳</div>
+      <div class="faq-link-text">
+        <strong>My payment failed but money was deducted?</strong>
+        <span>Payment failures &amp; duplicate charges</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+    <a href="help.html#faq-flights" class="faq-link-card">
+      <div class="faq-link-icon">🎫</div>
+      <div class="faq-link-text">
+        <strong>How do I download my ticket?</strong>
+        <span>E-ticket, boarding pass download</span>
+      </div>
+      <span class="faq-link-arr">→</span>
+    </a>
+
+  </div>
+  <div style="text-align:center;margin-top:2rem">
+    <a href="help.html" style="display:inline-flex;align-items:center;gap:.5rem;color:var(--purple);font-weight:600;font-size:.95rem;text-decoration:none">View all Help Articles →</a>
+  </div>
+</div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+/* ── Char counter ── */
+function updateCharCount(el) {
+  document.getElementById('charCount').textContent = el.value.length;
+}
+
+/* ── Validation helpers ── */
+function setError(inputId, errId, show) {
+  var el = document.getElementById(inputId);
+  var err = document.getElementById(errId);
+  if (el) el.classList.toggle('error', show);
+  if (err) err.classList.toggle('show', show);
+  return show;
+}
+
+/* ── Submit ── */
+function submitContactForm() {
+  var name    = document.getElementById('cName').value.trim();
+  var email   = document.getElementById('cEmail').value.trim();
+  var subject = document.getElementById('cSubject').value;
+  var message = document.getElementById('cMessage').value.trim();
+  var consent = document.getElementById('cConsent').checked;
+  var hasError = false;
+
+  if (!name)                                          { setError('cName','err-name',true);    hasError = true; } else setError('cName','err-name',false);
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('cEmail','err-email',true);   hasError = true; } else setError('cEmail','err-email',false);
+  if (!subject)                                       { setError('cSubject','err-subject',true); hasError = true; } else setError('cSubject','err-subject',false);
+  if (message.length < 100)                           { setError('cMessage','err-message',true); hasError = true; } else setError('cMessage','err-message',false);
+
+  if (!consent) {
+    twToast('Please agree to our Privacy Policy to continue.');
+    hasError = true;
+  }
+  if (hasError) return;
+
+  var btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+  document.getElementById('submitText').textContent = 'Sending…';
+  document.getElementById('submitIcon').textContent = '⏳';
+
+  setTimeout(function(){
+    var ref = 'TW-' + Date.now().toString(36).toUpperCase().slice(-8);
+    document.getElementById('successRef').textContent = ref;
+    document.getElementById('contactFormCard').style.display = 'none';
+    var sc = document.getElementById('successCard');
+    sc.style.display = 'block';
+    btn.classList.remove('loading');
+    twToast('Message sent! ✓');
+  }, 1400);
+}
+
+/* ── Reset ── */
+function resetForm() {
+  document.getElementById('successCard').style.display = 'none';
+  document.getElementById('contactFormCard').style.display = '';
+  ['cName','cEmail','cPhone','cMessage'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('cSubject').value = '';
+  document.getElementById('cConsent').checked = false;
+  document.getElementById('charCount').textContent = '0';
+  document.getElementById('submitText').textContent = 'Send Message';
+  document.getElementById('submitIcon').textContent = '✈';
+  ['cName','cEmail','cSubject','cMessage'].forEach(function(id){ var el=document.getElementById(id); if(el) el.classList.remove('error'); });
+  ['err-name','err-email','err-subject','err-message'].forEach(function(id){ var el=document.getElementById(id); if(el) el.classList.remove('show'); });
+}
+
+/* ── Reveal ── */
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('revealed'); io.unobserve(e.target); }});
+  }, { threshold: 0.06 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── CAREERS PAGE ── */
+
+/* Hero */
+.careers-hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg,#6C2BD9,#FF6B35);
+  overflow: hidden;
+  padding: 6rem 1rem 4rem;
+}
+.careers-hero__bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=30') center/cover no-repeat;
+  opacity: 0.12;
+  z-index: 0;
+}
+.c-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  animation: cOrbFloat 9s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+.c-orb-1 { width: 480px; height: 480px; background: rgba(108,43,217,0.5); top: -120px; left: -80px; animation-delay: 0s; }
+.c-orb-2 { width: 380px; height: 380px; background: rgba(255,107,53,0.4); bottom: -60px; right: -60px; animation-delay: 3s; }
+.c-orb-3 { width: 260px; height: 260px; background: rgba(0,201,255,0.2); top: 35%; left: 55%; animation-delay: 1.5s; }
+
+@keyframes cOrbFloat {
+  from { transform: translateY(0) scale(1); }
+  to   { transform: translateY(-36px) scale(1.07); }
+}
+
+.careers-hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+.eyebrow-pill {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  padding: 0.4rem 1.25rem;
+  margin-bottom: 1.5rem;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(8px);
+}
+
+.careers-hero__h1 {
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.08;
+  margin-bottom: 1.4rem;
+  letter-spacing: -0.02em;
+}
+
+.careers-hero__sub {
+  font-size: 1.15rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+}
+
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #fff;
+  color: #6C2BD9;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 1rem 2.4rem;
+  border-radius: 999px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.22s, box-shadow 0.22s;
+  box-shadow: 0 4px 22px rgba(0,0,0,0.2);
+}
+.btn-hero:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(0,0,0,0.28); }
+
+/* ── Sections ── */
+.section { padding: 5.5rem 0; }
+.section--alt { background: var(--bg2); }
+
+.sec-eyebrow {
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg,#6C2BD9,#FF6B35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.sec-title {
+  font-family: var(--display);
+  font-size: clamp(1.9rem,4vw,3rem);
+  font-weight: 800;
+  color: var(--text-strong);
+  line-height: 1.18;
+  margin-bottom: 1rem;
+}
+
+/* ── Perks ── */
+.perks-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1.5rem;
+}
+@media(max-width:900px){ .perks-grid{ grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .perks-grid{ grid-template-columns: 1fr; } }
+
+.perk-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  transition: transform var(--t), box-shadow var(--t);
+}
+.perk-card:hover { transform: translateY(-5px); box-shadow: 0 14px 42px rgba(108,43,217,0.13); }
+
+.perk-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+.perk-title { font-family: var(--display); font-weight: 700; font-size: 1rem; color: var(--text-strong); margin-bottom: 0.4rem; }
+.perk-desc  { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
+
+/* ── Photo Grid ── */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+@media(max-width:768px){ .photo-grid{ grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .photo-grid{ grid-template-columns: 1fr; } }
+
+.photo-item {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.photo-item:hover img { transform: scale(1.05); }
+
+.photo-item--tall { grid-row: span 2; }
+.photo-item--tall img { height: 100%; min-height: 340px; }
+.photo-item:not(.photo-item--tall) img { height: 220px; }
+
+@media(max-width:768px){
+  .photo-item--tall { grid-row: span 1; }
+  .photo-item--tall img { height: 220px; min-height: 0; }
+}
+
+/* ── Jobs Filter ── */
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+}
+
+.filter-tab {
+  font-family: var(--font);
+  font-size: 0.87rem;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-tab:hover { border-color: #6C2BD9; color: #6C2BD9; }
+.filter-tab.active {
+  background: linear-gradient(135deg,#6C2BD9,#FF6B35);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(108,43,217,0.35);
+}
+
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 1.25rem;
+}
+@media(max-width:768px){ .jobs-grid{ grid-template-columns: 1fr; } }
+
+.job-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+}
+.job-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 38px rgba(108,43,217,0.12);
+  border-color: var(--border2);
+}
+.job-card.hidden { display: none; }
+
+.job-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+
+.job-title { font-family: var(--display); font-weight: 700; font-size: 1.02rem; color: var(--text-strong); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 0.28rem 0.8rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.badge-eng  { background: rgba(108,43,217,0.12); color: #6C2BD9; }
+.badge-des  { background: rgba(0,201,255,0.12);  color: #0ea5e9; }
+.badge-mkt  { background: rgba(255,107,53,0.12); color: #FF6B35; }
+.badge-ops  { background: rgba(16,185,129,0.12); color: #10B981; }
+.badge-sup  { background: rgba(245,158,11,0.12); color: #F59E0B; }
+
+.job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.job-meta span { display: flex; align-items: center; gap: 0.25rem; }
+
+.badge-type {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(16,185,129,0.1);
+  color: #10B981;
+  border: 1px solid rgba(16,185,129,0.2);
+}
+
+.job-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+.btn-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: auto;
+  font-family: var(--font);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #6C2BD9;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: gap 0.2s, color 0.2s;
+}
+.btn-apply:hover { color: #FF6B35; gap: 0.6rem; }
+
+/* ── Benefits ── */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1.5rem;
+}
+@media(max-width:900px){ .benefits-grid{ grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .benefits-grid{ grid-template-columns: 1fr; } }
+
+.benefit-tile {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: transform var(--t), box-shadow var(--t);
+}
+.benefit-tile:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(108,43,217,0.1); }
+
+.benefit-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+.bi-1{ background: rgba(108,43,217,0.1); }
+.bi-2{ background: rgba(0,201,255,0.1); }
+.bi-3{ background: rgba(255,107,53,0.1); }
+.bi-4{ background: rgba(16,185,129,0.1); }
+.bi-5{ background: rgba(245,158,11,0.1); }
+.bi-6{ background: rgba(236,72,153,0.1); }
+
+.benefit-title { font-family: var(--display); font-weight: 700; font-size: 0.96rem; color: var(--text-strong); margin-bottom: 0.25rem; }
+.benefit-desc  { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.25s;
+  position: relative;
+}
+.modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+.modal__close {
+  position: absolute;
+  top: 1.2rem; right: 1.2rem;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+  transition: background 0.2s, color 0.2s;
+  line-height: 1;
+}
+.modal__close:hover { background: var(--border); color: var(--text-strong); }
+
+.modal__title {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-strong);
+  margin-bottom: 0.4rem;
+}
+.modal__sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 2rem; }
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+.form-field label { font-size: 0.84rem; font-weight: 600; color: var(--text); }
+.form-field input,
+.form-field textarea {
+  font-family: var(--font);
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color 0.2s;
+  outline: none;
+  resize: vertical;
+}
+.form-field input:focus,
+.form-field textarea:focus { border-color: #6C2BD9; }
+.form-field textarea { min-height: 110px; }
+
+.btn-upload {
+  width: 100%;
+  padding: 0.85rem;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--bg2);
+  color: var(--muted);
+  font-family: var(--font);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.btn-upload:hover { border-color: #6C2BD9; color: #6C2BD9; background: rgba(108,43,217,0.04); }
+
+.btn-submit {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg,#6C2BD9,#FF6B35);
+  color: #fff;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 18px rgba(108,43,217,0.4);
+}
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(108,43,217,0.55); }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--text-strong);
+  color: var(--bg);
+  font-family: var(--font);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Utils ── */
+.text-center { text-align: center; }
+.mb-xs  { margin-bottom: 0.5rem; }
+.mb-sm  { margin-bottom: 1rem; }
+.mb-md  { margin-bottom: 1.5rem; }
+.mb-lg  { margin-bottom: 2.5rem; }
+.mb-xl  { margin-bottom: 3rem; }
+</style>
+</head>
+<body>
+
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- ─────────────── HERO ─────────────── -->
+<section class="careers-hero">
+  <div class="careers-hero__bg"></div>
+  <div class="c-orb c-orb-1"></div>
+  <div class="c-orb c-orb-2"></div>
+  <div class="c-orb c-orb-3"></div>
+  <div class="careers-hero__content">
+    <div class="eyebrow-pill">We're Hiring</div>
+    <h1 class="careers-hero__h1">Join Our Journey</h1>
+    <p class="careers-hero__sub">Help us build the future of travel. We're a team of curious, driven people who believe great work and great adventures go hand in hand.</p>
+    <a href="#open-roles" class="btn-hero">View Open Roles ↓</a>
+  </div>
+</section>
+
+<!-- ─────────────── PERKS ─────────────── -->
+<section class="section reveal">
+  <div class="container">
+    <div class="text-center mb-xl">
+      <span class="sec-eyebrow">Life at TravelWise</span>
+      <h2 class="sec-title">Why Work With Us</h2>
+    </div>
+    <div class="perks-grid">
+      <div class="perk-card reveal">
+        <span class="perk-icon">🌏</span>
+        <div class="perk-title">Work From Anywhere</div>
+        <div class="perk-desc">Remote-first culture. Work from a beach in Goa or a cafe in Barcelona — we mean it.</div>
+      </div>
+      <div class="perk-card reveal">
+        <span class="perk-icon">🏥</span>
+        <div class="perk-title">Health &amp; Wellness</div>
+        <div class="perk-desc">Complete health insurance for you and your entire family, including dental and vision.</div>
+      </div>
+      <div class="perk-card reveal">
+        <span class="perk-icon">✈️</span>
+        <div class="perk-title">Travel Allowance</div>
+        <div class="perk-desc">₹1.5L annual travel budget for every team member. Travel is literally in our DNA.</div>
+      </div>
+      <div class="perk-card reveal">
+        <span class="perk-icon">📚</span>
+        <div class="perk-title">Learning Budget</div>
+        <div class="perk-desc">₹50K per year for courses, books, conferences and anything that makes you grow.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── PHOTO GRID ─────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="text-center mb-xl reveal">
+      <span class="sec-eyebrow">The Vibe</span>
+      <h2 class="sec-title">Life at TravelWise</h2>
+    </div>
+    <div class="photo-grid reveal">
+      <div class="photo-item photo-item--tall">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Team collaboration" loading="lazy">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80" alt="Office life" loading="lazy">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Team meeting" loading="lazy">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80" alt="Brainstorming" loading="lazy">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=600&q=80" alt="Team celebration" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── OPEN ROLES ─────────────── -->
+<section class="section" id="open-roles">
+  <div class="container">
+    <div class="text-center mb-xl reveal">
+      <span class="sec-eyebrow">Opportunities</span>
+      <h2 class="sec-title">Open Roles</h2>
+      <p style="font-size:1.02rem;color:var(--muted);margin-top:0.5rem;">Find your place in the team.</p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs reveal">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="engineering">Engineering</button>
+      <button class="filter-tab" data-filter="design">Design</button>
+      <button class="filter-tab" data-filter="marketing">Marketing</button>
+      <button class="filter-tab" data-filter="operations">Operations</button>
+      <button class="filter-tab" data-filter="support">Support</button>
+    </div>
+
+    <!-- Job Cards -->
+    <div class="jobs-grid" id="jobs-grid">
+
+      <div class="job-card reveal" data-dept="engineering">
+        <div class="job-card__top">
+          <div class="job-title">Senior Frontend Engineer</div>
+          <span class="badge badge-eng">Engineering</span>
+        </div>
+        <div class="job-meta">
+          <span>📍 Remote</span>
+          <span class="badge-type">Full-time</span>
+        </div>
+        <div class="job-desc">Build delightful React experiences that millions of travelers use every day.</div>
+        <button class="btn-apply" onclick="openModal('Senior Frontend Engineer')">Apply Now →</button>
+      </div>
+
+      <div class="job-card reveal" data-dept="engineering">
+        <div class="job-card__top">
+          <div class="job-title">Backend Engineer (Node.js)</div>
+          <span class="badge badge-eng">Engineering</span>
+        </div>
+        <div class="job-meta">
+          <span>📍 Bangalore</span>
+          <span class="badge-type">Full-time</span>
+        </div>
+        <div class="job-desc">Scale our booking infrastructure to handle millions of concurrent searches reliably.</div>
+        <button class="btn-apply" onclick="openModal('Backend Engineer (Node.js)')">Apply Now →</button>
+      </div>
+
+      <div class="job-card reveal" data-dept="design">
+        <div class="job-card__top">
+          <div class="job-title">Product Designer (UX/UI)</div>
+          <span class="badge badge-des">Design</span>
+        </div>
+        <div class="job-meta">
+          <span>📍 Remote</span>
+          <span class="badge-type">Full-time</span>
+        </div>
+        <div class="job-desc">Shape the future of travel UI through thoughtful, human-centered design.</div>
+        <button class="btn-apply" onclick="openModal('Product Designer (UX/UI)')">Apply Now →</button>
+      </div>
+
+      <div class="job-card reveal" data-dept="marketing">
+        <div class="job-card__top">
+          <div class="job-title">Growth Marketing Manager</div>
+          <span class="badge badge-mkt">Marketing</span>
+        </div>
+        <div class="job-meta">
+          <span>📍 Mumbai</span>
+          <span class="badge-type">Full-time</span>
+        </div>
+        <div class="job-desc">Drive user acquisition at scale through data-driven campaigns across all channels.</div>
+        <button class="btn-apply" onclick="openModal('Growth Marketing Manager')">Apply Now →</button>
+      </div>
+
+      <div class="job-card reveal" data-dept="marketing">
+        <div class="job-card__top">
+          <div class="job-title">SEO &amp; Content Strategist</div>
+          <span class="badge badge-mkt">Marketing</span>
+        </div>
+        <div class="job-meta">
+          <span>📍 Remote</span>
+          <span class="badge-type">Full-time</span>
+        </div>
+        <div class="job-desc">Own our organic growth channel and turn content into our most powerful acquisition tool.</div>
+        <button class="btn-apply" onclick="openModal('SEO & Content Strategist')">Apply Now →</button>
+      </div>
+
+      <div class="job-card reveal" data-dept="support">
+        <div class="job-card__top">
+          <div class="job-title">Customer Support Lead</div>
+          <span class="badge badge-sup">Support</span>
+        </div>
+        <div class="job-meta">
+          <span>📍 Hyderabad</span>
+          <span class="badge-type">Full-time</span>
+        </div>
+        <div class="job-desc">Lead a team of 20 support heroes who make sure every traveler ends their journey happy.</div>
+        <button class="btn-apply" onclick="openModal('Customer Support Lead')">Apply Now →</button>
+      </div>
+
+      <div class="job-card reveal" data-dept="operations">
+        <div class="job-card__top">
+          <div class="job-title">Operations Manager</div>
+          <span class="badge badge-ops">Operations</span>
+        </div>
+        <div class="job-meta">
+          <span>📍 Delhi</span>
+          <span class="badge-type">Full-time</span>
+        </div>
+        <div class="job-desc">Optimize hotel and flight partnerships to ensure the best inventory for our travelers.</div>
+        <button class="btn-apply" onclick="openModal('Operations Manager')">Apply Now →</button>
+      </div>
+
+      <div class="job-card reveal" data-dept="engineering">
+        <div class="job-card__top">
+          <div class="job-title">Data Analyst</div>
+          <span class="badge badge-eng">Engineering</span>
+        </div>
+        <div class="job-meta">
+          <span>📍 Bangalore</span>
+          <span class="badge-type">Full-time</span>
+        </div>
+        <div class="job-desc">Turn travel data into actionable insights that help us build a better product for millions.</div>
+        <button class="btn-apply" onclick="openModal('Data Analyst')">Apply Now →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── BENEFITS ─────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="text-center mb-xl reveal">
+      <span class="sec-eyebrow">Perks &amp; Benefits</span>
+      <h2 class="sec-title">Everything You Need to Thrive</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-tile reveal">
+        <div class="benefit-icon bi-1">💊</div>
+        <div>
+          <div class="benefit-title">Medical + Dental + Vision</div>
+          <div class="benefit-desc">Comprehensive coverage for you and your family. Your health comes first, always.</div>
+        </div>
+      </div>
+      <div class="benefit-tile reveal">
+        <div class="benefit-icon bi-2">🎓</div>
+        <div>
+          <div class="benefit-title">₹50K Learning Budget</div>
+          <div class="benefit-desc">Annually for courses, books, and conferences that keep your skills sharp and growing.</div>
+        </div>
+      </div>
+      <div class="benefit-tile reveal">
+        <div class="benefit-icon bi-3">✈️</div>
+        <div>
+          <div class="benefit-title">₹1.5L Travel Allowance</div>
+          <div class="benefit-desc">Explore the world on us. Every team member gets a generous travel budget each year.</div>
+        </div>
+      </div>
+      <div class="benefit-tile reveal">
+        <div class="benefit-icon bi-4">🏠</div>
+        <div>
+          <div class="benefit-title">Flexible Remote Work</div>
+          <div class="benefit-desc">Work from home, a co-working space, or wherever you do your best thinking.</div>
+        </div>
+      </div>
+      <div class="benefit-tile reveal">
+        <div class="benefit-icon bi-5">📈</div>
+        <div>
+          <div class="benefit-title">ESOPs for All Employees</div>
+          <div class="benefit-desc">You help build TravelWise — you should own a piece of it too. ESOPs for every hire.</div>
+        </div>
+      </div>
+      <div class="benefit-tile reveal">
+        <div class="benefit-icon bi-6">🎉</div>
+        <div>
+          <div class="benefit-title">Team Retreats Twice a Year</div>
+          <div class="benefit-desc">Two annual off-sites where we travel together, celebrate wins, and recharge as a team.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── APPLICATION MODAL ─────────────── -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <button class="modal__close" onclick="closeModal()" aria-label="Close modal">&times;</button>
+    <div class="modal__title">Apply for <span id="modal-role">this role</span></div>
+    <div class="modal__sub">We'll get back to you within 3 business days.</div>
+
+    <form id="apply-form" onsubmit="submitForm(event)">
+      <div class="form-field">
+        <label for="f-name">Full Name *</label>
+        <input type="text" id="f-name" placeholder="Priya Mehta" required>
+      </div>
+      <div class="form-field">
+        <label for="f-email">Email Address *</label>
+        <input type="email" id="f-email" placeholder="priya@example.com" required>
+      </div>
+      <div class="form-field">
+        <label for="f-linkedin">LinkedIn URL</label>
+        <input type="url" id="f-linkedin" placeholder="https://linkedin.com/in/yourname">
+      </div>
+      <div class="form-field">
+        <label for="f-why">Why do you want to join TravelWise? *</label>
+        <textarea id="f-why" placeholder="Tell us what excites you about this role and TravelWise..." required></textarea>
+      </div>
+      <button type="button" class="btn-upload" onclick="fakeUpload()">
+        📎 Upload Resume (PDF, DOC up to 5MB)
+      </button>
+      <button type="submit" class="btn-submit">Submit Application →</button>
+    </form>
+  </div>
+</div>
+
+<div id="footer-root"></div>
+
+<script src="nav.js"></script>
+<script>
+/* ── Reveal on scroll ── */
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+
+/* ── Toast ── */
+function twToast(msg) {
+  var el = document.getElementById('tw-toast');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(function () { el.classList.remove('show'); }, 3500);
+}
+
+/* ── Department Filter ── */
+(function () {
+  var tabs  = document.querySelectorAll('.filter-tab');
+  var cards = document.querySelectorAll('.job-card');
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+
+      var filter = tab.dataset.filter;
+      cards.forEach(function (card) {
+        if (filter === 'all' || card.dataset.dept === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+})();
+
+/* ── Modal ── */
+var currentRole = '';
+
+function openModal(role) {
+  currentRole = role;
+  document.getElementById('modal-role').textContent = role;
+  document.getElementById('apply-form').reset();
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function fakeUpload() {
+  twToast('Resume uploaded! ✓');
+}
+
+function submitForm(e) {
+  e.preventDefault();
+  closeModal();
+  twToast('Application submitted! We\'ll be in touch 🚀');
+}
+
+/* Close on overlay click */
+document.getElementById('modal-overlay').addEventListener('click', function (e) {
+  if (e.target === this) closeModal();
+});
+
+/* Close on Escape */
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>

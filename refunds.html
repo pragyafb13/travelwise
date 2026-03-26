@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refunds & Cancellations | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Hero ── */
+.refund-hero {
+  padding: 100px 24px 80px; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #6C2BD9 0%, #4f46e5 45%, #00C9FF 100%);
+  text-align: center;
+}
+.refund-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 70% at 20% 50%, rgba(0,0,0,.2) 0%, transparent 60%),
+    radial-gradient(ellipse at 75% 30%, rgba(16,185,129,.15) 0%, transparent 55%);
+  pointer-events: none;
+}
+.refund-hero-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+.refund-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.24);
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
+  color: #fff; margin-bottom: 20px;
+}
+.refund-hero h1 {
+  font-family: var(--display); font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.2;
+}
+.refund-hero p { font-size: 16px; color: rgba(255,255,255,.82); margin-bottom: 0; max-width: 540px; margin-left: auto; margin-right: auto; }
+
+/* ── Wrapper ── */
+.refund-wrap { max-width: 1100px; margin: 0 auto; padding: 64px 24px; }
+.sec-title { font-family: var(--display); font-size: 1.55rem; font-weight: 700; color: var(--text-strong); margin-bottom: 6px; }
+.sec-sub { color: var(--muted); font-size: 15px; margin-bottom: 36px; }
+
+/* ── Refund Timeline Stepper ── */
+.stepper-wrap { margin-bottom: 64px; }
+.stepper {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  position: relative; padding: 40px 0 20px; gap: 8px;
+}
+.stepper::before {
+  content: ''; position: absolute; top: 62px; left: 8%; right: 8%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--purple), #4f46e5, var(--teal));
+  border-radius: 2px;
+}
+.step { flex: 1; text-align: center; position: relative; padding: 0 8px; }
+.step-circle {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px; position: relative; z-index: 2; font-size: 18px;
+  box-shadow: 0 4px 16px rgba(108,43,217,.4);
+}
+.step-circle.s1 { background: linear-gradient(135deg, var(--purple), #7c3aed); }
+.step-circle.s2 { background: linear-gradient(135deg, #4f46e5, #0ea5e9); }
+.step-circle.s3 { background: linear-gradient(135deg, var(--teal), var(--green)); }
+.step h4 { font-family: var(--display); font-size: 14px; font-weight: 700; color: var(--text-strong); margin-bottom: 4px; }
+.step p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.step-time { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
+.time-purple { background: rgba(108,43,217,.12); color: var(--purple); }
+.time-blue   { background: rgba(79,70,229,.12);  color: #4f46e5; }
+.time-green  { background: rgba(16,185,129,.12);  color: var(--green); }
+
+/* ── Policy Cards ── */
+.policy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 64px; }
+.policy-card {
+  border-radius: var(--radius-lg); padding: 32px 28px;
+  position: relative; overflow: hidden; border: 1px solid transparent;
+  transition: transform var(--t), box-shadow var(--t);
+}
+.policy-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.12); }
+.policy-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  opacity: .09; transition: opacity .3s;
+}
+.policy-card:hover::before { opacity: .16; }
+.pc-flights  { background: linear-gradient(135deg,rgba(108,43,217,.12),rgba(108,43,217,.04)); border-color: rgba(108,43,217,.25); }
+.pc-flights::before { background: linear-gradient(135deg,#6C2BD9,#00C9FF); }
+.pc-hotels   { background: linear-gradient(135deg,rgba(0,201,255,.12),rgba(0,201,255,.04)); border-color: rgba(0,201,255,.25); }
+.pc-hotels::before { background: linear-gradient(135deg,#00C9FF,#10B981); }
+.pc-packages { background: linear-gradient(135deg,rgba(245,158,11,.12),rgba(245,158,11,.04)); border-color: rgba(245,158,11,.25); }
+.pc-packages::before { background: linear-gradient(135deg,#F59E0B,#FF6B35); }
+
+.policy-card-icon { font-size: 2.4rem; margin-bottom: 16px; }
+.policy-card h3 { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--text-strong); margin-bottom: 14px; }
+.policy-table-inner { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+.policy-table-inner tr { border-bottom: 1px solid var(--border); }
+.policy-table-inner tr:last-child { border-bottom: none; }
+.policy-table-inner td { padding: 8px 4px; font-size: 13px; color: var(--text); vertical-align: middle; }
+.policy-table-inner td:first-child { color: var(--muted); font-size: 12px; }
+.policy-table-inner td:last-child { text-align: right; }
+.ref-badge {
+  display: inline-flex; align-items: center; padding: 3px 10px;
+  border-radius: 100px; font-size: 11px; font-weight: 700;
+}
+.ref-high { background: rgba(16,185,129,.15); color: var(--green); }
+.ref-mid  { background: rgba(245,158,11,.15);  color: var(--gold); }
+.ref-low  { background: rgba(239,68,68,.15);   color: #ef4444; }
+.ref-zero { background: rgba(100,116,139,.15); color: var(--muted); }
+
+/* ── How to Cancel ── */
+.cancel-steps { margin-bottom: 64px; }
+.cancel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 0; }
+.cancel-step {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px 24px;
+  text-align: center; transition: var(--t);
+}
+.cancel-step:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.08); }
+.cancel-num {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; font-family: var(--display); font-size: 1.3rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px;
+  box-shadow: 0 4px 16px rgba(108,43,217,.35);
+}
+.cancel-step-icon { font-size: 1.6rem; margin-bottom: 10px; }
+.cancel-step h4 { font-family: var(--display); font-size: .98rem; font-weight: 700; color: var(--text-strong); margin-bottom: 6px; }
+.cancel-step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── Refund Timelines Grid/Table ── */
+.timelines-section { margin-bottom: 64px; }
+.timelines-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.timeline-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 24px;
+  display: flex; align-items: center; gap: 16px; transition: var(--t);
+}
+.timeline-card:hover { border-color: var(--purple); transform: translateX(4px); }
+.timeline-icon-wrap {
+  width: 48px; height: 48px; border-radius: var(--radius-sm); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+}
+.timeline-card h4 { font-size: 15px; font-weight: 700; color: var(--text-strong); margin-bottom: 3px; }
+.timeline-card .tl-days { font-size: 1.15rem; font-weight: 800; }
+.timeline-card p { font-size: 12px; color: var(--muted); }
+
+/* ── Status Checker ── */
+.checker-section { margin-bottom: 64px; }
+.checker-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 44px 40px;
+}
+.checker-card h2 { font-family: var(--display); font-size: 1.45rem; font-weight: 700; color: var(--text-strong); margin-bottom: 8px; }
+.checker-card > p { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+.checker-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; align-items: end; }
+.checker-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-strong); margin-bottom: 8px; }
+.checker-input {
+  width: 100%; padding: 13px 16px; border: 1.5px solid var(--border2);
+  border-radius: var(--radius-sm); background: var(--input-bg);
+  color: var(--text-strong); font-size: 14px; font-family: var(--font);
+  outline: none; transition: border-color .2s; box-sizing: border-box;
+}
+.checker-input:focus { border-color: var(--purple); }
+.btn-check {
+  padding: 13px 28px;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: var(--font);
+  transition: all .2s; white-space: nowrap;
+}
+.btn-check:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,43,217,.4); }
+
+/* Status result */
+.status-result { margin-top: 28px; padding: 24px; border-radius: var(--radius); display: none; }
+.status-result.show { display: block; animation: fadeUp .35s both; }
+.status-result.processing { background: rgba(108,43,217,.08); border: 1px solid rgba(108,43,217,.2); }
+.status-result.credited   { background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.2); }
+.sr-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.sr-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.sr-dot.processing { background: var(--purple); box-shadow: 0 0 0 3px rgba(108,43,217,.2); animation: pulseDot 1.5s ease-out infinite; }
+.sr-dot.credited   { background: var(--green); }
+@keyframes pulseDot { 0%,100%{box-shadow:0 0 0 3px rgba(108,43,217,.2)} 50%{box-shadow:0 0 0 8px rgba(108,43,217,.05)} }
+.sr-title { font-weight: 700; font-size: 15px; color: var(--text-strong); }
+.sr-details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.sr-detail label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 4px; }
+.sr-detail span { font-size: 14px; font-weight: 600; color: var(--text-strong); }
+.sr-bar { margin-top: 18px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.sr-bar-fill { height: 100%; border-radius: 3px; }
+
+/* ── Need Help CTA ── */
+.need-help {
+  background: linear-gradient(135deg, var(--purple) 0%, #4f46e5 50%, var(--teal) 100%);
+  border-radius: var(--radius-lg); padding: 52px 40px;
+  text-align: center; color: #fff; margin-bottom: 20px;
+  position: relative; overflow: hidden;
+}
+.need-help::before {
+  content: ''; position: absolute; top: -40%; right: -8%;
+  width: 280px; height: 280px; border-radius: 50%;
+  background: rgba(255,255,255,.07);
+}
+.need-help h2 { font-family: var(--display); font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; position: relative; }
+.need-help p { font-size: 15px; opacity: .85; margin-bottom: 28px; position: relative; }
+.need-help-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+.btn-white {
+  padding: 13px 28px; background: #fff; color: var(--purple);
+  border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); transition: all .2s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+.btn-outline-white {
+  padding: 13px 28px; background: transparent;
+  border: 2px solid rgba(255,255,255,.5); color: #fff;
+  border-radius: var(--radius-sm); font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); transition: all .2s;
+  text-decoration: none; display: inline-flex; align-items: center; gap: .4rem;
+}
+.btn-outline-white:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .policy-grid { grid-template-columns: 1fr; }
+  .cancel-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .stepper { flex-direction: column; align-items: center; gap: 24px; }
+  .stepper::before { display: none; }
+  .checker-form { grid-template-columns: 1fr; }
+  .timelines-grid { grid-template-columns: 1fr; }
+  .sr-details { grid-template-columns: 1fr 1fr; }
+  .need-help { padding: 36px 20px; }
+  .checker-card { padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- ── HERO ── -->
+<section class="refund-hero">
+  <div class="refund-hero-inner">
+    <div class="refund-eyebrow">💸 Refunds &amp; Cancellations</div>
+    <h1>Refunds &amp; Cancellations</h1>
+    <p>We believe in hassle-free refunds. Here's everything you need to know.</p>
+  </div>
+</section>
+
+<!-- ── MAIN CONTENT ── -->
+<div class="refund-wrap">
+
+  <!-- REFUND TIMELINE STEPPER -->
+  <div class="stepper-wrap reveal">
+    <div class="sec-title">How Your Refund Is Processed</div>
+    <div class="sec-sub">Track every step of your refund journey from request to credit</div>
+    <div class="stepper">
+
+      <div class="step">
+        <div class="step-circle s1">📋</div>
+        <h4>Request</h4>
+        <p>You cancel your booking. Refund request is logged instantly in our system.</p>
+        <span class="step-time time-purple">Instant</span>
+      </div>
+
+      <div class="step">
+        <div class="step-circle s2">🔄</div>
+        <h4>Processing</h4>
+        <p>Airline or hotel confirms cancellation. Refund is approved and sent to payment gateway.</p>
+        <span class="step-time time-blue">1–2 Business Days</span>
+      </div>
+
+      <div class="step">
+        <div class="step-circle s3">✅</div>
+        <h4>Refunded</h4>
+        <p>Amount credited to your original payment method. SMS and email confirmation sent.</p>
+        <span class="step-time time-green">2–7 Business Days</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- REFUND POLICY CARDS -->
+  <div class="reveal">
+    <div class="sec-title">Cancellation &amp; Refund Policies</div>
+    <div class="sec-sub">Refund percentages vary by booking type and how far in advance you cancel</div>
+    <div class="policy-grid">
+
+      <!-- Flights -->
+      <div class="policy-card pc-flights">
+        <div class="policy-card-icon">✈️</div>
+        <h3>Flight Cancellations</h3>
+        <table class="policy-table-inner">
+          <tr>
+            <td>More than 7 days before</td>
+            <td><span class="ref-badge ref-high">90% refund</span></td>
+          </tr>
+          <tr>
+            <td>2–7 days before</td>
+            <td><span class="ref-badge ref-mid">70% refund</span></td>
+          </tr>
+          <tr>
+            <td>Less than 24 hours</td>
+            <td><span class="ref-badge ref-low">50% refund</span></td>
+          </tr>
+          <tr>
+            <td>No-show</td>
+            <td><span class="ref-badge ref-zero">0% refund</span></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Hotels -->
+      <div class="policy-card pc-hotels">
+        <div class="policy-card-icon">🏨</div>
+        <h3>Hotel Cancellations</h3>
+        <table class="policy-table-inner">
+          <tr>
+            <td>More than 48 hrs before</td>
+            <td><span class="ref-badge ref-high">Free cancellation</span></td>
+          </tr>
+          <tr>
+            <td>Within 24 hrs of check-in</td>
+            <td><span class="ref-badge ref-mid">1 night charge</span></td>
+          </tr>
+          <tr>
+            <td>No-show</td>
+            <td><span class="ref-badge ref-zero">Full charge</span></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Holiday Packages -->
+      <div class="policy-card pc-packages">
+        <div class="policy-card-icon">🗺️</div>
+        <h3>Holiday Packages</h3>
+        <table class="policy-table-inner">
+          <tr>
+            <td>30+ days before</td>
+            <td><span class="ref-badge ref-high">80% refund</span></td>
+          </tr>
+          <tr>
+            <td>15–30 days before</td>
+            <td><span class="ref-badge ref-mid">50% refund</span></td>
+          </tr>
+          <tr>
+            <td>Less than 15 days</td>
+            <td><span class="ref-badge ref-low">25% refund</span></td>
+          </tr>
+          <tr>
+            <td>Less than 7 days</td>
+            <td><span class="ref-badge ref-zero">No refund</span></td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HOW TO CANCEL -->
+  <div class="cancel-steps reveal">
+    <div class="sec-title">How to Cancel Your Booking</div>
+    <div class="sec-sub">Three simple steps to initiate a cancellation and get your refund</div>
+    <div class="cancel-grid">
+
+      <div class="cancel-step">
+        <div class="cancel-num">1</div>
+        <div class="cancel-step-icon">🗂️</div>
+        <h4>Find Your Booking</h4>
+        <p>Go to <strong>My Trips</strong>, find the booking you want to cancel, and click <strong>"Cancel"</strong>.</p>
+      </div>
+
+      <div class="cancel-step">
+        <div class="cancel-num">2</div>
+        <div class="cancel-step-icon">🔍</div>
+        <h4>Review Charges</h4>
+        <p>Review the cancellation charges and refund amount shown on the confirmation screen.</p>
+      </div>
+
+      <div class="cancel-step">
+        <div class="cancel-num">3</div>
+        <div class="cancel-step-icon">✅</div>
+        <h4>Confirm &amp; Done</h4>
+        <p>Click <strong>Confirm</strong>. Refund is automatically initiated to your original payment method.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- REFUND TIMELINES -->
+  <div class="timelines-section reveal">
+    <div class="sec-title">Refund Timelines by Payment Method</div>
+    <div class="sec-sub">Once a refund is initiated, here's how long it takes to reach you</div>
+    <div class="timelines-grid">
+
+      <div class="timeline-card">
+        <div class="timeline-icon-wrap" style="background:linear-gradient(135deg,rgba(108,43,217,.18),rgba(108,43,217,.06))">💳</div>
+        <div>
+          <h4>Credit / Debit Card</h4>
+          <div class="tl-days" style="color:var(--purple)">5–7 Business Days</div>
+          <p>HDFC, ICICI, SBI, Axis, Kotak, and all major banks</p>
+        </div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="timeline-icon-wrap" style="background:linear-gradient(135deg,rgba(0,201,255,.18),rgba(0,201,255,.06))">📱</div>
+        <div>
+          <h4>UPI / Net Banking</h4>
+          <div class="tl-days" style="color:var(--teal)">2–3 Business Days</div>
+          <p>Google Pay, PhonePe, Paytm, BHIM and all UPI apps</p>
+        </div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="timeline-icon-wrap" style="background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(16,185,129,.06))">⚡</div>
+        <div>
+          <h4>TravelWise Wallet</h4>
+          <div class="tl-days" style="color:var(--green)">Instant</div>
+          <p>Credits added immediately to your TravelWise wallet balance</p>
+        </div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="timeline-icon-wrap" style="background:linear-gradient(135deg,rgba(245,158,11,.18),rgba(245,158,11,.06))">📊</div>
+        <div>
+          <h4>EMI (Credit Card)</h4>
+          <div class="tl-days" style="color:var(--gold)">7–10 Business Days</div>
+          <p>EMI cancellation processed through your issuing bank</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- REFUND STATUS CHECKER -->
+  <div class="checker-section reveal">
+    <div class="checker-card">
+      <h2>Check Refund Status</h2>
+      <p>Enter your booking reference and registered email to track your refund in real time.</p>
+      <div class="checker-form">
+        <div class="checker-group">
+          <label for="booking-ref">Booking Reference ID</label>
+          <input type="text" class="checker-input" id="booking-ref" placeholder="e.g. TW2026ABCD" autocomplete="off">
+        </div>
+        <div class="checker-group">
+          <label for="email-ref">Registered Email</label>
+          <input type="email" class="checker-input" id="email-ref" placeholder="you@email.com" autocomplete="off">
+        </div>
+        <button class="btn-check" onclick="checkRefundStatus()">Check Status</button>
+      </div>
+
+      <!-- Mock result: processing -->
+      <div class="status-result processing" id="status-processing">
+        <div class="sr-header">
+          <div class="sr-dot processing"></div>
+          <span class="sr-title">Refund Processing</span>
+        </div>
+        <div class="sr-details">
+          <div class="sr-detail"><label>Booking Ref</label><span id="sr-ref">—</span></div>
+          <div class="sr-detail"><label>Amount</label><span>₹4,250</span></div>
+          <div class="sr-detail"><label>Initiated</label><span>24 Mar 2026</span></div>
+          <div class="sr-detail"><label>Payment Method</label><span>HDFC Visa ****2391</span></div>
+          <div class="sr-detail"><label>Expected Credit</label><span>30 Mar 2026</span></div>
+          <div class="sr-detail"><label>Status</label><span style="color:var(--purple);font-weight:700">Processing</span></div>
+        </div>
+        <div class="sr-bar">
+          <div class="sr-bar-fill" style="width:60%;background:linear-gradient(90deg,var(--purple),var(--teal))"></div>
+        </div>
+      </div>
+
+      <!-- Mock result: credited -->
+      <div class="status-result credited" id="status-credited">
+        <div class="sr-header">
+          <div class="sr-dot credited"></div>
+          <span class="sr-title">Refund Credited ✓</span>
+        </div>
+        <div class="sr-details">
+          <div class="sr-detail"><label>Booking Ref</label><span id="sr-ref2">—</span></div>
+          <div class="sr-detail"><label>Amount Credited</label><span>₹8,700</span></div>
+          <div class="sr-detail"><label>Credited On</label><span>22 Mar 2026</span></div>
+          <div class="sr-detail"><label>Payment Method</label><span>Google Pay UPI</span></div>
+          <div class="sr-detail"><label>Transaction ID</label><span>TWRF20260322</span></div>
+          <div class="sr-detail"><label>Status</label><span style="color:var(--green);font-weight:700">Credited</span></div>
+        </div>
+        <div class="sr-bar">
+          <div class="sr-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--green),#059669)"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NEED HELP CTA -->
+  <div class="need-help reveal">
+    <h2>Need Help with a Refund?</h2>
+    <p>Our dedicated refunds team is here 24/7 to assist you with cancellations, disputes, and tracking.</p>
+    <div class="need-help-actions">
+      <button class="btn-white" onclick="twToast('Connecting to support agent...')">💬 Chat with Us</button>
+      <a href="tel:18001234567" class="btn-outline-white">📞 Call 1800-XXX-XXXX</a>
+      <a href="mailto:refunds@travelwise.in" class="btn-outline-white">📧 Email Refunds Team</a>
+    </div>
+  </div>
+
+</div><!-- /refund-wrap -->
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+/* ── Refund status checker ── */
+var callCount = 0;
+
+function checkRefundStatus() {
+  var ref   = document.getElementById('booking-ref').value.trim();
+  var email = document.getElementById('email-ref').value.trim();
+
+  if (!ref || !email) {
+    twToast('Please enter your booking reference and email address.');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    twToast('Please enter a valid email address.');
+    return;
+  }
+
+  /* Hide both */
+  document.getElementById('status-processing').classList.remove('show');
+  document.getElementById('status-credited').classList.remove('show');
+  document.getElementById('status-processing').style.display = 'none';
+  document.getElementById('status-credited').style.display = 'none';
+
+  /* Show mock result — alternate for demo */
+  var state = callCount % 2 === 0 ? 'processing' : 'credited';
+  callCount++;
+
+  setTimeout(function(){
+    if (state === 'processing') {
+      document.getElementById('sr-ref').textContent = ref.toUpperCase();
+      var el = document.getElementById('status-processing');
+      el.style.display = 'block';
+      el.classList.add('show');
+      twToast('Refund of ₹4,250 is being processed — expected by Mar 30');
+    } else {
+      document.getElementById('sr-ref2').textContent = ref.toUpperCase();
+      var el2 = document.getElementById('status-credited');
+      el2.style.display = 'block';
+      el2.classList.add('show');
+      twToast('Refund of ₹8,700 has been credited to your account!');
+    }
+  }, 600);
+}
+
+/* ── Reveal on scroll ── */
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('revealed'); io.unobserve(e.target); }});
+  }, { threshold: 0.07 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>

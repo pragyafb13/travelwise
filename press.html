@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press & Media | TravelWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('tw-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── Press Page ── */
+.press-hero {
+  min-height: 58vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #03091A 0%, #0f0528 50%, #031428 100%);
+}
+.press-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 50%, rgba(108,43,217,.28) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 80% 30%, rgba(0,201,255,.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 60% 90%, rgba(16,185,129,.12) 0%, transparent 50%);
+  animation: pressHero 10s ease-in-out infinite alternate;
+}
+@keyframes pressHero { 0%{opacity:1;transform:scale(1)} 100%{opacity:.85;transform:scale(1.04)} }
+.press-hero-content { position: relative; z-index: 2; max-width: 700px; padding: 2rem 1.5rem 6rem; }
+.press-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
+  color: rgba(255,255,255,.9); margin-bottom: 20px; letter-spacing: 0.5px;
+}
+.press-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 1rem;
+}
+.press-hero p { color: rgba(255,255,255,.72); font-size: 1.1rem; }
+
+/* Stats row pinned to hero bottom */
+.press-stats {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(255,255,255,.04);
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.press-stats-inner {
+  max-width: 760px; margin: 0 auto;
+  padding: 1.75rem 1.5rem;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+.pstat { text-align: center; }
+.pstat-num {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800; line-height: 1;
+  background: linear-gradient(135deg, var(--teal), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: .3rem;
+}
+.pstat-label { color: rgba(255,255,255,.5); font-size: .82rem; }
+
+/* Section header */
+.section-label {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-weight: 700; font-size: .82rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .5rem;
+}
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-header h2 {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700;
+  color: var(--text-strong); margin-bottom: .75rem;
+}
+.section-header p { color: var(--muted); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+
+/* Press releases */
+.pr-section { max-width: 900px; margin: 0 auto; padding: 5rem 1.5rem; }
+.pr-list { display: flex; flex-direction: column; gap: 1.1rem; }
+.pr-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.6rem 1.75rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  transition: var(--t); flex-wrap: wrap;
+}
+.pr-card:hover { border-color: var(--purple); box-shadow: 0 8px 30px rgba(0,0,0,.12); transform: translateY(-2px); }
+.pr-date-chip {
+  background: linear-gradient(135deg, rgba(108,43,217,.12), rgba(0,201,255,.08));
+  border: 1px solid rgba(108,43,217,.2);
+  padding: .5rem .9rem; border-radius: var(--radius);
+  text-align: center; min-width: 68px; flex-shrink: 0;
+}
+.pr-date-chip .day { font-family: var(--display); font-size: 1.45rem; font-weight: 800; color: var(--purple); line-height: 1; }
+.pr-date-chip .mon { font-size: .7rem; font-weight: 600; color: var(--muted); text-transform: uppercase; }
+.pr-body { flex: 1; min-width: 200px; }
+.pr-body h4 { font-family: var(--display); font-size: 1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .3rem; line-height: 1.4; }
+.pr-body p { color: var(--muted); font-size: .87rem; line-height: 1.55; }
+.pr-actions { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+.btn-dl {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .55rem 1.2rem; border-radius: 50px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text); font-size: .82rem; font-weight: 600;
+  cursor: pointer; transition: var(--t); font-family: var(--font);
+}
+.btn-dl:hover { border-color: var(--purple); color: var(--purple); background: rgba(108,43,217,.05); }
+
+/* Media coverage */
+.coverage-section { background: var(--bg2); padding: 5rem 1.5rem; }
+.coverage-inner { max-width: 1200px; margin: 0 auto; }
+.coverage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem; margin-top: 3rem;
+}
+.coverage-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.4rem;
+  transition: var(--t); cursor: default;
+}
+.coverage-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.12); border-color: var(--purple); }
+.outlet-badge {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .3rem .85rem; border-radius: 50px;
+  font-size: .73rem; font-weight: 700; margin-bottom: .9rem;
+}
+.coverage-card h4 { font-family: var(--display); font-size: .95rem; font-weight: 700; color: var(--text-strong); line-height: 1.4; margin-bottom: .5rem; }
+.coverage-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .9rem; padding-top: .65rem; border-top: 1px solid var(--border); }
+.coverage-date { font-size: .77rem; color: var(--muted); }
+.read-link { font-size: .82rem; font-weight: 600; color: var(--purple); text-decoration: none; transition: var(--t); }
+.read-link:hover { opacity: .7; }
+
+/* Media kit */
+.kit-section { max-width: 900px; margin: 0 auto; padding: 5rem 1.5rem; }
+.kit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.kit-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 2rem 1.75rem;
+  text-align: center; transition: var(--t);
+}
+.kit-card:hover { transform: translateY(-5px); box-shadow: 0 16px 50px rgba(0,0,0,.1); border-color: var(--purple); }
+.kit-icon-wrap {
+  width: 64px; height: 64px; border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin: 0 auto 1rem;
+}
+.kit-card h4 { font-family: var(--display); font-size: 1rem; font-weight: 700; color: var(--text-strong); margin-bottom: .4rem; }
+.kit-card p { color: var(--muted); font-size: .85rem; margin-bottom: 1.25rem; line-height: 1.55; }
+.kit-btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; border: none; border-radius: 50px;
+  padding: .6rem 1.5rem; font-size: .85rem; font-weight: 600;
+  cursor: pointer; transition: var(--t); font-family: var(--font);
+}
+.kit-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(108,43,217,.35); }
+
+/* Press contact card */
+.pcontact-section { background: var(--bg2); padding: 4rem 1.5rem; }
+.pcontact-inner { max-width: 700px; margin: 0 auto; }
+.pcontact-card {
+  background: linear-gradient(135deg, rgba(108,43,217,.1), rgba(0,201,255,.06));
+  border: 2px solid rgba(108,43,217,.28);
+  border-radius: var(--radius-lg); padding: 2.5rem;
+  display: flex; gap: 2.5rem; align-items: flex-start; flex-wrap: wrap;
+}
+.pcontact-card h3 { font-family: var(--display); font-size: 1.25rem; font-weight: 700; color: var(--text-strong); margin-bottom: .5rem; }
+.pcontact-card p { color: var(--muted); font-size: .9rem; margin-bottom: 1rem; }
+.pcontact-row { display: flex; align-items: center; gap: .6rem; margin-bottom: .55rem; }
+.pcontact-row a { color: var(--purple); font-weight: 600; font-size: .9rem; text-decoration: none; }
+.pcontact-row a:hover { text-decoration: underline; }
+.pcontact-row span { color: var(--muted); font-size: .88rem; }
+.pcontact-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.22);
+  color: var(--green); padding: .45rem 1rem; border-radius: 50px;
+  font-size: .8rem; font-weight: 600; margin-top: .5rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .coverage-grid { grid-template-columns: repeat(2, 1fr); }
+  .kit-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 700px) {
+  .press-stats-inner { grid-template-columns: repeat(3,1fr); gap: .75rem; }
+  .coverage-grid { grid-template-columns: 1fr; }
+  .kit-grid { grid-template-columns: 1fr; }
+  .pr-card { flex-direction: column; align-items: flex-start; }
+  .pcontact-card { flex-direction: column; gap: 1.5rem; }
+}
+@media (max-width: 420px) {
+  .press-stats-inner { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="nav-root"></div>
+<div id="tw-toast" class="toast"></div>
+
+<!-- ── HERO ── -->
+<section class="press-hero">
+  <div class="press-hero-content">
+    <div class="press-eyebrow">📰 Newsroom</div>
+    <h1>TravelWise in the News</h1>
+    <p>Our story, told by the world's top media.</p>
+  </div>
+
+  <!-- Stats pinned to bottom of hero -->
+  <div class="press-stats">
+    <div class="press-stats-inner">
+      <div class="pstat">
+        <div class="pstat-num">200+</div>
+        <div class="pstat-label">Media Mentions</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-num">15</div>
+        <div class="pstat-label">Countries Covered</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-num">8</div>
+        <div class="pstat-label">Industry Awards</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRESS RELEASES ── -->
+<div style="background:var(--bg)">
+<div class="pr-section reveal">
+  <div class="section-header">
+    <div class="section-label">Press Releases</div>
+    <h2>Latest Announcements</h2>
+    <p>Official statements and news directly from TravelWise.</p>
+  </div>
+  <div class="pr-list">
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">15</div>
+        <div class="mon">Mar 2026</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Crosses 2 Million Travelers Milestone</h4>
+        <p>India's fastest-growing travel platform celebrates a landmark achievement, serving over 2 million travelers across domestic and international routes.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-dl" onclick="twToast('Downloading press release...')">📄 Download PDF</button>
+      </div>
+    </div>
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">08</div>
+        <div class="mon">Jan 2026</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Launches AI-Powered Smart Trip Planner</h4>
+        <p>New AI engine builds complete, personalised itineraries in under 60 seconds, revolutionising how Indians plan their trips end-to-end.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-dl" onclick="twToast('Downloading press release...')">📄 Download PDF</button>
+      </div>
+    </div>
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">20</div>
+        <div class="mon">Nov 2025</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Raises Series B: ₹200 Crore to Fuel Expansion</h4>
+        <p>Fresh funding round will accelerate engineering talent acquisition, hotel partnerships, and TravelWise's push into Tier-2 and Tier-3 cities.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-dl" onclick="twToast('Downloading press release...')">📄 Download PDF</button>
+      </div>
+    </div>
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">05</div>
+        <div class="mon">Aug 2025</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Partners with 500+ New Hotel Properties</h4>
+        <p>Major inventory expansion brings exclusive rates and free-cancellation options to premium and budget hotel categories across 60 Indian cities.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-dl" onclick="twToast('Downloading press release...')">📄 Download PDF</button>
+      </div>
+    </div>
+
+    <div class="pr-card">
+      <div class="pr-date-chip">
+        <div class="day">12</div>
+        <div class="mon">Apr 2025</div>
+      </div>
+      <div class="pr-body">
+        <h4>TravelWise Named Best Travel Startup by YourStory</h4>
+        <p>Recognised at YourStory TechSparks 2025 for outstanding innovation, customer satisfaction, and rapid growth in the competitive Indian OTA market.</p>
+      </div>
+      <div class="pr-actions">
+        <button class="btn-dl" onclick="twToast('Downloading press release...')">📄 Download PDF</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ── MEDIA COVERAGE GRID ── -->
+<div class="coverage-section">
+<div class="coverage-inner reveal">
+  <div class="section-header">
+    <div class="section-label">In the Media</div>
+    <h2>What the Press Is Saying</h2>
+    <p>Coverage from India's most respected business, tech, and lifestyle publications.</p>
+  </div>
+  <div class="coverage-grid">
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(255,107,53,.12);color:var(--coral)">Economic Times</span>
+      <h4>"How TravelWise is disrupting India's travel market"</h4>
+      <div class="coverage-footer">
+        <span class="coverage-date">Feb 2026</span>
+        <a href="#" class="read-link" onclick="return false">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(108,43,217,.12);color:var(--purple)">TechCrunch</span>
+      <h4>"Indian travel startup TravelWise eyes global markets"</h4>
+      <div class="coverage-footer">
+        <span class="coverage-date">Jan 2026</span>
+        <a href="#" class="read-link" onclick="return false">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(0,201,255,.1);color:var(--teal)">YourStory</span>
+      <h4>"The startup making travel accessible for every Indian"</h4>
+      <div class="coverage-footer">
+        <span class="coverage-date">Dec 2025</span>
+        <a href="#" class="read-link" onclick="return false">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(16,185,129,.12);color:var(--green)">Business Standard</span>
+      <h4>"TravelWise posts 3x revenue growth in FY2025"</h4>
+      <div class="coverage-footer">
+        <span class="coverage-date">Nov 2025</span>
+        <a href="#" class="read-link" onclick="return false">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(245,158,11,.12);color:var(--gold)">NDTV</span>
+      <h4>"5 apps that make travel planning effortless"</h4>
+      <div class="coverage-footer">
+        <span class="coverage-date">Oct 2025</span>
+        <a href="#" class="read-link" onclick="return false">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(108,43,217,.1);color:var(--purple)">Inc42</span>
+      <h4>"TravelWise's AI engine: The future of flight search"</h4>
+      <div class="coverage-footer">
+        <span class="coverage-date">Sep 2025</span>
+        <a href="#" class="read-link" onclick="return false">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(0,201,255,.1);color:var(--teal)">Mint</span>
+      <h4>"Consumer trust drives TravelWise's rapid growth"</h4>
+      <div class="coverage-footer">
+        <span class="coverage-date">Aug 2025</span>
+        <a href="#" class="read-link" onclick="return false">Read Article →</a>
+      </div>
+    </div>
+
+    <div class="coverage-card">
+      <span class="outlet-badge" style="background:rgba(245,158,11,.12);color:var(--gold)">Forbes India</span>
+      <h4>"30 Under 30: TravelWise co-founder Rohit Sharma"</h4>
+      <div class="coverage-footer">
+        <span class="coverage-date">Jul 2025</span>
+        <a href="#" class="read-link" onclick="return false">Read Article →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ── MEDIA KIT ── -->
+<div style="background:var(--bg)">
+<div class="kit-section reveal">
+  <div class="section-header">
+    <div class="section-label">Media Resources</div>
+    <h2>Download Our Media Kit</h2>
+    <p>Everything journalists need — logos, brand guidelines, executive photos, and approved product screenshots.</p>
+  </div>
+  <div class="kit-grid">
+
+    <div class="kit-card">
+      <div class="kit-icon-wrap" style="background:linear-gradient(135deg,rgba(108,43,217,.2),rgba(0,201,255,.1))">🎨</div>
+      <h4>Brand Assets</h4>
+      <p>Logos, colour palette, typography, and full brand guidelines documentation.</p>
+      <button class="kit-btn" onclick="twToast('Preparing download...')">Download ZIP</button>
+    </div>
+
+    <div class="kit-card">
+      <div class="kit-icon-wrap" style="background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(0,201,255,.1))">📸</div>
+      <h4>Press Photos</h4>
+      <p>Hi-res team headshots, product screenshots, and office photography.</p>
+      <button class="kit-btn" onclick="twToast('Preparing download...')">Download ZIP</button>
+    </div>
+
+    <div class="kit-card">
+      <div class="kit-icon-wrap" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(255,107,53,.1))">📋</div>
+      <h4>Company Fact Sheet</h4>
+      <p>Key stats, milestones, leadership bios, and approved company descriptions.</p>
+      <button class="kit-btn" onclick="twToast('Preparing download...')">Download PDF</button>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ── PRESS CONTACT ── -->
+<div class="pcontact-section">
+<div class="pcontact-inner reveal">
+  <div style="text-align:center;margin-bottom:2.5rem">
+    <div class="section-label">Get in Touch</div>
+    <h2 style="font-family:var(--display);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;color:var(--text-strong)">Press Contact</h2>
+  </div>
+  <div class="pcontact-card">
+    <div style="flex:1;min-width:240px">
+      <h3>For Media Inquiries</h3>
+      <p>Reach out for press enquiries, interview requests, speaking opportunities, and media permissions. Our communications team responds promptly.</p>
+      <div class="pcontact-row">
+        <span>📧</span>
+        <a href="mailto:press@travelwise.in">press@travelwise.in</a>
+      </div>
+      <div class="pcontact-row">
+        <span>📞</span>
+        <a href="tel:+919876543210">+91 98765 43210</a>
+      </div>
+      <div class="pcontact-badge">⚡ Response within 2 hours</div>
+    </div>
+    <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:.75rem;justify-content:center">
+      <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.18);border-radius:var(--radius);padding:.85rem 1.1rem;font-size:.85rem">
+        <strong style="color:var(--green)">🚀 Breaking News</strong>
+        <span style="color:var(--muted);display:block;margin-top:.2rem">Within 1–2 hours</span>
+      </div>
+      <div style="background:rgba(0,201,255,.07);border:1px solid rgba(0,201,255,.15);border-radius:var(--radius);padding:.85rem 1.1rem;font-size:.85rem">
+        <strong style="color:var(--teal)">📰 General Enquiries</strong>
+        <span style="color:var(--muted);display:block;margin-top:.2rem">Within 24 hours</span>
+      </div>
+      <div style="background:rgba(108,43,217,.07);border:1px solid rgba(108,43,217,.15);border-radius:var(--radius);padding:.85rem 1.1rem;font-size:.85rem">
+        <strong style="color:var(--purple)">🎤 Interview Requests</strong>
+        <span style="color:var(--muted);display:block;margin-top:.2rem">Within 48 hours</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="footer-root"></div>
+<script src="nav.js"></script>
+<script>
+/* Reveal on scroll */
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('revealed'); io.unobserve(e.target); }});
+  }, { threshold: 0.06 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
