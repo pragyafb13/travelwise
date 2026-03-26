@@ -11,397 +11,348 @@
 <style>
 /* ── Hero ── */
 .legal-hero {
-  padding: 90px 24px 64px; text-align: center; position: relative; overflow: hidden;
-  background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
-  border-bottom: 1px solid var(--border);
+  padding: 100px 24px 72px; position: relative; overflow: hidden; text-align: center;
+  background: linear-gradient(135deg, #090B1A 0%, #0F1D3E 50%, #0A0810 100%);
 }
 .legal-hero::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 100%, rgba(255,107,53,0.1) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse at 25% 65%, rgba(108,43,217,0.3) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,201,255,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 85%, rgba(255,107,53,0.12) 0%, transparent 40%);
 }
 .legal-hero-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
-.legal-eyebrow {
+.legal-hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.2);
-  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
-  color: var(--coral); margin-bottom: 20px;
+  background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18);
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.85); margin-bottom: 22px;
 }
 .legal-hero h1 {
-  font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800;
-  color: var(--text-strong); margin-bottom: 14px; line-height: 1.2;
+  font-family: var(--display); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800;
+  color: #fff; margin-bottom: 14px; line-height: 1.15;
 }
-.legal-hero p { font-size: 15px; color: var(--muted); margin-bottom: 16px; }
-.legal-meta { font-size: 13px; color: var(--muted); }
-.legal-meta span { background: var(--card); border: 1px solid var(--border); padding: 5px 14px; border-radius: 100px; margin: 0 4px; }
+.legal-hero p { font-size: 15px; color: rgba(255,255,255,0.6); }
 
 /* ── Layout ── */
 .legal-layout {
-  max-width: 1140px; margin: 0 auto; padding: 64px 24px;
+  max-width: 1120px; margin: 0 auto; padding: 60px 24px 80px;
   display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start;
 }
 @media (max-width: 900px) { .legal-layout { grid-template-columns: 1fr; } }
 
-/* ── TOC ── */
-.toc-sidebar {
-  position: sticky; top: 90px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 24px 0; overflow: hidden;
+/* ── Sidebar ── */
+.legal-sidebar { position: sticky; top: 100px; }
+.sidebar-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 24px 20px;
 }
-.toc-header {
-  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-  color: var(--muted); padding: 0 20px 14px; border-bottom: 1px solid var(--border); margin-bottom: 8px;
+.sidebar-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
 }
-.toc-item {
-  display: block; padding: 8px 20px; font-size: 13px; color: var(--muted);
-  cursor: pointer; transition: all 0.18s; border-left: 3px solid transparent; line-height: 1.45;
+.toc-link {
+  display: block; padding: 8px 12px; border-radius: var(--radius-sm);
+  font-size: 13px; color: var(--muted); transition: all 0.2s; cursor: pointer;
+  border-left: 2px solid transparent; margin-bottom: 2px; text-decoration: none;
+  line-height: 1.4;
 }
-.toc-item:hover { color: var(--text-strong); background: var(--card-hover); border-left-color: var(--border2); }
-.toc-item.active { color: var(--coral); background: rgba(255,107,53,0.07); border-left-color: var(--coral); font-weight: 600; }
+.toc-link:hover { color: var(--text-strong); background: var(--bg2); border-left-color: var(--border2); }
+.toc-link.active {
+  color: var(--coral); background: rgba(255,107,53,0.08);
+  border-left-color: var(--coral); font-weight: 600;
+}
 
 /* ── Content ── */
-.legal-content { max-width: 720px; }
-.legal-section { margin-bottom: 52px; scroll-margin-top: 100px; }
+.legal-content { min-width: 0; }
+
+.legal-section {
+  margin-bottom: 52px; padding-bottom: 52px;
+  border-bottom: 1px solid var(--border);
+  padding-left: 20px;
+  border-left: 3px solid;
+  border-image: linear-gradient(180deg, var(--coral), var(--purple)) 1;
+}
+.legal-section:last-child { border-bottom: none; margin-bottom: 0; }
+
+.legal-section-num {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  background: linear-gradient(90deg, var(--coral), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px; display: block;
+}
 .legal-section h2 {
-  font-family: var(--display); font-size: 1.3rem; font-weight: 700;
-  color: var(--text-strong); margin-bottom: 18px; padding-bottom: 12px;
-  border-bottom: 2px solid var(--border);
-  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display); font-size: 1.35rem; font-weight: 700;
+  color: var(--text-strong); margin-bottom: 16px; line-height: 1.3;
 }
-.section-icon {
-  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--coral), #FF3CAC);
-  display: flex; align-items: center; justify-content: center; font-size: 15px;
+.legal-section p {
+  font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 14px;
 }
-.legal-section p { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 14px; }
-.legal-section ul, .legal-section ol { padding-left: 24px; margin-bottom: 14px; }
-.legal-section li { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 6px; }
-.legal-section h3 { font-size: 1rem; font-weight: 700; color: var(--text-strong); margin: 22px 0 10px; }
+.legal-section p:last-child { margin-bottom: 0; }
+.legal-section ul {
+  padding-left: 0; list-style: none; margin: 14px 0;
+}
+.legal-section ul li {
+  font-size: 15px; color: var(--text); line-height: 1.75; padding: 7px 0 7px 22px;
+  position: relative; border-bottom: 1px solid var(--border);
+}
+.legal-section ul li:last-child { border-bottom: none; }
+.legal-section ul li::before {
+  content: ''; position: absolute; left: 0; top: 15px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--coral), var(--purple));
+}
+.legal-section a { color: var(--purple); text-decoration: underline; text-underline-offset: 3px; }
+.legal-section a:hover { color: var(--coral); }
 
-/* ── Highlight boxes ── */
-.highlight-box {
-  border-radius: var(--radius); padding: 18px 22px; margin: 20px 0;
-  display: flex; gap: 14px; align-items: flex-start;
+.warning-box {
+  background: rgba(255,107,53,0.07); border: 1px solid rgba(255,107,53,0.2);
+  border-radius: var(--radius); padding: 16px 18px; margin: 16px 0;
+  font-size: 14px; color: var(--text); line-height: 1.7;
 }
-.highlight-box.coral  { background: rgba(255,107,53,0.07);  border: 1px solid rgba(255,107,53,0.2); }
-.highlight-box.purple { background: rgba(108,43,217,0.07);  border: 1px solid rgba(108,43,217,0.2); }
-.highlight-box.green  { background: rgba(16,185,129,0.07);  border: 1px solid rgba(16,185,129,0.2); }
-.highlight-box.gold   { background: rgba(245,158,11,0.07);  border: 1px solid rgba(245,158,11,0.2); }
-.highlight-box.red    { background: rgba(239,68,68,0.07);   border: 1px solid rgba(239,68,68,0.2); }
-.hb-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-.hb-text { font-size: 14px; color: var(--text); line-height: 1.7; }
-.hb-text strong { color: var(--text-strong); }
+.warning-box strong { color: var(--coral); }
 
-/* ── Reading progress ── */
-.reading-progress {
-  position: fixed; top: 0; left: 0; height: 3px; z-index: 999;
-  background: linear-gradient(90deg, var(--coral), #FF3CAC);
-  transition: width 0.1s linear; width: 0%;
+.info-box {
+  background: rgba(108,43,217,0.07); border: 1px solid rgba(108,43,217,0.2);
+  border-radius: var(--radius); padding: 16px 18px; margin: 16px 0;
+  font-size: 14px; color: var(--text); line-height: 1.7;
 }
+.info-box strong { color: var(--purple); }
 
-@media (max-width: 900px) { .toc-sidebar { position: static; } }
+@media (max-width: 900px) {
+  .legal-sidebar { position: static; }
+  .legal-section { padding-left: 16px; }
+}
 </style>
 </head>
 <body>
-<div class="reading-progress" id="reading-progress"></div>
 <div id="nav-root"></div>
 <div id="tw-toast" class="toast"></div>
 
 <!-- HERO -->
 <section class="legal-hero">
   <div class="legal-hero-inner">
-    <div class="legal-eyebrow">📜 Legal</div>
+    <div class="legal-hero-badge">📄 Legal</div>
     <h1>Terms of Use</h1>
-    <p>Please read these terms carefully before using TravelWise. By accessing our platform, you agree to be bound by these terms.</p>
-    <div class="legal-meta">
-      <span>Last Updated: March 2026</span>
-      <span>Governed by Indian Law</span>
-    </div>
+    <p>Last updated: March 1, 2026 &nbsp;·&nbsp; Effective immediately</p>
   </div>
 </section>
 
 <div class="legal-layout">
-  <!-- TOC SIDEBAR -->
-  <aside class="toc-sidebar reveal">
-    <div class="toc-header">Contents</div>
-    <a class="toc-item active" href="#acceptance" onclick="scrollTo('acceptance')">1. Acceptance of Terms</a>
-    <a class="toc-item" href="#use-platform" onclick="scrollTo('use-platform')">2. Use of the Platform</a>
-    <a class="toc-item" href="#user-accounts" onclick="scrollTo('user-accounts')">3. User Accounts</a>
-    <a class="toc-item" href="#booking" onclick="scrollTo('booking')">4. Booking & Reservations</a>
-    <a class="toc-item" href="#payment" onclick="scrollTo('payment')">5. Payment Terms</a>
-    <a class="toc-item" href="#cancellation" onclick="scrollTo('cancellation')">6. Cancellation & Refunds</a>
-    <a class="toc-item" href="#ip" onclick="scrollTo('ip')">7. Intellectual Property</a>
-    <a class="toc-item" href="#liability" onclick="scrollTo('liability')">8. Limitation of Liability</a>
-    <a class="toc-item" href="#indemnification" onclick="scrollTo('indemnification')">9. Indemnification</a>
-    <a class="toc-item" href="#governing-law" onclick="scrollTo('governing-law')">10. Governing Law</a>
-    <a class="toc-item" href="#changes-terms" onclick="scrollTo('changes-terms')">11. Changes to Terms</a>
-    <a class="toc-item" href="#contact-terms" onclick="scrollTo('contact-terms')">12. Contact Information</a>
+
+  <!-- SIDEBAR -->
+  <aside class="legal-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Table of Contents</div>
+      <a href="#acceptance" class="toc-link" onclick="smoothNav(event,'acceptance')">1. Acceptance of Terms</a>
+      <a href="#service" class="toc-link" onclick="smoothNav(event,'service')">2. Use of Service</a>
+      <a href="#account" class="toc-link" onclick="smoothNav(event,'account')">3. Account Registration</a>
+      <a href="#booking" class="toc-link" onclick="smoothNav(event,'booking')">4. Booking &amp; Payments</a>
+      <a href="#cancellations" class="toc-link" onclick="smoothNav(event,'cancellations')">5. Cancellations &amp; Refunds</a>
+      <a href="#content" class="toc-link" onclick="smoothNav(event,'content')">6. User Content</a>
+      <a href="#ip" class="toc-link" onclick="smoothNav(event,'ip')">7. Intellectual Property</a>
+      <a href="#disclaimers" class="toc-link" onclick="smoothNav(event,'disclaimers')">8. Disclaimers</a>
+      <a href="#liability" class="toc-link" onclick="smoothNav(event,'liability')">9. Limitation of Liability</a>
+      <a href="#governing" class="toc-link" onclick="smoothNav(event,'governing')">10. Governing Law</a>
+      <a href="#contact" class="toc-link" onclick="smoothNav(event,'contact')">11. Contact</a>
+    </div>
   </aside>
 
   <!-- CONTENT -->
-  <div class="legal-content">
+  <main class="legal-content">
 
-    <div class="highlight-box coral reveal">
-      <div class="hb-icon">⚠️</div>
-      <div class="hb-text"><strong>Important:</strong> By accessing or using TravelWise, you agree to these Terms of Use. If you do not agree with any part of these terms, please discontinue use of our platform immediately.</div>
+    <div class="info-box" style="margin-bottom:36px;">
+      <strong>Please read these terms carefully.</strong> By accessing or using TravelWise (travelwise.in or our mobile apps), you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use our services.
     </div>
 
-    <!-- 1. ACCEPTANCE -->
-    <div class="legal-section reveal" id="acceptance">
-      <h2><span class="section-icon">✅</span>1. Acceptance of Terms</h2>
-      <p>These Terms of Use ("Terms") constitute a legally binding agreement between you ("User", "you", or "your") and TravelWise Technologies Private Limited ("TravelWise", "we", "us", or "our"), a company incorporated under the Companies Act, 2013 in India.</p>
-      <p>By accessing, browsing, or using our website at travelwise.com, our mobile applications, or any related services (collectively, the "Platform"), you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy, which is incorporated herein by reference.</p>
-      <p>If you are using the Platform on behalf of a company or other legal entity, you represent that you have the authority to bind such entity to these Terms, in which case "you" and "your" shall refer to such entity.</p>
+    <section id="acceptance" class="legal-section reveal">
+      <span class="legal-section-num">Section 01</span>
+      <h2>Acceptance of Terms</h2>
+      <p>Welcome to TravelWise. These Terms of Use ("Terms") govern your access to and use of the TravelWise website (travelwise.in), mobile applications, and all related services (collectively, the "Services") operated by TravelWise Technologies Pvt. Ltd. ("TravelWise", "we", "us", or "our").</p>
+      <p>By creating an account, making a booking, or simply browsing the TravelWise platform, you acknowledge that you have read, understood, and agree to be legally bound by these Terms and our <a href="privacy.html">Privacy Policy</a>.</p>
+      <p>We reserve the right to modify these Terms at any time. Continued use of the Services after changes become effective constitutes acceptance of the revised Terms.</p>
+    </section>
 
-      <div class="highlight-box green">
-        <div class="hb-icon">🔞</div>
-        <div class="hb-text"><strong>Age Requirement:</strong> You must be at least 18 years old to create an account or make bookings on TravelWise. By using our platform, you represent that you meet this age requirement.</div>
+    <section id="service" class="legal-section reveal">
+      <span class="legal-section-num">Section 02</span>
+      <h2>Use of Service</h2>
+      <p>TravelWise grants you a limited, non-exclusive, non-transferable license to access and use our Services for personal, non-commercial travel booking purposes only.</p>
+      <p><strong style="color:var(--text-strong)">Permitted Uses:</strong></p>
+      <ul>
+        <li>Searching for and booking flights, hotels, and holiday packages for yourself or on behalf of family members</li>
+        <li>Accessing your booking history, travel documents, and account information</li>
+        <li>Submitting reviews and ratings based on genuine travel experiences</li>
+        <li>Contacting customer support for assistance with bookings</li>
+      </ul>
+      <p><strong style="color:var(--text-strong)">Prohibited Uses:</strong></p>
+      <ul>
+        <li><strong>Fraud &amp; Misrepresentation</strong> — Providing false information during registration, booking, or identity verification</li>
+        <li><strong>Automated Scraping</strong> — Using bots, crawlers, or automated tools to extract data, pricing, or content from TravelWise</li>
+        <li><strong>Commercial Resale</strong> — Reselling TravelWise bookings or access to our platform without written authorization</li>
+        <li><strong>Interference</strong> — Attempting to disrupt, damage, or gain unauthorized access to our servers or systems</li>
+        <li><strong>Harmful Content</strong> — Uploading viruses, malware, or any content that is defamatory, offensive, or illegal</li>
+        <li><strong>Multiple Bookings Fraud</strong> — Making speculative bookings with no genuine intention to travel</li>
+      </ul>
+      <div class="warning-box">
+        <strong>Violations may result in immediate account termination.</strong> TravelWise reserves the right to suspend or permanently ban accounts found in violation of these terms without prior notice.
       </div>
-    </div>
+    </section>
 
-    <!-- 2. USE OF PLATFORM -->
-    <div class="legal-section reveal" id="use-platform">
-      <h2><span class="section-icon">💻</span>2. Use of the Platform</h2>
-
-      <h3>2.1 Permitted Use</h3>
-      <p>You may use the Platform solely for personal, non-commercial travel planning and booking purposes, subject to these Terms. Permitted uses include:</p>
+    <section id="account" class="legal-section reveal">
+      <span class="legal-section-num">Section 03</span>
+      <h2>Account Registration</h2>
+      <p>To access booking features, you must create a TravelWise account. By registering, you represent and warrant that:</p>
       <ul>
-        <li>Searching for flights, hotels, holiday packages, and train tickets</li>
-        <li>Making bookings and managing your travel itinerary</li>
-        <li>Accessing your booking history and travel documents</li>
-        <li>Contacting customer support for assistance</li>
+        <li><strong>Eligibility</strong> — You are at least 18 years of age, or have parental/guardian consent if between 13 and 17</li>
+        <li><strong>Accurate Information</strong> — All information you provide during registration is accurate, current, and complete</li>
+        <li><strong>One Account Per Person</strong> — You will maintain only one personal account and will not create accounts on behalf of others without authorization</li>
+        <li><strong>Account Security</strong> — You are responsible for maintaining the confidentiality of your password and for all activity under your account</li>
+        <li><strong>Notification of Breach</strong> — You will notify us immediately at <a href="mailto:security@travelwise.in">security@travelwise.in</a> if you suspect unauthorized access to your account</li>
       </ul>
+      <p>TravelWise cannot be held liable for any loss or damage arising from your failure to maintain the security of your account credentials.</p>
+    </section>
 
-      <h3>2.2 Prohibited Use</h3>
-      <p>You agree not to use the Platform for any of the following purposes:</p>
+    <section id="booking" class="legal-section reveal">
+      <span class="legal-section-num">Section 04</span>
+      <h2>Booking &amp; Payments</h2>
+      <p>When you complete a booking on TravelWise, you are entering into a contract for travel services with the relevant airline, hotel, or service provider. TravelWise acts as an agent facilitating that booking.</p>
       <ul>
-        <li>Making fraudulent or speculative bookings</li>
-        <li>Using automated tools, bots, or scrapers to access our content or data</li>
-        <li>Attempting to gain unauthorised access to any part of the Platform or its systems</li>
-        <li>Reproducing, distributing, or commercially exploiting any content from the Platform</li>
-        <li>Transmitting viruses, malware, or any harmful code</li>
-        <li>Impersonating any person or entity or misrepresenting your identity</li>
-        <li>Interfering with or disrupting the Platform's infrastructure</li>
-        <li>Violating any applicable local, national, or international law or regulation</li>
+        <li><strong>Booking Confirmation</strong> — A booking is confirmed only when you receive a confirmation email from TravelWise with a booking reference number</li>
+        <li><strong>Payment Authorization</strong> — By submitting payment, you authorize TravelWise to charge the full amount displayed at checkout using your selected payment method</li>
+        <li><strong>Price Accuracy</strong> — We make every effort to display accurate prices. In the rare event of a pricing error, we will notify you and offer the option to proceed at the correct price or cancel for a full refund</li>
+        <li><strong>Currency &amp; Taxes</strong> — All prices are displayed in Indian Rupees (INR) unless stated otherwise, and include applicable taxes and service fees</li>
+        <li><strong>Payment Methods</strong> — We accept UPI, net banking, credit/debit cards, and TravelWise Wallet credits</li>
       </ul>
-
-      <div class="highlight-box red">
-        <div class="hb-icon">🚫</div>
-        <div class="hb-text"><strong>Violation Consequences:</strong> Violation of these usage terms may result in immediate suspension or termination of your account, cancellation of pending bookings, and potential legal action.</div>
+      <div class="info-box">
+        <strong>Price Lock:</strong> Prices are only guaranteed at the time of confirmed payment. Prices shown during search are indicative and may change until payment is completed.
       </div>
-    </div>
+    </section>
 
-    <!-- 3. USER ACCOUNTS -->
-    <div class="legal-section reveal" id="user-accounts">
-      <h2><span class="section-icon">👤</span>3. User Accounts</h2>
-
-      <h3>3.1 Account Registration</h3>
-      <p>To access certain features of the Platform, you must create an account. When registering, you agree to provide accurate, current, and complete information. You are responsible for maintaining the confidentiality of your account credentials.</p>
-
-      <h3>3.2 Account Security</h3>
-      <p>You are solely responsible for all activities that occur under your account. You agree to:</p>
+    <section id="cancellations" class="legal-section reveal">
+      <span class="legal-section-num">Section 05</span>
+      <h2>Cancellations &amp; Refunds</h2>
+      <p>Cancellation and refund policies vary by airline, hotel, and the fare type selected at booking. TravelWise's role is to facilitate cancellations and pass through applicable refunds from the service provider.</p>
       <ul>
-        <li>Maintain the security of your password and not share it with others</li>
-        <li>Notify us immediately at security@travelwise.com of any unauthorised access</li>
-        <li>Not use another user's account without their express permission</li>
-        <li>Enable two-factor authentication for enhanced security (strongly recommended)</li>
+        <li>Refund timelines and amounts depend on the specific fare rules and the provider's cancellation policy</li>
+        <li>Non-refundable fares will not be eligible for a monetary refund but may qualify for travel credits at the provider's discretion</li>
+        <li>TravelWise service fees are generally non-refundable on cancellations unless the cancellation is due to a TravelWise error</li>
+        <li>Force majeure cancellations (natural disasters, government travel bans, airline groundings) are handled on a case-by-case basis</li>
       </ul>
+      <p>For detailed information on refund timelines and amounts, please review our <a href="refunds.html">Refunds &amp; Cancellations Policy</a>. To initiate a cancellation, go to My Trips in your account.</p>
+    </section>
 
-      <h3>3.3 Account Termination</h3>
-      <p>TravelWise reserves the right to suspend or terminate accounts that violate these Terms, engage in fraudulent activity, or remain inactive for more than 36 consecutive months. You may request account deletion at any time through Account Settings or by contacting support.</p>
-    </div>
+    <section id="content" class="legal-section reveal">
+      <span class="legal-section-num">Section 06</span>
+      <h2>User Content</h2>
+      <p>You may submit reviews, ratings, photos, comments, and other content ("User Content") to TravelWise in connection with your travel experiences. By submitting User Content, you:</p>
+      <ul>
+        <li><strong>License Grant</strong> — Grant TravelWise a worldwide, royalty-free, perpetual, irrevocable license to use, display, reproduce, distribute, and modify your User Content in connection with our Services and marketing</li>
+        <li><strong>Accuracy</strong> — Represent that your reviews and ratings are based on genuine, first-hand travel experiences</li>
+        <li><strong>Content Standards</strong> — Agree not to post content that is false, defamatory, offensive, discriminatory, pornographic, or that infringes any third-party rights</li>
+        <li><strong>Responsibility</strong> — Acknowledge that you are solely responsible for any User Content you submit</li>
+      </ul>
+      <p>TravelWise reserves the right to remove any User Content that violates these standards or for any other reason at our sole discretion.</p>
+    </section>
 
-    <!-- 4. BOOKING -->
-    <div class="legal-section reveal" id="booking">
-      <h2><span class="section-icon">🎫</span>4. Booking & Reservations</h2>
+    <section id="ip" class="legal-section reveal">
+      <span class="legal-section-num">Section 07</span>
+      <h2>Intellectual Property</h2>
+      <p>All content on the TravelWise platform — including but not limited to the logo, design, software, text, graphics, images, data compilations, and the TravelWise name — is the exclusive property of TravelWise Technologies Pvt. Ltd. or its licensors, protected by applicable intellectual property laws.</p>
+      <ul>
+        <li>You are granted a limited license to access and view content for personal travel planning purposes only</li>
+        <li>You may not reproduce, distribute, modify, create derivative works from, or commercially exploit any TravelWise content without prior written consent</li>
+        <li>TravelWise trademarks and logos may not be used without explicit written authorization</li>
+        <li>The TravelWise platform architecture, database structure, and proprietary algorithms are trade secrets and confidential</li>
+      </ul>
+    </section>
 
-      <h3>4.1 Booking as Agent</h3>
-      <p>TravelWise acts as an intermediary agent between you and travel service providers (airlines, hotels, car rental companies, etc.). We are not the principal supplier of the travel services you book. Your contract for the travel service is directly with the service provider.</p>
+    <section id="disclaimers" class="legal-section reveal">
+      <span class="legal-section-num">Section 08</span>
+      <h2>Disclaimers</h2>
+      <p>TravelWise provides the platform "as is" and "as available" without warranties of any kind, either express or implied.</p>
+      <ul>
+        <li><strong>Third-Party Providers</strong> — TravelWise is not responsible for the acts, omissions, or quality of airlines, hotels, or other third-party service providers. Disputes regarding the quality of travel services must be raised with the provider directly</li>
+        <li><strong>Pricing Accuracy</strong> — While we strive to display accurate prices, errors may occur. We reserve the right to correct pricing errors and are not bound to honor bookings made at clearly erroneous prices</li>
+        <li><strong>Force Majeure</strong> — TravelWise is not liable for any failure or delay in performance due to circumstances beyond our control, including natural disasters, pandemics, war, strikes, or government actions</li>
+        <li><strong>Destination Information</strong> — Travel advisories, visa requirements, and safety information on TravelWise is provided for general guidance only. Always verify with official government sources before traveling</li>
+      </ul>
+    </section>
 
-      <h3>4.2 Booking Confirmation</h3>
-      <p>A booking is only confirmed when you receive a confirmation email with a booking reference number. Displaying search results or prices does not constitute a confirmed booking. Prices are subject to change until payment is completed.</p>
+    <section id="liability" class="legal-section reveal">
+      <span class="legal-section-num">Section 09</span>
+      <h2>Limitation of Liability</h2>
+      <p>To the maximum extent permitted by applicable law, TravelWise, its officers, directors, employees, and agents shall not be liable for:</p>
+      <ul>
+        <li>Any indirect, incidental, special, consequential, or punitive damages arising from your use of the Services</li>
+        <li>Loss of profits, data, goodwill, or other intangible losses resulting from service interruptions</li>
+        <li>Failures, delays, or disruptions caused by third-party airlines, hotels, or service providers</li>
+        <li>Unauthorized access to or alteration of your account that results from your failure to maintain account security</li>
+      </ul>
+      <p>In jurisdictions where limitation of liability is not permitted, our liability shall be limited to the maximum extent permitted by law. In no event shall TravelWise's total liability to you exceed the amount you paid for the specific booking giving rise to the claim.</p>
+    </section>
 
-      <div class="highlight-box purple">
-        <div class="hb-icon">📧</div>
-        <div class="hb-text"><strong>Always verify your booking details</strong> — passenger names, travel dates, and destinations — immediately upon receiving your confirmation. Changes after confirmation may incur fees.</div>
+    <section id="governing" class="legal-section reveal">
+      <span class="legal-section-num">Section 10</span>
+      <h2>Governing Law &amp; Jurisdiction</h2>
+      <p>These Terms of Use shall be governed by and construed in accordance with the laws of India, without regard to conflict of law principles.</p>
+      <p>Any dispute, claim, or controversy arising from or relating to these Terms or your use of TravelWise Services shall be subject to the exclusive jurisdiction of the courts located in Bengaluru, Karnataka, India.</p>
+      <ul>
+        <li>You consent to the personal jurisdiction of the courts in Bengaluru, Karnataka for the resolution of any disputes</li>
+        <li>You waive any objection to the exercise of jurisdiction over you by such courts and to venue in such courts</li>
+        <li>Nothing in this clause shall prevent TravelWise from seeking injunctive relief in any court of competent jurisdiction</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="legal-section reveal">
+      <span class="legal-section-num">Section 11</span>
+      <h2>Contact</h2>
+      <p>For any legal questions, notices, or concerns regarding these Terms of Use, please contact our Legal Team:</p>
+      <ul>
+        <li><strong>Email</strong> — <a href="mailto:legal@travelwise.in">legal@travelwise.in</a></li>
+        <li><strong>Response Time</strong> — Legal inquiries are typically acknowledged within 5 business days</li>
+        <li><strong>Postal Address</strong> — TravelWise Legal Department, 5th Floor, Embassy Tech Village, Outer Ring Road, Bengaluru, Karnataka 560103, India</li>
+      </ul>
+      <div class="info-box">
+        For general customer support (bookings, refunds, account issues), please visit our <a href="help.html">Help Center</a> or <a href="contact.html">Contact Us</a> page — not this legal address.
       </div>
+    </section>
 
-      <h3>4.3 Accuracy of Information</h3>
-      <p>You are responsible for providing accurate passenger details, including names exactly as they appear on passports for international travel. TravelWise is not liable for denied boarding or cancelled bookings due to name mismatches or incorrect information provided by you.</p>
-
-      <h3>4.4 Pricing</h3>
-      <p>All prices displayed are inclusive of applicable taxes unless stated otherwise. Prices are subject to availability and may change without notice until the booking is confirmed. TravelWise reserves the right to cancel bookings made at erroneous prices and will provide a full refund in such cases.</p>
-    </div>
-
-    <!-- 5. PAYMENT -->
-    <div class="legal-section reveal" id="payment">
-      <h2><span class="section-icon">💳</span>5. Payment Terms</h2>
-
-      <h3>5.1 Payment Processing</h3>
-      <p>All payments on TravelWise are processed securely through our payment gateway partners. By making a payment, you authorise TravelWise to charge the stated amount to your chosen payment method.</p>
-
-      <h3>5.2 Currency</h3>
-      <p>All prices on TravelWise are displayed in Indian Rupees (INR) by default. For international bookings, prices may be displayed in the destination country's currency. Any foreign exchange conversion is handled by your bank or payment provider and may include conversion fees.</p>
-
-      <h3>5.3 Price Changes</h3>
-      <p>If a price error or technical fault results in a booking at an incorrectly low price, TravelWise may cancel the booking and offer you the correct price or a full refund. We are not obligated to honour bookings made at erroneous prices.</p>
-
-      <h3>5.4 Taxes and Fees</h3>
-      <p>Booking prices include GST where applicable. Airport taxes, development fees, and fuel surcharges are included in the displayed price. Some destinations may require payment of local taxes upon arrival that are not collected at the time of booking.</p>
-    </div>
-
-    <!-- 6. CANCELLATION -->
-    <div class="legal-section reveal" id="cancellation">
-      <h2><span class="section-icon">❌</span>6. Cancellation & Refund Policy</h2>
-      <p>Cancellation and refund terms are governed by the fare rules of the specific airline, hotel, or service provider, supplemented by TravelWise's platform policies. Key points:</p>
-      <ul>
-        <li>Cancellation fees vary by booking type, provider, and how far in advance you cancel</li>
-        <li>The TravelWise platform convenience fee is non-refundable unless the cancellation is due to service provider error</li>
-        <li>Refunds are processed to the original payment method within the timelines specified on our <a href="refunds.html" style="color:var(--coral)">Refunds page</a></li>
-        <li>No-show (failure to arrive without cancellation) may result in forfeiture of the full booking amount</li>
-      </ul>
-
-      <div class="highlight-box gold">
-        <div class="hb-icon">📋</div>
-        <div class="hb-text"><strong>Full refund & cancellation details</strong> are available on the <a href="refunds.html" style="color:var(--gold)">Refunds & Cancellations</a> page, including specific timelines for flights, hotels, and packages.</div>
-      </div>
-    </div>
-
-    <!-- 7. INTELLECTUAL PROPERTY -->
-    <div class="legal-section reveal" id="ip">
-      <h2><span class="section-icon">©️</span>7. Intellectual Property</h2>
-
-      <h3>7.1 TravelWise Ownership</h3>
-      <p>The Platform, including all content, features, functionality, design, graphics, text, logos, software, and underlying technology, is owned by TravelWise Technologies Private Limited and is protected by Indian and international copyright, trademark, patent, and other intellectual property laws.</p>
-
-      <h3>7.2 Limited Licence to Users</h3>
-      <p>TravelWise grants you a limited, non-exclusive, non-transferable, revocable licence to access and use the Platform for personal, non-commercial purposes as permitted by these Terms. This licence does not include the right to:</p>
-      <ul>
-        <li>Reproduce, copy, or distribute Platform content for commercial purposes</li>
-        <li>Modify, adapt, or create derivative works based on the Platform</li>
-        <li>Reverse engineer, decompile, or disassemble any part of the Platform</li>
-        <li>Remove or alter any copyright, trademark, or proprietary notices</li>
-      </ul>
-
-      <h3>7.3 User Content</h3>
-      <p>By submitting reviews, feedback, photos, or other content to the Platform, you grant TravelWise a worldwide, royalty-free, perpetual licence to use, display, and moderate such content for the purposes of operating and improving the Platform.</p>
-    </div>
-
-    <!-- 8. LIMITATION OF LIABILITY -->
-    <div class="legal-section reveal" id="liability">
-      <h2><span class="section-icon">⚖️</span>8. Limitation of Liability</h2>
-
-      <div class="highlight-box red">
-        <div class="hb-icon">❗</div>
-        <div class="hb-text"><strong>Important Limitation:</strong> To the maximum extent permitted by applicable law, TravelWise's total liability to you for any claim arising from your use of the Platform shall not exceed the amount you paid for the specific booking giving rise to the claim.</div>
-      </div>
-
-      <p>TravelWise shall not be liable for:</p>
-      <ul>
-        <li>Actions, errors, omissions, or negligence of travel service providers (airlines, hotels, etc.)</li>
-        <li>Flight delays, cancellations, or schedule changes made by airlines</li>
-        <li>Overbooking situations by hotels or airlines</li>
-        <li>Loss, damage, or theft of baggage or personal belongings</li>
-        <li>Force majeure events including natural disasters, pandemics, wars, or government actions</li>
-        <li>Indirect, incidental, special, punitive, or consequential damages</li>
-        <li>Loss of profits, goodwill, or data arising from use of the Platform</li>
-        <li>Losses arising from your failure to obtain adequate travel insurance</li>
-      </ul>
-
-      <p>Nothing in these Terms shall exclude or limit liability for death or personal injury caused by TravelWise's negligence, fraud, or as otherwise required by applicable law.</p>
-    </div>
-
-    <!-- 9. INDEMNIFICATION -->
-    <div class="legal-section reveal" id="indemnification">
-      <h2><span class="section-icon">🛡️</span>9. Indemnification</h2>
-      <p>You agree to indemnify, defend, and hold harmless TravelWise, its directors, officers, employees, agents, and partners from and against any claims, liabilities, damages, losses, costs, and expenses (including reasonable legal fees) arising from or related to:</p>
-      <ul>
-        <li>Your use or misuse of the Platform</li>
-        <li>Your breach of these Terms or any applicable law or regulation</li>
-        <li>Your violation of any third party's rights, including intellectual property rights</li>
-        <li>False or inaccurate information provided by you</li>
-        <li>Any content you submit, post, or transmit through the Platform</li>
-      </ul>
-    </div>
-
-    <!-- 10. GOVERNING LAW -->
-    <div class="legal-section reveal" id="governing-law">
-      <h2><span class="section-icon">⚖️</span>10. Governing Law</h2>
-      <p>These Terms shall be governed by and construed in accordance with the laws of India, specifically:</p>
-      <ul>
-        <li>The Information Technology Act, 2000 and rules thereunder</li>
-        <li>The Consumer Protection Act, 2019</li>
-        <li>The Contract Act, 1872</li>
-        <li>The Digital Personal Data Protection Act, 2023</li>
-      </ul>
-
-      <div class="highlight-box purple">
-        <div class="hb-icon">🏛️</div>
-        <div class="hb-text"><strong>Jurisdiction:</strong> Any disputes arising from these Terms or your use of TravelWise shall be subject to the exclusive jurisdiction of the courts of Mumbai, Maharashtra, India. You consent to the personal jurisdiction of such courts.</div>
-      </div>
-
-      <h3>10.1 Dispute Resolution</h3>
-      <p>Before initiating any legal proceedings, you agree to first attempt to resolve any dispute amicably by contacting TravelWise at legal@travelwise.com. We will endeavour to resolve the dispute within 30 days. If unresolved, disputes may be referred to arbitration under the Arbitration and Conciliation Act, 1996, with the seat of arbitration in Mumbai.</p>
-    </div>
-
-    <!-- 11. CHANGES TO TERMS -->
-    <div class="legal-section reveal" id="changes-terms">
-      <h2><span class="section-icon">📝</span>11. Changes to Terms</h2>
-      <p>TravelWise reserves the right to modify these Terms at any time. Changes become effective immediately upon posting to the Platform. We will notify registered users of material changes via email or a prominent notice on the Platform at least 7 days before the changes take effect.</p>
-      <p>Your continued use of the Platform after the effective date of changes constitutes your acceptance of the revised Terms. If you do not agree to the revised Terms, you should discontinue use of the Platform and may request account deletion.</p>
-      <p>We maintain an archive of previous versions of these Terms, which is available upon written request to legal@travelwise.com.</p>
-    </div>
-
-    <!-- 12. CONTACT -->
-    <div class="legal-section reveal" id="contact-terms">
-      <h2><span class="section-icon">📞</span>12. Contact Information</h2>
-      <p>For questions, concerns, or notices regarding these Terms of Use, please contact:</p>
-      <ul>
-        <li><strong>Legal Department:</strong> legal@travelwise.com</li>
-        <li><strong>General Support:</strong> support@travelwise.com or 1800-123-4567</li>
-        <li><strong>Registered Office:</strong> TravelWise Technologies Private Limited, Level 12, One World Centre, Prabhadevi, Mumbai — 400 013, Maharashtra, India</li>
-        <li><strong>CIN:</strong> U63040MH2024PTC123456</li>
-        <li><strong>GST:</strong> 27AABCT1234M1Z5</li>
-      </ul>
-      <p>These Terms were last updated in March 2026 and supersede all previous versions.</p>
-    </div>
-
-  </div><!-- /legal-content -->
-</div><!-- /legal-layout -->
+  </main>
+</div>
 
 <div id="footer-root"></div>
 <script src="nav.js"></script>
 <script>
-window.addEventListener('scroll', function() {
-  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  var progress = (window.scrollY / docHeight) * 100;
-  document.getElementById('reading-progress').style.width = Math.min(progress, 100) + '%';
-});
-
-var sections = document.querySelectorAll('.legal-section');
-var tocItems = document.querySelectorAll('.toc-item');
-var io = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      var id = entry.target.id;
-      tocItems.forEach(function(item) {
-        item.classList.toggle('active', item.getAttribute('href') === '#' + id);
-      });
-    }
-  });
-}, { rootMargin: '-20% 0px -70% 0px' });
-sections.forEach(function(s) { io.observe(s); });
-
-function scrollTo(id) {
+function smoothNav(e, id) {
+  e.preventDefault();
   var el = document.getElementById(id);
-  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  event.preventDefault();
+  if (el) { window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' }); }
 }
 
-var revealEls = document.querySelectorAll('.reveal');
-var revIO = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if(e.isIntersecting){ e.target.classList.add('revealed'); revIO.unobserve(e.target); }});
-}, { threshold: 0.06 });
-revealEls.forEach(function(el){ revIO.observe(el); });
+(function(){
+  var sections = document.querySelectorAll('.legal-section[id]');
+  var links = document.querySelectorAll('.toc-link');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        var id = e.target.id;
+        links.forEach(function(l){ l.classList.remove('active'); });
+        var active = document.querySelector('.toc-link[href="#' + id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -65% 0px' });
+  sections.forEach(function(s){ io.observe(s); });
+})();
+
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.05 });
+  els.forEach(function(el){ io.observe(el); });
+})();
 </script>
 </body>
 </html>

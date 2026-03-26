@@ -11,174 +11,219 @@
 <style>
 /* ── Hero ── */
 .safety-hero {
-  padding: 100px 24px 80px; position: relative; overflow: hidden; text-align: center;
-  background: linear-gradient(135deg, #1A1033 0%, #2D1B69 40%, #0B1D3E 100%);
+  padding: 110px 24px 90px;
+  position: relative; overflow: hidden; text-align: center;
+  background: linear-gradient(135deg, #0F0620 0%, #1E0A4E 40%, #041427 100%);
 }
 .safety-hero::before {
   content: ''; position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse at 30% 60%, rgba(108,43,217,0.3) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 30%, rgba(0,201,255,0.2) 0%, transparent 50%);
+    radial-gradient(ellipse at 20% 70%, rgba(108,43,217,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,201,255,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 55% 90%, rgba(255,107,53,0.15) 0%, transparent 40%);
 }
-.safety-hero-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+.safety-hero-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 700;
-  color: #fff; margin-bottom: 20px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  padding: 8px 20px; border-radius: 100px; font-size: 13px; font-weight: 700;
+  color: #fff; margin-bottom: 22px; letter-spacing: 0.3px;
 }
 .safety-hero h1 {
-  font-family: var(--display); font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800;
-  color: #fff; margin-bottom: 14px; line-height: 1.15;
+  font-family: var(--display); font-size: clamp(2.2rem, 5.5vw, 3.8rem); font-weight: 800;
+  color: #fff; margin-bottom: 18px; line-height: 1.12;
 }
 .safety-hero h1 span {
   background: linear-gradient(90deg, #00C9FF, #6C2BD9);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
-.safety-hero p { font-size: 16px; color: rgba(255,255,255,0.78); margin-bottom: 32px; }
-.hero-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.safety-hero p { font-size: 17px; color: rgba(255,255,255,0.75); margin-bottom: 36px; line-height: 1.65; }
+.hero-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .hero-badge {
-  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-  padding: 8px 18px; border-radius: 100px; font-size: 13px; color: rgba(255,255,255,0.9);
-  font-weight: 500;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+  padding: 9px 18px; border-radius: 100px; font-size: 13px; color: rgba(255,255,255,0.88);
+  font-weight: 500; transition: all 0.2s;
 }
+.hero-badge:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
 
 /* ── Wrapper ── */
-.safety-wrap { max-width: 1100px; margin: 0 auto; padding: 64px 24px; }
+.safety-wrap { max-width: 1100px; margin: 0 auto; padding: 72px 24px; }
+
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  background: linear-gradient(90deg, var(--purple), var(--teal));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 10px;
+}
 .section-title {
-  font-family: var(--display); font-size: 1.6rem; font-weight: 700;
+  font-family: var(--display); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700;
+  color: var(--text-strong); margin-bottom: 10px;
+}
+.section-sub { color: var(--muted); font-size: 15px; margin-bottom: 36px; line-height: 1.6; }
+
+/* ── Safety Feature Cards ── */
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 72px;
+}
+@media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .features-grid { grid-template-columns: 1fr; } }
+
+.feature-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 28px 24px; position: relative; overflow: hidden;
+  transition: all 0.28s var(--ease); cursor: default;
+}
+.feature-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(108,43,217,0.06), rgba(0,201,255,0.04));
+  opacity: 0; transition: opacity 0.28s;
+}
+.feature-card:hover { border-color: var(--border2); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+.feature-card:hover::before { opacity: 1; }
+.feature-card:hover .feature-icon { transform: scale(1.1) rotate(-5deg); }
+.feature-icon {
+  width: 52px; height: 52px; border-radius: 14px; margin-bottom: 18px;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; transition: transform 0.3s var(--ease);
+  box-shadow: 0 4px 16px rgba(108,43,217,0.3);
+}
+.feature-card h3 {
+  font-family: var(--display); font-size: 16px; font-weight: 700;
   color: var(--text-strong); margin-bottom: 8px;
 }
-.section-sub { color: var(--muted); font-size: 15px; margin-bottom: 32px; }
-
-/* ── Tips Sections ── */
-.tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 56px; }
-.tip-card {
-  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 22px 20px; display: flex; gap: 14px; align-items: flex-start;
-  transition: all 0.25s var(--ease);
+.feature-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.feature-tag {
+  display: inline-block; margin-top: 14px; padding: 4px 12px; border-radius: 100px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  background: rgba(16,185,129,0.12); color: var(--green); border: 1px solid rgba(16,185,129,0.25);
 }
-.tip-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-.tip-num {
-  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+
+/* ── Destination Safety Accordion ── */
+.accordion-section { margin-bottom: 72px; }
+.accordion-item {
+  border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px;
+  overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s;
+}
+.accordion-item.open { border-color: rgba(108,43,217,0.4); box-shadow: 0 4px 20px rgba(108,43,217,0.1); }
+.accordion-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 22px; cursor: pointer; gap: 14px;
+  background: var(--card); transition: background 0.2s; user-select: none;
+}
+.accordion-q:hover { background: var(--card-hover); }
+.accordion-q-left { display: flex; align-items: center; gap: 14px; }
+.accordion-flag { font-size: 26px; }
+.accordion-q-info h4 { font-size: 15px; font-weight: 700; color: var(--text-strong); }
+.accordion-q-info span { font-size: 12px; color: var(--muted); margin-top: 1px; display: block; }
+.accordion-chevron {
+  width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
+  background: var(--bg3); display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s var(--ease); font-size: 12px; color: var(--muted);
+}
+.accordion-item.open .accordion-chevron {
   background: linear-gradient(135deg, var(--purple), var(--teal));
-  color: #fff; font-weight: 700; font-size: 13px;
-  display: flex; align-items: center; justify-content: center;
+  color: #fff; transform: rotate(180deg);
 }
-.tip-text h4 { font-size: 14px; font-weight: 600; color: var(--text-strong); margin-bottom: 4px; }
-.tip-text p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+.accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.42s var(--ease); }
+.accordion-body-inner { padding: 0 22px 22px; }
+.accordion-body-inner p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+.accordion-tips { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.acc-tip {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 12px 14px; font-size: 13px; color: var(--text);
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.acc-tip-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--teal));
+  flex-shrink: 0; margin-top: 5px;
+}
+.accordion-item.open .accordion-body { max-height: 600px; }
 
-/* ── Section divider ── */
-.section-divider { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
-
-/* ── Checklist ── */
-.checklist-section { margin-bottom: 56px; }
-.checklist-intro { margin-bottom: 20px; }
-.checklist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
-.checklist-item {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm);
-  padding: 13px 16px; cursor: pointer; transition: all 0.2s;
-  user-select: none;
-}
-.checklist-item:hover { border-color: var(--purple); }
-.checklist-item.checked { background: rgba(16,185,129,0.07); border-color: rgba(16,185,129,0.3); }
-.checklist-box {
-  width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
-  border: 2px solid var(--border2); background: transparent;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s; font-size: 13px;
-}
-.checklist-item.checked .checklist-box { background: var(--green); border-color: var(--green); }
-.checklist-item span { font-size: 14px; color: var(--text); transition: color 0.2s; }
-.checklist-item.checked span { color: var(--muted); text-decoration: line-through; }
-.checklist-progress { margin-top: 20px; }
-.checklist-progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-top: 8px; }
-.checklist-progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), #059669); border-radius: 4px; transition: width 0.4s var(--ease); }
-.checklist-progress-text { font-size: 14px; color: var(--muted); }
-.checklist-progress-text strong { color: var(--green); }
-
-/* ── Emergency Numbers Table ── */
-.emergency-section { margin-bottom: 56px; overflow-x: auto; }
-.emergency-table {
-  width: 100%; border-collapse: collapse; border: 1px solid var(--border);
-  border-radius: var(--radius); overflow: hidden;
-}
+/* ── Emergency Numbers ── */
+.emergency-section { margin-bottom: 72px; }
+.emergency-table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.emergency-table { width: 100%; border-collapse: collapse; }
 .emergency-table thead th {
-  background: linear-gradient(135deg, #1A1033, #2D1B69);
-  color: rgba(255,255,255,0.9); font-family: var(--display); font-size: 12px;
-  font-weight: 700; padding: 13px 16px; text-align: left; letter-spacing: 0.5px;
-  text-transform: uppercase;
+  padding: 15px 18px; text-align: left; font-size: 11px; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.7);
+  background: linear-gradient(135deg, #1A1033 0%, #2D1B69 100%);
 }
-.emergency-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.2s; }
+.emergency-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.18s; }
 .emergency-table tbody tr:last-child { border-bottom: none; }
 .emergency-table tbody tr:hover { background: var(--card-hover); }
-.emergency-table td { padding: 13px 16px; font-size: 14px; color: var(--text); }
-.emergency-table td:first-child { font-weight: 600; color: var(--text-strong); display: flex; align-items: center; gap: 8px; }
-.emergency-num {
-  display: inline-block; font-weight: 700; font-size: 13px; font-family: var(--display);
-  padding: 3px 10px; border-radius: 6px; background: var(--bg3); color: var(--text-strong);
+.emergency-table td { padding: 14px 18px; font-size: 14px; color: var(--text); vertical-align: middle; }
+.emergency-country { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--text-strong); }
+.emergency-flag { font-size: 22px; }
+.enum {
+  display: inline-block; padding: 3px 11px; border-radius: 6px; font-size: 13px;
+  font-weight: 700; font-family: var(--display); margin-right: 4px;
 }
-.emergency-num.red { background: rgba(239,68,68,0.12); color: #EF4444; }
-.emergency-num.amber { background: rgba(245,158,11,0.12); color: var(--gold); }
-.emergency-num.blue { background: rgba(0,201,255,0.12); color: var(--teal); }
+.enum-red { background: rgba(239,68,68,0.12); color: #EF4444; }
+.enum-blue { background: rgba(0,201,255,0.1); color: var(--teal); }
+.enum-purple { background: rgba(108,43,217,0.12); color: var(--purple); }
+.enum-green { background: rgba(16,185,129,0.1); color: var(--green); }
 
-/* ── Insurance CTA ── */
-.insurance-cta {
-  background: linear-gradient(135deg, #6C2BD9 0%, #FF3CAC 60%, #FF6B35 100%);
-  border-radius: var(--radius-xl); padding: 52px 48px; margin-bottom: 56px;
-  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
-  position: relative; overflow: hidden;
+/* ── Health Cards ── */
+.health-section { margin-bottom: 72px; }
+.health-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.health-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 26px 22px; transition: all 0.25s var(--ease);
 }
-@media (max-width: 600px) { .insurance-cta { grid-template-columns: 1fr; } }
-.insurance-cta::before {
-  content: '🛡️'; position: absolute; right: 140px; top: 50%; transform: translateY(-50%);
-  font-size: 120px; opacity: 0.12;
+.health-card:hover { border-color: var(--border2); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+.health-card-icon { font-size: 32px; margin-bottom: 14px; }
+.health-card h3 { font-family: var(--display); font-size: 15px; font-weight: 700; color: var(--text-strong); margin-bottom: 8px; }
+.health-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.health-status {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+  font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 100px;
 }
-.insurance-cta-text h2 { font-family: var(--display); font-size: 1.7rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
-.insurance-cta-text p { color: rgba(255,255,255,0.82); font-size: 15px; line-height: 1.6; max-width: 500px; }
-.insurance-features { display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
-.insurance-feature {
-  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-  padding: 7px 14px; border-radius: 8px; font-size: 13px; color: #fff; font-weight: 500;
-}
-.btn-insurance {
-  padding: 14px 28px; background: #fff; color: var(--purple);
-  border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 800;
-  cursor: pointer; font-family: var(--font); white-space: nowrap;
-  transition: all 0.2s; box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
-.btn-insurance:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+.health-status.green { background: rgba(16,185,129,0.1); color: var(--green); border: 1px solid rgba(16,185,129,0.25); }
+.health-status.amber { background: rgba(245,158,11,0.1); color: #F59E0B; border: 1px solid rgba(245,158,11,0.25); }
+.health-status.blue { background: rgba(0,201,255,0.1); color: var(--teal); border: 1px solid rgba(0,201,255,0.25); }
+.health-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 
-/* ── Health Accordion ── */
-.health-section { margin-bottom: 56px; }
-.faq-item {
-  border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px;
-  overflow: hidden; transition: border-color 0.2s;
+/* ── Safety Pledge ── */
+.pledge-section {
+  background: linear-gradient(135deg, #0F0620 0%, #1A1033 50%, #041427 100%);
+  border-radius: var(--radius-xl); padding: 60px 48px; margin-bottom: 40px;
+  position: relative; overflow: hidden; text-align: center;
 }
-.faq-item.open { border-color: var(--teal); }
-.faq-q {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 20px; cursor: pointer; gap: 12px;
-  background: var(--card); transition: background 0.2s;
+.pledge-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 50%, rgba(108,43,217,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 50%, rgba(0,201,255,0.15) 0%, transparent 55%);
 }
-.faq-q:hover { background: var(--card-hover); }
-.faq-q span { font-size: 15px; font-weight: 500; color: var(--text-strong); flex: 1; }
-.faq-chevron {
-  width: 28px; height: 28px; border-radius: 8px; background: var(--bg3);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  transition: all 0.3s; font-size: 12px; color: var(--muted);
+.pledge-inner { position: relative; z-index: 2; }
+.pledge-section .section-label-w {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); margin-bottom: 10px;
 }
-.faq-item.open .faq-chevron { background: var(--teal); color: #fff; transform: rotate(180deg); }
-.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
-.faq-a-inner { padding: 0 20px 18px; font-size: 14px; color: var(--muted); line-height: 1.75; }
-.faq-a-inner ul { padding-left: 20px; margin-top: 8px; }
-.faq-a-inner li { margin-bottom: 4px; }
-.faq-item.open .faq-a { max-height: 500px; }
+.pledge-section h2 { font-family: var(--display); font-size: clamp(1.5rem,3vw,2rem); font-weight: 700; color: #fff; margin-bottom: 12px; }
+.pledge-section > .pledge-inner > p { color: rgba(255,255,255,0.65); margin-bottom: 40px; font-size: 15px; }
+.pledge-list {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; text-align: left;
+}
+.pledge-item {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius); padding: 22px 20px;
+  transition: all 0.25s var(--ease);
+}
+.pledge-item:hover { background: rgba(255,255,255,0.11); transform: translateY(-3px); }
+.pledge-check {
+  width: 36px; height: 36px; border-radius: 10px; margin-bottom: 14px;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  display: flex; align-items: center; justify-content: center; font-size: 16px; color: #fff;
+  box-shadow: 0 4px 14px rgba(108,43,217,0.4);
+}
+.pledge-item h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.pledge-item p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; margin: 0; }
 
 @media (max-width: 768px) {
-  .insurance-cta { padding: 36px 24px; }
-  .insurance-cta::before { display: none; }
+  .pledge-section { padding: 40px 24px; }
+  .safety-wrap { padding: 48px 20px; }
 }
 </style>
 </head>
@@ -189,13 +234,13 @@
 <!-- HERO -->
 <section class="safety-hero">
   <div class="safety-hero-inner">
-    <div class="hero-eyebrow">🛡️ Safety Guide</div>
-    <h1>Travel <span>Smart</span>, Travel Safe</h1>
-    <p>Your comprehensive guide to staying safe, healthy, and prepared on every journey — from booking to return.</p>
+    <div class="hero-eyebrow">🛡️ Safety First</div>
+    <h1>Travel Safe with <span>TravelWise</span></h1>
+    <p>Your comprehensive guide to staying secure, healthy, and prepared on every journey — from the first booking to the final return.</p>
     <div class="hero-badges">
-      <span class="hero-badge">✈️ Pre-departure Tips</span>
-      <span class="hero-badge">🌍 At the Destination</span>
-      <span class="hero-badge">🏥 Health & Wellness</span>
+      <span class="hero-badge">🔒 Secure Payments</span>
+      <span class="hero-badge">📞 24/7 Support</span>
+      <span class="hero-badge">🏥 Health Advisories</span>
       <span class="hero-badge">🆘 Emergency Contacts</span>
     </div>
   </div>
@@ -203,367 +248,334 @@
 
 <div class="safety-wrap">
 
-  <!-- PRE-DEPARTURE CHECKLIST (Interactive) -->
-  <div class="checklist-section reveal">
-    <div class="section-title">Pre-Departure Checklist</div>
-    <div class="section-sub">Check off each item before you head to the airport. Progress is saved automatically.</div>
-    <div class="checklist-grid" id="pre-checklist">
-      <div class="checklist-item" data-id="c1" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Passport valid for at least 6 months</span>
+  <!-- SAFETY FEATURES -->
+  <section class="reveal">
+    <div class="section-label">Built-In Protection</div>
+    <div class="section-title">Safety Features You Can Count On</div>
+    <div class="section-sub">Every TravelWise booking comes bundled with industry-leading protections so you can focus on the journey, not the worries.</div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure Payments</h3>
+        <p>Every transaction is protected by PCI-DSS Level 1 compliance and 256-bit SSL encryption — the same standard used by global banks.</p>
+        <span class="feature-tag">✓ PCI-DSS Compliant</span>
       </div>
-      <div class="checklist-item" data-id="c2" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Visa obtained or confirmed on arrival</span>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📞</div>
+        <h3>24/7 Emergency Support</h3>
+        <p>Our travel safety team is available around the clock, any time, anywhere in the world. One call connects you to a live expert — never a bot.</p>
+        <span class="feature-tag">✓ Always On</span>
       </div>
-      <div class="checklist-item" data-id="c3" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Travel insurance purchased</span>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🛡️</div>
+        <h3>Travel Insurance</h3>
+        <p>Built-in coverage options including trip cancellation, medical emergencies, baggage loss, and flight delay compensation.</p>
+        <span class="feature-tag">✓ Comprehensive Cover</span>
       </div>
-      <div class="checklist-item" data-id="c4" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Hotel confirmation and address saved offline</span>
+      <div class="feature-card reveal">
+        <div class="feature-icon">✅</div>
+        <h3>Verified Properties</h3>
+        <p>Every hotel, resort, and homestay on TravelWise passes a rigorous verification process — photos, amenities, and ratings are all independently verified.</p>
+        <span class="feature-tag">✓ 100% Verified</span>
       </div>
-      <div class="checklist-item" data-id="c5" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Emergency contacts shared with family</span>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📲</div>
+        <h3>Real-time Alerts</h3>
+        <p>Receive instant push notifications for safety advisories, weather warnings, civil unrest alerts, and destination-specific updates as they happen.</p>
+        <span class="feature-tag">✓ Instant Notifications</span>
       </div>
-      <div class="checklist-item" data-id="c6" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Flight tickets downloaded and printed</span>
-      </div>
-      <div class="checklist-item" data-id="c7" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Vaccinations up to date for destination</span>
-      </div>
-      <div class="checklist-item" data-id="c8" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Local currency and travel card ready</span>
-      </div>
-      <div class="checklist-item" data-id="c9" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Notify bank of international travel</span>
-      </div>
-      <div class="checklist-item" data-id="c10" onclick="toggleCheck(this)">
-        <div class="checklist-box"></div>
-        <span>Download offline maps for destination</span>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🆘</div>
+        <h3>SOS Button</h3>
+        <p>One tap in the TravelWise app sends your GPS location to our emergency response team and your designated emergency contact simultaneously.</p>
+        <span class="feature-tag">✓ Instant Response</span>
       </div>
     </div>
-    <div class="checklist-progress">
-      <div class="checklist-progress-text"><strong id="checked-count">0</strong> of 10 items checked</div>
-      <div class="checklist-progress-bar">
-        <div class="checklist-progress-fill" id="progress-fill" style="width:0%"></div>
+  </section>
+
+  <hr style="border:none;border-top:1px solid var(--border);margin: 8px 0 72px;">
+
+  <!-- DESTINATION SAFETY ACCORDION -->
+  <section class="accordion-section reveal">
+    <div class="section-label">Know Before You Go</div>
+    <div class="section-title">Destination Safety Tips</div>
+    <div class="section-sub">Region-specific advice curated by our travel safety experts and updated regularly to reflect current conditions.</div>
+
+    <div class="accordion-item" id="acc-india">
+      <div class="accordion-q" onclick="toggleAccordion('acc-india')">
+        <div class="accordion-q-left">
+          <span class="accordion-flag">🇮🇳</span>
+          <div class="accordion-q-info">
+            <h4>India</h4>
+            <span>Monsoon travel, local SIM cards, trusted transport apps</span>
+          </div>
+        </div>
+        <div class="accordion-chevron">▼</div>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-body-inner">
+          <p>India is a vast and diverse country offering extraordinary travel experiences. Being prepared for regional differences — especially during monsoon season (June–September) — ensures a smooth and safe trip.</p>
+          <div class="accordion-tips">
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Avoid low-lying coastal routes and mountain roads during peak monsoon (July–Aug) — landslides are common in the Western Ghats and Himalayan regions.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Pick up a local SIM card at the airport — Airtel and Jio offer affordable tourist-friendly prepaid plans with strong 4G coverage across major cities.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Use only app-based cabs (Ola, Uber, Rapido) or pre-paid taxis from official airport booths — avoid unmarked cabs.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Always drink bottled or purified water — even at reputable hotels. Avoid ice in beverages at roadside stalls.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Carry a printed hotel address in the local language when exploring rural or off-the-beaten-path areas.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Register at the FRRO portal (foreigners.gov.in) if staying more than 14 days as a foreign national.</span></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <hr class="section-divider">
-
-  <!-- AT THE AIRPORT -->
-  <div class="reveal">
-    <div class="section-title">At the Airport</div>
-    <div class="section-sub">Stay alert and prepared throughout your airport experience</div>
-    <div class="tips-grid">
-      <div class="tip-card">
-        <div class="tip-num">1</div>
-        <div class="tip-text"><h4>Arrive Early</h4><p>Arrive at least 3 hours early for international flights and 2 hours for domestic. Allow extra time during peak seasons.</p></div>
+    <div class="accordion-item" id="acc-sea">
+      <div class="accordion-q" onclick="toggleAccordion('acc-sea')">
+        <div class="accordion-q-left">
+          <span class="accordion-flag">🌏</span>
+          <div class="accordion-q-info">
+            <h4>Southeast Asia</h4>
+            <span>Scam awareness, food safety, drinking water</span>
+          </div>
+        </div>
+        <div class="accordion-chevron">▼</div>
       </div>
-      <div class="tip-card">
-        <div class="tip-num">2</div>
-        <div class="tip-text"><h4>Keep Documents Handy</h4><p>Keep your passport, visa, and boarding pass accessible at all times. Use a travel wallet to avoid fumbling at security.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">3</div>
-        <div class="tip-text"><h4>Watch Your Belongings</h4><p>Never leave bags unattended. Report suspicious packages to airport security immediately. Use luggage locks.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">4</div>
-        <div class="tip-text"><h4>Use Official Taxis</h4><p>Only use pre-paid taxis or airport-authorized ride-sharing services. Avoid unauthorized drivers outside the terminal.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">5</div>
-        <div class="tip-text"><h4>Secure Your Devices</h4><p>Don't use public USB charging stations — use your own power bank. Be cautious on public airport Wi-Fi for sensitive transactions.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">6</div>
-        <div class="tip-text"><h4>Know Your Gate</h4><p>Confirm your gate immediately after check-in and after clearing security. Gates can change — check the display boards regularly.</p></div>
+      <div class="accordion-body">
+        <div class="accordion-body-inner">
+          <p>Southeast Asia — Thailand, Bali, Vietnam, Cambodia and beyond — is breathtaking but comes with tourist-targeted scams. Stay alert and informed before you travel.</p>
+          <div class="accordion-tips">
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Beware the "gem scam" and "tuk-tuk redirect" — if a stranger offers an unsolicited "special deal", it's almost always a scam.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Book tours through licensed operators or your hotel concierge — never pay upfront to street touts.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Eat street food cooked fresh in front of you. Avoid raw salads and unpeeled fruits from roadside vendors.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Drink only sealed bottled water — even brushing teeth with tap water can cause stomach problems in some regions.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Keep your bag in front of you on motorbikes — drive-by bag snatching is common in major tourist cities.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Get Hepatitis A and Typhoid vaccinations at least 6 weeks before departure — consult a travel health doctor.</span></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <hr class="section-divider">
-
-  <!-- AT THE DESTINATION -->
-  <div class="reveal">
-    <div class="section-title">At Your Destination</div>
-    <div class="section-sub">Stay safe and aware wherever your travels take you</div>
-    <div class="tips-grid">
-      <div class="tip-card">
-        <div class="tip-num">1</div>
-        <div class="tip-text"><h4>Research Local Laws</h4><p>Understand local rules around photography, dress codes, religious sites, and customs. What's normal at home may be offensive or illegal abroad.</p></div>
+    <div class="accordion-item" id="acc-europe">
+      <div class="accordion-q" onclick="toggleAccordion('acc-europe')">
+        <div class="accordion-q-left">
+          <span class="accordion-flag">🇪🇺</span>
+          <div class="accordion-q-info">
+            <h4>Europe</h4>
+            <span>Pickpocket hotspots, emergency numbers (112), travel insurance</span>
+          </div>
+        </div>
+        <div class="accordion-chevron">▼</div>
       </div>
-      <div class="tip-card">
-        <div class="tip-num">2</div>
-        <div class="tip-text"><h4>Keep Copies of Documents</h4><p>Carry photocopies of your passport, visa, and insurance. Store digital copies in a secure cloud service accessible from any device.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">3</div>
-        <div class="tip-text"><h4>Register with Your Embassy</h4><p>For extended stays abroad, register with your country's embassy or consulate. They can assist in emergencies, lost passports, and evacuations.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">4</div>
-        <div class="tip-text"><h4>Avoid Sharing Itinerary Publicly</h4><p>Don't post real-time location updates on social media. Wait until you've left a location to share photos and updates.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">5</div>
-        <div class="tip-text"><h4>Use ATMs Safely</h4><p>Use ATMs in well-lit, busy areas or inside bank branches. Cover the keypad when entering your PIN and check for skimming devices.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">6</div>
-        <div class="tip-text"><h4>Trust Your Instincts</h4><p>If a situation feels unsafe, leave immediately. Avoid dark alleys at night, keep hotel address written in local language, and stay aware of your surroundings.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">7</div>
-        <div class="tip-text"><h4>Protect Against Scams</h4><p>Be wary of "free" tours, unsolicited help with luggage, or people asking to take photos with you. Research common scams for your destination beforehand.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">8</div>
-        <div class="tip-text"><h4>Stay Connected</h4><p>Get a local SIM or international roaming plan. Share your daily plans with someone back home. Keep your phone charged at all times.</p></div>
+      <div class="accordion-body">
+        <div class="accordion-body-inner">
+          <p>Europe is generally very safe but pickpocketing remains a significant issue in major tourist cities like Rome, Barcelona, Paris, and Prague. Stay smart, stay aware.</p>
+          <div class="accordion-tips">
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>High-risk zones: Barcelona's La Rambla, Rome's Colosseum area, Paris Metro Line 1, Prague Old Town Square — always wear bags in front.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Use a money belt or RFID-blocking wallet; keep passports and extra cards locked in the hotel safe.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Pan-European emergency number 112 works from any phone (even without a SIM card) in all EU countries.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Travel insurance is strongly recommended — European medical care is excellent but extremely expensive for uninsured visitors.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Register with your country's embassy when traveling in regions with political instability or active advisories.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Beware distraction techniques — a "dropped item" or sudden crowd surge near attractions is often used to conceal theft.</span></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <hr class="section-divider">
-
-  <!-- HEALTH & WELLNESS -->
-  <div class="reveal">
-    <div class="section-title">Health & Wellness</div>
-    <div class="section-sub">Keep yourself healthy and energized throughout your trip</div>
-    <div class="tips-grid">
-      <div class="tip-card">
-        <div class="tip-num">1</div>
-        <div class="tip-text"><h4>Stay Hydrated</h4><p>Drink plenty of water, especially on long flights. Airplane cabins have very low humidity — aim for 8+ glasses per day while flying.</p></div>
+    <div class="accordion-item" id="acc-me">
+      <div class="accordion-q" onclick="toggleAccordion('acc-me')">
+        <div class="accordion-q-left">
+          <span class="accordion-flag">🕌</span>
+          <div class="accordion-q-info">
+            <h4>Middle East</h4>
+            <span>Dress code awareness, photography restrictions, local laws</span>
+          </div>
+        </div>
+        <div class="accordion-chevron">▼</div>
       </div>
-      <div class="tip-card">
-        <div class="tip-num">2</div>
-        <div class="tip-text"><h4>Carry a First Aid Kit</h4><p>Pack basic medications: paracetamol, antacids, antihistamines, bandages, and any prescription medicines. Carry a doctor's letter for prescription drugs.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">3</div>
-        <div class="tip-text"><h4>Food Safety</h4><p>Be cautious with street food in high-risk destinations. Stick to cooked food, bottled water, and avoid raw salads in areas with poor sanitation.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">4</div>
-        <div class="tip-text"><h4>Manage Jet Lag</h4><p>Adjust sleep schedule 2–3 days before travel. Stay awake until local bedtime at destination. Avoid alcohol and caffeine on the flight.</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">5</div>
-        <div class="tip-text"><h4>Sun Protection</h4><p>Use SPF 30+ sunscreen in tropical destinations. Wear hats and UV-protective clothing. Seek shade during peak sun hours (10 AM–4 PM).</p></div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-num">6</div>
-        <div class="tip-text"><h4>Insect Protection</h4><p>Use DEET-based insect repellent in malaria or dengue-prone regions. Sleep under mosquito nets if provided. Check travel advisories for disease alerts.</p></div>
+      <div class="accordion-body">
+        <div class="accordion-body-inner">
+          <p>Countries like the UAE, Saudi Arabia, Jordan, and Qatar are increasingly welcoming to international visitors, but require cultural awareness and deep respect for local customs and laws.</p>
+          <div class="accordion-tips">
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Dress modestly in public — cover shoulders and knees. Women should carry a light scarf for mosque and religious site visits.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Always ask permission before photographing people, government buildings, military installations, or places of worship.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Public displays of affection are illegal in many Middle Eastern countries — even between married couples.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Alcohol laws vary widely — strictly prohibited in Saudi Arabia, but available in licensed venues in UAE and Jordan.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>During Ramadan, eating, drinking, or smoking in public during daylight hours is prohibited in some countries for all visitors.</span></div>
+            <div class="acc-tip"><span class="acc-tip-dot"></span><span>Some medications (certain painkillers, anti-anxiety drugs) require a doctor's letter translated into Arabic — check before packing.</span></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <hr class="section-divider">
+  <!-- EMERGENCY NUMBERS TABLE -->
+  <section class="emergency-section reveal">
+    <div class="section-label">Quick Reference Card</div>
+    <div class="section-title">Emergency Numbers Worldwide</div>
+    <div class="section-sub">Save these numbers before you travel. Your safety is one call away — no matter where you are in the world.</div>
 
-  <!-- EMERGENCY CONTACTS TABLE -->
-  <div class="emergency-section reveal">
-    <div class="section-title">Emergency Contacts by Country</div>
-    <div class="section-sub">Save these numbers before you travel</div>
-    <table class="emergency-table">
-      <thead>
-        <tr>
-          <th>Country</th>
-          <th>Police</th>
-          <th>Ambulance</th>
-          <th>Fire</th>
-          <th>Tourist Helpline</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>🇮🇳 India</td>
-          <td><span class="emergency-num red">100</span></td>
-          <td><span class="emergency-num amber">108</span></td>
-          <td><span class="emergency-num red">101</span></td>
-          <td><span class="emergency-num blue">1363</span></td>
-        </tr>
-        <tr>
-          <td>🇦🇪 UAE</td>
-          <td><span class="emergency-num red">999</span></td>
-          <td><span class="emergency-num amber">998</span></td>
-          <td><span class="emergency-num red">997</span></td>
-          <td><span class="emergency-num blue">800-DUBAI</span></td>
-        </tr>
-        <tr>
-          <td>🇬🇧 United Kingdom</td>
-          <td><span class="emergency-num red">999</span></td>
-          <td><span class="emergency-num amber">999</span></td>
-          <td><span class="emergency-num red">999</span></td>
-          <td><span class="emergency-num blue">0300 123 7000</span></td>
-        </tr>
-        <tr>
-          <td>🇺🇸 United States</td>
-          <td><span class="emergency-num red">911</span></td>
-          <td><span class="emergency-num amber">911</span></td>
-          <td><span class="emergency-num red">911</span></td>
-          <td><span class="emergency-num blue">1-888-407-4747</span></td>
-        </tr>
-        <tr>
-          <td>🇹🇭 Thailand</td>
-          <td><span class="emergency-num red">191</span></td>
-          <td><span class="emergency-num amber">1669</span></td>
-          <td><span class="emergency-num red">199</span></td>
-          <td><span class="emergency-num blue">1155</span></td>
-        </tr>
-        <tr>
-          <td>🇫🇷 France</td>
-          <td><span class="emergency-num red">17</span></td>
-          <td><span class="emergency-num amber">15</span></td>
-          <td><span class="emergency-num red">18</span></td>
-          <td><span class="emergency-num blue">+33 1 42 96 70 00</span></td>
-        </tr>
-        <tr>
-          <td>🇯🇵 Japan</td>
-          <td><span class="emergency-num red">110</span></td>
-          <td><span class="emergency-num amber">119</span></td>
-          <td><span class="emergency-num red">119</span></td>
-          <td><span class="emergency-num blue">050-3816-2787</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <p style="margin-top:14px;font-size:13px;color:var(--muted);">* Numbers are for general emergencies. For medical emergencies, always call the local ambulance number directly. Save these in your phone before departure.</p>
-  </div>
+    <div class="emergency-table-wrap">
+      <table class="emergency-table">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Police</th>
+            <th>Ambulance / Medical</th>
+            <th>Fire</th>
+            <th>Universal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="emergency-country"><span class="emergency-flag">🇮🇳</span> India</div></td>
+            <td><span class="enum enum-blue">100</span></td>
+            <td><span class="enum enum-green">108</span></td>
+            <td><span class="enum enum-red">101</span></td>
+            <td><span class="enum enum-purple">112</span></td>
+          </tr>
+          <tr>
+            <td><div class="emergency-country"><span class="emergency-flag">🇦🇪</span> UAE</div></td>
+            <td><span class="enum enum-blue">999</span></td>
+            <td><span class="enum enum-green">998</span></td>
+            <td><span class="enum enum-red">997</span></td>
+            <td><span class="enum enum-purple">999</span></td>
+          </tr>
+          <tr>
+            <td><div class="emergency-country"><span class="emergency-flag">🇹🇭</span> Thailand</div></td>
+            <td><span class="enum enum-blue">191</span></td>
+            <td><span class="enum enum-green">1669</span></td>
+            <td><span class="enum enum-red">199</span></td>
+            <td><span class="enum enum-purple">191</span></td>
+          </tr>
+          <tr>
+            <td><div class="emergency-country"><span class="emergency-flag">🇫🇷</span> France</div></td>
+            <td><span class="enum enum-blue">17</span></td>
+            <td><span class="enum enum-green">15</span></td>
+            <td><span class="enum enum-red">18</span></td>
+            <td><span class="enum enum-purple">112</span></td>
+          </tr>
+          <tr>
+            <td><div class="emergency-country"><span class="emergency-flag">🇬🇧</span> UK</div></td>
+            <td><span class="enum enum-blue">999</span></td>
+            <td><span class="enum enum-green">999</span></td>
+            <td><span class="enum enum-red">999</span></td>
+            <td><span class="enum enum-purple">112</span></td>
+          </tr>
+          <tr>
+            <td><div class="emergency-country"><span class="emergency-flag">🇯🇵</span> Japan</div></td>
+            <td><span class="enum enum-blue">110</span></td>
+            <td><span class="enum enum-green">119</span></td>
+            <td><span class="enum enum-red">119</span></td>
+            <td><span class="enum enum-purple">110</span></td>
+          </tr>
+          <tr>
+            <td><div class="emergency-country"><span class="emergency-flag">🇺🇸</span> USA</div></td>
+            <td><span class="enum enum-blue">911</span></td>
+            <td><span class="enum enum-green">911</span></td>
+            <td><span class="enum enum-red">911</span></td>
+            <td><span class="enum enum-purple">911</span></td>
+          </tr>
+          <tr>
+            <td><div class="emergency-country"><span class="emergency-flag">🇦🇺</span> Australia</div></td>
+            <td><span class="enum enum-blue">000</span></td>
+            <td><span class="enum enum-green">000</span></td>
+            <td><span class="enum enum-red">000</span></td>
+            <td><span class="enum enum-purple">112</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-  <!-- INSURANCE CTA -->
-  <div class="insurance-cta reveal">
-    <div class="insurance-cta-text">
-      <h2>Travel Insurance — Don't Leave Home Without It</h2>
-      <p>From medical emergencies to trip cancellations, TravelWise insurance covers you for the unexpected. Plans start at just ₹299 per trip.</p>
-      <div class="insurance-features">
-        <span class="insurance-feature">🏥 Medical Cover up to ₹50L</span>
-        <span class="insurance-feature">✈️ Trip Cancellation</span>
-        <span class="insurance-feature">🧳 Baggage Loss</span>
-        <span class="insurance-feature">🌍 Worldwide Coverage</span>
+  <!-- HEALTH ADVISORIES -->
+  <section class="health-section reveal">
+    <div class="section-label">Stay Healthy Abroad</div>
+    <div class="section-title">COVID &amp; Health Advisories</div>
+    <div class="section-sub">Current travel health information, vaccination recommendations, and entry requirements — reviewed and updated monthly.</div>
+
+    <div class="health-grid">
+      <div class="health-card">
+        <div class="health-card-icon">💉</div>
+        <h3>Vaccination Requirements</h3>
+        <p>Most destinations no longer require COVID-19 vaccination proof for entry, but Yellow Fever and Hepatitis A vaccines are still recommended for travel to parts of Africa, South America, and South/Southeast Asia.</p>
+        <span class="health-status green">Up to Date — Mar 2026</span>
+      </div>
+      <div class="health-card">
+        <div class="health-card-icon">🦠</div>
+        <h3>Current Health Alerts</h3>
+        <p>WHO has issued advisories for Mpox in parts of Central Africa. Dengue Fever remains active across South/Southeast Asia and Latin America. Consult your travel doctor 6–8 weeks before departure.</p>
+        <span class="health-status amber">Monitor Closely</span>
+      </div>
+      <div class="health-card">
+        <div class="health-card-icon">📋</div>
+        <h3>Entry Requirements</h3>
+        <p>Entry requirements have largely normalized post-COVID. Some countries still require proof of travel health insurance. Always verify current requirements on the official embassy or consulate website of your destination.</p>
+        <span class="health-status blue">Verify Before Travel</span>
+      </div>
+      <div class="health-card">
+        <div class="health-card-icon">🧳</div>
+        <h3>Travel Health Kit</h3>
+        <p>Pack ORS sachets, prescription broad-spectrum antibiotics, antidiarrheal medication, a thermometer, hand sanitizer, and all personal prescriptions with an accompanying doctor's note in English.</p>
+        <span class="health-status green">Best Practice</span>
       </div>
     </div>
-    <button class="btn-insurance" onclick="twToast('Opening insurance plans...')">Get Insured Now</button>
-  </div>
+  </section>
 
-  <!-- HEALTH GUIDELINES ACCORDION -->
-  <div class="health-section reveal">
-    <div class="section-title">General Health Guidelines for Travellers</div>
-    <div class="section-sub">Key health information to keep in mind before and during your trip</div>
+  <!-- SAFETY PLEDGE -->
+  <section class="pledge-section reveal">
+    <div class="pledge-inner">
+      <div class="section-label-w">Our Commitment</div>
+      <h2>The TravelWise Safety Promise</h2>
+      <p>Five iron-clad commitments we make to every traveler who books with us — no exceptions, no fine print.</p>
 
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>What vaccinations do I need for international travel?</span><div class="faq-chevron">▼</div></div>
-      <div class="faq-a"><div class="faq-a-inner">Required vaccinations vary by destination. Common recommended vaccines include:
-        <ul>
-          <li><strong>Yellow Fever:</strong> Required for entry to many African and South American countries</li>
-          <li><strong>Hepatitis A & B:</strong> Recommended for most international travel</li>
-          <li><strong>Typhoid:</strong> Recommended for South Asia and some parts of Africa</li>
-          <li><strong>Malaria prophylaxis:</strong> Required medication for sub-Saharan Africa and parts of Asia</li>
-          <li><strong>COVID-19:</strong> Check current entry requirements for your destination</li>
-        </ul>
-        Consult a travel medicine doctor at least 4–6 weeks before departure.
-      </div></div>
+      <div class="pledge-list">
+        <div class="pledge-item">
+          <div class="pledge-check">✓</div>
+          <h4>Zero Tolerance for Fraud</h4>
+          <p>Every listing is manually reviewed. Fraudulent properties are permanently removed and affected bookings are fully refunded within 24 hours.</p>
+        </div>
+        <div class="pledge-item">
+          <div class="pledge-check">✓</div>
+          <h4>Secure by Design</h4>
+          <p>Your payment data is never stored on TravelWise servers. All transactions route through PCI-DSS Level 1 certified payment gateways only.</p>
+        </div>
+        <div class="pledge-item">
+          <div class="pledge-check">✓</div>
+          <h4>Always Reachable</h4>
+          <p>Our 24/7 safety helpline (1800-TW-SAFE) is staffed by trained travel safety specialists — never a chatbot, always a human.</p>
+        </div>
+        <div class="pledge-item">
+          <div class="pledge-check">✓</div>
+          <h4>Transparent Pricing</h4>
+          <p>The price you see is the price you pay. Absolutely no hidden charges, no surprise fees at checkout — our pricing is always final and honest.</p>
+        </div>
+        <div class="pledge-item">
+          <div class="pledge-check">✓</div>
+          <h4>Your Data, Your Control</h4>
+          <p>We never sell your personal data to third parties. Request deletion of your data at any time directly from your account settings page.</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>How do I handle a medical emergency abroad?</span><div class="faq-chevron">▼</div></div>
-      <div class="faq-a"><div class="faq-a-inner">In a medical emergency: (1) Call the local emergency number (see table above); (2) Contact your travel insurance provider — they usually have 24/7 helplines; (3) Notify your hotel or accommodation for assistance; (4) Contact your country's nearest embassy or consulate. Always keep your insurance policy number and emergency contact handy. Most travel insurance plans cover medical evacuation if needed.</div></div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>How can I avoid traveller's diarrhea?</span><div class="faq-chevron">▼</div></div>
-      <div class="faq-a"><div class="faq-a-inner">Traveller's diarrhea is the most common travel illness. To prevent it:
-        <ul>
-          <li>Drink only bottled or purified water — even for brushing teeth in high-risk areas</li>
-          <li>Avoid ice cubes unless made from purified water</li>
-          <li>Eat only thoroughly cooked food from reputable establishments</li>
-          <li>Wash hands frequently with soap or use alcohol-based sanitizer</li>
-          <li>Carry oral rehydration salts and basic antibiotics as advised by your doctor</li>
-        </ul>
-      </div></div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>What should I know about flying with medical conditions?</span><div class="faq-chevron">▼</div></div>
-      <div class="faq-a"><div class="faq-a-inner">Passengers with medical conditions should consult their doctor before flying. Key points:
-        <ul>
-          <li>Cabin pressure at altitude can affect blood oxygen levels — relevant for heart/lung conditions</li>
-          <li>DVT (deep vein thrombosis) risk increases on long flights — wear compression socks, walk regularly</li>
-          <li>Carry all medications in hand luggage with prescription documentation</li>
-          <li>Inform the airline of conditions requiring wheelchair assistance, oxygen, or special meals</li>
-          <li>Carry a medical summary letter from your doctor in English</li>
-        </ul>
-      </div></div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>How do I stay safe during extreme weather events while travelling?</span><div class="faq-chevron">▼</div></div>
-      <div class="faq-a"><div class="faq-a-inner">Monitor weather forecasts daily for your destination. Register with your country's embassy for alerts. If a severe weather event occurs: stay indoors and follow local authorities' instructions; contact your airline for flight changes (most waive fees during declared emergencies); contact TravelWise support for hotel cancellation assistance during natural disasters. Travel insurance typically covers trip interruption due to natural disasters.</div></div>
-    </div>
-  </div>
-
-</div><!-- /safety-wrap -->
+</div>
 
 <div id="footer-root"></div>
 <script src="nav.js"></script>
 <script>
-/* ── Checklist ── */
-var STORAGE_KEY = 'tw-safety-checklist';
-
-function loadChecklist() {
-  var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  document.querySelectorAll('.checklist-item').forEach(function(item) {
-    if (saved[item.dataset.id]) {
-      item.classList.add('checked');
-      item.querySelector('.checklist-box').textContent = '✓';
-    }
-  });
-  updateProgress();
-}
-
-function toggleCheck(item) {
-  var isChecked = item.classList.contains('checked');
-  item.classList.toggle('checked');
-  item.querySelector('.checklist-box').textContent = isChecked ? '' : '✓';
-
-  var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  if (isChecked) delete saved[item.dataset.id];
-  else saved[item.dataset.id] = true;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
-  updateProgress();
-}
-
-function updateProgress() {
-  var total = document.querySelectorAll('.checklist-item').length;
-  var checked = document.querySelectorAll('.checklist-item.checked').length;
-  document.getElementById('checked-count').textContent = checked;
-  document.getElementById('progress-fill').style.width = (checked / total * 100) + '%';
-  if (checked === total && total > 0) twToast('All items checked! You\'re ready to travel. ✈️');
-}
-
-loadChecklist();
-
-/* ── FAQ ── */
-function toggleFaq(el) {
-  var item = el.closest('.faq-item');
+function toggleAccordion(id) {
+  var item = document.getElementById(id);
   var isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(function(i){ i.classList.remove('open'); });
+  document.querySelectorAll('.accordion-item.open').forEach(function(el) { el.classList.remove('open'); });
   if (!isOpen) item.classList.add('open');
 }
 
-/* ── Reveal ── */
-var revealEls = document.querySelectorAll('.reveal');
-var io = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if(e.isIntersecting){ e.target.classList.add('revealed'); io.unobserve(e.target); }});
-}, { threshold: 0.07 });
-revealEls.forEach(function(el){ io.observe(el); });
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  els.forEach(function(el){ io.observe(el); });
+})();
 </script>
 </body>
 </html>
