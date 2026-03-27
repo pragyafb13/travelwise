@@ -377,6 +377,16 @@ function handleAuth(type) {
   btn.disabled = true;
 
   setTimeout(function() {
+    if (type === 'login') {
+      var email = document.getElementById('login-email').value.trim();
+      var pw = document.getElementById('login-password').value;
+      if (email === 'admin@travelwise.com' && pw === 'admin123') {
+        sessionStorage.setItem('tw-admin', '1');
+        twToast('Welcome, Admin! Redirecting to CMS...');
+        setTimeout(function() { window.location.href = 'cms.html'; }, 1000);
+        return;
+      }
+    }
     twToast('🎉 ' + (type === 'login' ? 'Welcome back!' : 'Account created!') + ' Redirecting...');
     setTimeout(function() { window.location.href = 'index.html'; }, 1000);
   }, 1800);
